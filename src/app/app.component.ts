@@ -64,4 +64,6 @@ classesBtnLogin(): any {
   return valores;
 }
 
+onclickPerfil():void{}
+
 }

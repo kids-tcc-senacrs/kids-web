@@ -5,10 +5,12 @@ import { HttpModule } from '@angular/http';
 
 
 import { AppComponent } from './app.component';
+import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PerfilUsuarioComponent
   ],
   imports: [
     BrowserModule

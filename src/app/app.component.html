@@ -4,9 +4,28 @@
     </button>    
 </div>   
 
-<div id="menu" *ngIf="token">
-    <h1>Olá {{nome}} - {{email}}</h1>
-    <button id="google-logout-button" [ngClass]="classesBtnLogin()" (click)="logout()">
-            <span [class.fa]="true" [class.fa-google]="true"></span> Google Sign-Out    
-    </button>       
-</div>
+<div *ngIf="token">
+
+    <!--menu inicio -->
+    <div class="w3-top">
+        <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+            <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white" (click)="onclickPerfil()" title="Perfil"><i class="fa fa-user"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-right" (click)="logout()" title="sair"><i class="glyphicon glyphicon-log-out"></i></a>
+        </div>
+    </div>
+    <!--menu final -->
+
+    <!--conteudo inicio -->   
+    <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+    <!-- The Grid -->
+    <div class="w3-row">
+        <!-- coluna esquerda - inicio -->
+        <div class="w3-col m3">
+            <app-perfil-usuario></app-perfil-usuario>
+        </div>
+        <!-- coluna esquerda - final -->
+        </div>  
+    </div> 
+    <!--conteudo final -->
+
+</div> 

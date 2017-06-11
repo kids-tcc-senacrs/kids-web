@@ -11,7 +11,9 @@ import { LoginService } from './login.service';
 })
 export class AppComponent implements OnInit {
 
-private autenticado: boolean = false
+private autenticado: boolean = false;
+private usuarioPossuiCadastro: boolean = false;
+private IMG_LOGO = "sejabemvindo.jpg";
 
 constructor(private loginService: LoginService) {}
 

@@ -1,46 +1,43 @@
 import { Component,OnInit, NgZone} from '@angular/core';
 import { AuthService, AppGlobals } from 'angular2-google-login';
+import { NgIf } from '@angular/common';
 import {Observable} from 'rxjs/Observable';
 import { LoginService } from './login.service';
+import { RestUsuarioService } from './rest-usuario.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css'], 
-  providers:[AuthService]
+  providers:[AuthService, RestUsuarioService]
 })
 export class AppComponent implements OnInit {
 
 private autenticado: boolean = false;
-private usuarioPossuiCadastro: boolean = false;
-private IMG_LOGO = "sejabemvindo.jpg";
+private usuario:any= {};
 
-constructor(private loginService: LoginService) {}
+constructor(private loginService: LoginService, private restUsuario:RestUsuarioService) {}
 
 ngOnInit() {
   AppGlobals.GOOGLE_CLIENT_ID = '359998324820-m1dblqglo4c4v4qtbcat59mmma0fjb1d.apps.googleusercontent.com';  
 }
 
 classesBtnLogin(): any {
-  let valores = {'btn': true,'btn-lg': true,'btn-block': true,'btn-social': true,'btn-google': true,'col-md-offset-9': true,'btn-posicao': true}
-  return valores;
+  let cssStyles = {'btn': true,'btn-lg': true,'btn-block': true,'btn-social': true,'btn-google': true,'col-md-offset-9': true,'btn-posicao': true};
+  return cssStyles; 
 }
 
 login():void{
   console.log('[KIDS] iniciando autenticação com conta google...');
-  this.loginService.login();
+  this.autenticado = false;
   setInterval(() => { 
     if(!this.autenticado){
-       this.autenticado = this.loginService.getToken() == null ? false : true;
+       if(this.loginService.getEmail() != null){
+          this.restUsuario.getUsuario(this.loginService.getEmail()).subscribe(data => this.usuario = data,error=> alert(error),);
+       }
+       this.autenticado = this.loginService.getToken() != null;
     }
-  }, 1000);
+  }, 3000);
 }
-
-logout():void{
-  this.autenticado = false;
-  this.loginService.logout();
-}
-
-onclickPerfil():void{}
 
 }

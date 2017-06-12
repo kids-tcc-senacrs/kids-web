@@ -22,6 +22,7 @@ export class LoginService implements OnInit{
   ngOnInit() {}
 
   login() {
+    console.log('[KIDS] realizando login ...');
     this.auth.authenticateUser((result) => {
       this.zone.run(() => {
       this.token = localStorage.getItem('token');

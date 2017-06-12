@@ -1,73 +1,11 @@
-<div *ngIf="!autenticado" [class.capa]="true"  >
-    <button id="google-login-button" [ngClass]="classesBtnLogin()" (click)="login()">
-        <span [class.fa]="true" [class.fa-google]="true"></span> Google Sign-In    
-    </button>    
+<div *ngIf="!autenticado">
+    <div [class.capa]="true">
+      <button id="google-login-button" [ngClass]="classesBtnLogin()" (click)="login()">
+          <span [class.fa]="true" [class.fa-google]="true"></span> Google Sign-In    
+      </button>    
+    </div>   
 </div>   
 
 <div *ngIf="autenticado">
-
-	<!--menu inicio -->
-	<div *ngIf="usuarioPossuiCadastro" class="w3-top">
-		<div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-			<a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white" (click)="onclickPerfil()" title="Perfil"><i class="fa fa-user"></i></a>
-			<a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-right" (click)="logout()" title="sair"><i class="glyphicon glyphicon-log-out"></i></a>
-		</div>
-	</div>
-    <div *ngIf="!usuarioPossuiCadastro" class="w3-top">
-		<div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-			<a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-white w3-right" (click)="logout()" title="sair"><i class="glyphicon glyphicon-log-out"></i></a>
-		</div>
-	</div>
-	<!--menu final -->
-
-	<!--conteudo inicio -->   
-	<div *ngIf="usuarioPossuiCadastro" class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
-		<div class="w3-row">
-			
-			<!--coluna da esquerda - inicio --> 
-			<div class="w3-col m3">
-				<app-perfil-usuario></app-perfil-usuario>
-				<br>
-			</div>
-			<!--coluna da esquerda - final -->
-
-			<!-- coluna do meio - inicio -->
-			<div class="w3-col m7">
-			 <div class="w3-row-padding">
-			  <div class="w3-col m12">
-			   <div class="w3-card-2 w3-round w3-white">
-				 <div class="w3-container w3-padding">
-				   <app-tipo-usuario></app-tipo-usuario>
-				 </div>
-				</div>
-			  </div>
-			 </div>
-			</div>
-			<!-- coluna do meio - final -->
-			
-		</div>  
-	</div> 
-	<!--conteudo final -->
-
-    <!--conteudo sem cadastro - inicio -->
-    <div *ngIf="!usuarioPossuiCadastro" class="w3-container w3-content" style="margin-top:80px">    
-		<div class="row" class="text-center">
-		    <h2>Seja bem-vindo</h2>
-			<div class="w3-large" class="text-center">
-				<h4>Tipo de usuário</h4>
-	 		</div>          
-		    <div style="padding: 30px">
-				<button type="button" class="btn btn-lg col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center col-sm-offset-3 col-md-offset-4 col-lg-offset-4" style="background-color: #4d636f !important;color: #FFF;">
-					<i class="fa fa-university"> sou creche</i>
-				</button> 
-			</div>          
-			<div style="padding: 30px">
-				<button type="button" class="btn btn-lg col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center col-sm-offset-3 col-md-offset-4 col-lg-offset-4" style="background-color: #4d636f !important; color:#FFF;">
-					<i class="fa fa-universal-access" aria-hidden="true"> sou familiar</i>
-				</button> 
-			</div>          
-		</div>  
-	</div> 
-    <!--conteudo sem cadastro - final -->
-
-</div> 
+  <app-home></app-home>
+</div>

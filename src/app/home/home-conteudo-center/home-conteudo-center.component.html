@@ -1,0 +1,15 @@
+<div class="w3-col m7">
+  <div class="w3-row-padding">
+  <div class="w3-col m12">
+    <div class="w3-card-2 w3-round w3-white" style="min-height: 270px">
+    <div [hidden]="hiddenComponentUsuarioNaoCadastrado" class="w3-container w3-padding">
+      <app-usuario-nao-cadastrado></app-usuario-nao-cadastrado>
+    </div>
+    <div [hidden]="hiddenTemplateUsuarioInativo" class="w3-container w3-padding">
+      <app-template-usuario-inativo>{{nome}}</app-template-usuario-inativo>
+    </div>    
+  </div>
+  </div>
+  </div>
+  <br>
+</div>

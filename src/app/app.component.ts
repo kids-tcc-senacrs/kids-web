@@ -1,9 +1,10 @@
 import { Component,OnInit, NgZone} from '@angular/core';
 import { AuthService, AppGlobals } from 'angular2-google-login';
 import { NgIf } from '@angular/common';
-import {Observable} from 'rxjs/Observable';
 import { LoginService } from './login.service';
 import { RestUsuarioService } from './rest-usuario.service';
+import {Usuario} from './model/Usuario';
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ import { RestUsuarioService } from './rest-usuario.service';
 export class AppComponent implements OnInit {
 
 private autenticado: boolean = false;
-private usuario:any= {};
+private usuario: any = {id:null};
 
 constructor(private loginService: LoginService, private restUsuario:RestUsuarioService) {}
 
@@ -28,16 +29,26 @@ classesBtnLogin(): any {
 }
 
 login():void{
-  console.log('[KIDS] iniciando autenticação com conta google...');
-  this.autenticado = false;
-  setInterval(() => { 
-    if(!this.autenticado){
-       if(this.loginService.getEmail() != null){
-          this.restUsuario.getUsuario(this.loginService.getEmail()).subscribe(data => this.usuario = data,error=> alert(error),);
-       }
-       this.autenticado = this.loginService.getToken() != null;
-    }
-  }, 3000);
+  console.log('[KIDS] iniciando autenticação com conta google ...');
+  this.loginService.login();
+  this.buscarUsuarioCadastrado();
 }
 
+private buscarUsuarioCadastrado():void{
+    let timer = setInterval(() => { 
+      if(this.isUsuarioAutenticado()){
+          console.log('[KIDS] consultando serviço API de usuarios ...');
+          this.restUsuario.getUsuario(this.loginService.getEmail()).subscribe(data => {this.usuario = data});          
+          this.autenticado = true;
+          clearInterval(timer);
+      }else{
+        console.log('[KIDS] aguarde um momento, autenticando com conta google ...');
+      }
+    }, 1000);
+}
+
+private isUsuarioAutenticado():boolean{
+  return this.loginService.getToken() != null;
+}  
+  
 }

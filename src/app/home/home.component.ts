@@ -12,21 +12,14 @@ export class HomeComponent implements OnInit {
 
   private nome:string;
   private foto:string;
-  private hiddenComponentUsuarioNaoCadastrado: boolean = true;
-  private hiddenTemplateUsuarioInativo: boolean = true;
-  private usuario:any= {ativo:true};
+  private usuario:any;
 
   constructor(private loginService: LoginService, private restUsuario:RestUsuarioService) { 
     this.nome = this.loginService.getNome();
     this.foto = this.loginService.getImageURL();
-    this.restUsuario.getUsuario(this.loginService.getEmail()).subscribe(data => this.usuario = data, error=> alert(error),);
+    this.restUsuario.getUsuario(this.loginService.getEmail()).subscribe(data => {this.usuario = data});          
   }
 
   ngOnInit() {}
   
-  ngDoCheck() {
-    this.hiddenComponentUsuarioNaoCadastrado =  undefined != this.usuario.id;
-    this.hiddenTemplateUsuarioInativo = this.usuario.ativo;
-  }
-
 }

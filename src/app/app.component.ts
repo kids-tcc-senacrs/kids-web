@@ -3,7 +3,7 @@ import { AuthService, AppGlobals } from 'angular2-google-login';
 import { NgIf } from '@angular/common';
 import { LoginService } from './login.service';
 import { RestUsuarioService } from './rest-usuario.service';
-import {Usuario} from './model/Usuario';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 @Component({
@@ -15,7 +15,8 @@ import 'rxjs/Rx';
 export class AppComponent implements OnInit {
 
 private autenticado: boolean = false;
-private usuario: any = {id:null};
+private usuario:any;
+private nome:string;
 
 constructor(private loginService: LoginService, private restUsuario:RestUsuarioService) {}
 
@@ -35,20 +36,23 @@ login():void{
 }
 
 private buscarUsuarioCadastrado():void{
-    let timer = setInterval(() => { 
-      if(this.isUsuarioAutenticado()){
-          console.log('[KIDS] consultando serviço API de usuarios ...');
-          this.restUsuario.getUsuario(this.loginService.getEmail()).subscribe(data => {this.usuario = data});          
-          this.autenticado = true;
-          clearInterval(timer);
-      }else{
-        console.log('[KIDS] aguarde um momento, autenticando com conta google ...');
-      }
-    }, 1000);
+	let timer = setInterval(() => { 
+		if(this.isUsuarioAutenticado()){
+			let email = this.loginService.getEmail();
+			if(email != null){
+				this.restUsuario.getUsuario(email).subscribe(usuario => this.usuario = usuario);
+				this.autenticado = true;
+				this.nome = this.loginService.getNome();
+				clearInterval(timer);
+			}
+		}else{
+			console.log('[KIDS] aguarde um momento, autenticando com conta google ...');
+		}
+	}, 1000);
 }
 
 private isUsuarioAutenticado():boolean{
-  return this.loginService.getToken() != null;
+  return this.loginService.getToken() != undefined && this.loginService.getToken() != null;
 }  
   
 }

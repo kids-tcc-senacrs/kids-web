@@ -35,6 +35,13 @@ login():void{
   this.buscarUsuarioCadastrado();
 }
 
+logout():void{
+	this.autenticado = false;
+  this.usuario = null;
+  this.nome = null;
+	this.loginService.logout();
+}
+
 private buscarUsuarioCadastrado():void{
 	let timer = setInterval(() => { 
 		if(this.isUsuarioAutenticado()){

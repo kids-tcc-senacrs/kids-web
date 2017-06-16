@@ -8,14 +8,12 @@ import {APP_BASE_HREF} from '@angular/common';
 //components de terceiros
 import { AuthService} from 'angular2-google-login';
 
-//meus servicos
-import { LoginService } from './login.service';
 
 import { AppComponent } from './app.component';
 
-//meus components
+//meus components / servicos
+import { LoginService } from './login.service';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
-import { LoginComponent } from './login/login.component';
 import { UsuarioNaoCadastradoComponent } from './usuario-nao-cadastrado/usuario-nao-cadastrado.component';
 import { TemplateUsuarioInativoComponent } from './template-usuario-inativo/template-usuario-inativo.component';
 import { PerfilComponent } from './perfil/perfil.component';
@@ -28,7 +26,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     PerfilUsuarioComponent,
-    LoginComponent,
     UsuarioNaoCadastradoComponent,
     TemplateUsuarioInativoComponent,
     PerfilComponent
@@ -37,7 +34,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpModule,
     JsonpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes) 
   ],
   providers: [AuthService, 
               LoginService,

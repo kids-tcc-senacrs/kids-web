@@ -15,8 +15,9 @@ import 'rxjs/Rx';
 export class AppComponent implements OnInit {
 
 private autenticado: boolean = false;
-private usuario:any;
-private nome:string;
+private errorMessage: string = null;
+private usuario:any = null;
+private nome:string = null;
 
 constructor(private loginService: LoginService, private restUsuario:RestUsuarioService) {}
 
@@ -47,7 +48,10 @@ private buscarUsuarioCadastrado():void{
 		if(this.isUsuarioAutenticado()){
 			let email = this.loginService.getEmail();
 			if(email != null){
-				this.restUsuario.getUsuario(email).subscribe(usuario => this.usuario = usuario);
+				this.restUsuario.getUsuario(email)
+				                .subscribe( data => this.usuario = data,
+ 												           error =>  this.errorMessage = <any>error
+												          );
 				this.autenticado = true;
 				this.nome = this.loginService.getNome();
 				clearInterval(timer);

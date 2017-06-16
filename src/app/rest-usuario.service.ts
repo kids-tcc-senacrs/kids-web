@@ -17,14 +17,21 @@ export class RestUsuarioService {
 		console.log('[KIDS] consultando serviço API de usuarios ...');	
 		let url = this.URL_REST_USUARIO + email; 
 		return this.http.get(url)
-						.map((response:Response) => response.json())
-						.do(data => console.log(JSON.stringify(data)))
-						.catch(this.error);
+						.map(this.extractData)
+				 	  .catch(this.handleError);
+					
 	}
 
-	private error(error:Response){
-		let message = error.status;
-		return Observable.throw(message);
-	} 
-	
+	private extractData(res: Response) {
+		if(res.status == 200){
+			return res.json();
+		}else{
+			console.log('HTTP CODE' + res.status);
+		}
+	}
+
+	private handleError (error: Response | any) {
+		return Observable.throw('Serviço temporariamente indisponível!');
+	}
+
 }

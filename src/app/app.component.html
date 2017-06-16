@@ -9,8 +9,8 @@
 <div *ngIf="autenticado">
 	<div class="w3-top">
 		<div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-			<a [hidden]="usuario?.id === null || usuario?.ativo" class="w3-button w3-padding-large w3-hover-white">
-				<i [hidden]="usuario?.id === null || usuario?.ativo" routerLink="perfil" class="fa fa-user" title="Perfil"></i>
+			<a [hidden]="errorMessage !== null && (usuario?.id === null || !usuario?.ativo)" class="w3-button w3-padding-large w3-hover-white">
+				<i [hidden]="errorMessage !== null && (usuario?.id === null || !usuario?.ativo)" routerLink="perfil" class="fa fa-user" title="Perfil"></i>
 			</a>    
 			<a class="w3-button w3-padding-large w3-hover-white w3-right" (click)="logout()" title="sair"><i class="glyphicon glyphicon-log-out"></i></a>
 		</div>
@@ -26,13 +26,16 @@
 					<div class="w3-col m12">
 						<div class="w3-card-2 w3-round w3-white" style="min-height: 270px">
 							<div class="w3-card-2 w3-round w3-white" style="min-height: 270px">          
-								<div [hidden]="usuario?.id !== null" class="w3-container w3-padding">
+								<div [hidden]="errorMessage !== null || usuario?.id !== null" class="w3-container w3-padding">
 								    <app-usuario-nao-cadastrado></app-usuario-nao-cadastrado>
 								</div>
-								<div [hidden]="usuario?.id === null || usuario?.ativo" class="w3-container w3-padding">
+								<div [hidden]="errorMessage !== null || usuario?.id === null || usuario?.ativo" class="w3-container w3-padding">
 									<app-template-usuario-inativo>{{nome}}</app-template-usuario-inativo>
 								</div>    
-								<div [hidden]="!usuario?.ativo" class="w3-container w3-padding">
+								<div [hidden]="errorMessage === null" class="w3-container w3-padding sistema-indisponivel">
+									<h3>{{errorMessage}}</h3>
+								</div>   
+								<div [hidden]="errorMessage !== null && (usuario?.id === null || !usuario?.ativo)" class="w3-container w3-padding">
 									<router-outlet></router-outlet>
 								</div>   
 							</div>

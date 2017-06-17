@@ -8,10 +8,14 @@ import { LoginService } from '../login.service';
 })
 export class PerfilUsuarioComponent implements OnInit {
 
-  private foto:string;
+  private foto:string = null;
+  private nome:string = null;
+  private email:string = null;
 
   constructor(private loginService: LoginService) { 
     this.foto = this.loginService.getImageURL();
+    this.nome = this.loginService.getNome();
+    this.email = this.loginService.getEmail();
   }
 
   ngOnInit() {}

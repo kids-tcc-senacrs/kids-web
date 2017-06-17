@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {Routes, RouterModule} from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
+import { GoogleMapService } from './google-map.service';
 
 //components de terceiros
 import { AuthService} from 'angular2-google-login';
@@ -19,7 +20,8 @@ import { TemplateUsuarioInativoComponent } from './template-usuario-inativo/temp
 import { PerfilComponent } from './perfil/perfil.component';
 
 const appRoutes: Routes = [
- { path: 'perfil', component: PerfilComponent }
+  { path: '',redirectTo: '/',pathMatch: 'full'},
+  { path: 'perfil', component: PerfilComponent, pathMatch: 'full'}
 ];
 
 @NgModule({
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
   ],
   providers: [AuthService, 
               LoginService,
+              GoogleMapService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

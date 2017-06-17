@@ -1,1 +1,27 @@
-<h1>COMPONENTE PERFIL DO USUARIO</h1>
+<blockquote class="bs-callout bs-callout-info" style="display: flex">
+  <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><i class="fa fa-user fa-2x" style="margin-top: 12px;"></i></div>  
+  <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><strong><h3>  PERFIL</h3></strong></div>  
+</blockquote>
+
+<hr>
+
+<div class="row" style="border:2px dotted #EEE;padding: 9px;">
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Tipo</label></div>  
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><span style="float: right">FAMILIAR</span></div>  
+</div>
+
+<div class="row" style="border:2px dotted #EEE;padding: 9px;">
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label>CEP</label></div>  
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+    <span>
+      <input #cep (keyup)="onchangeCep(cep.value)" class="form-control" type="text" style="float: left" maxlength="8" required/>
+    </span>
+  </div>  
+  
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-top: 3px;"><label>Logradouro</label></div>  
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="margin-top: 3px;"><span><input class="form-control" type="text" disabled value="{{logradouro}}"></span></div>  
+
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-top: 3px;"><label>Complemento</label></div>  
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="margin-top: 3px;"><span><input class="form-control" type="text" maxlength="100"></span></div>  
+
+</div>

@@ -10,7 +10,7 @@
 	<div class="w3-top">
 		<div class="w3-bar w3-theme-d2 w3-left-align w3-large">
 			<a routerLink="perfil" [hidden]="usuario === undefined || usuario === null" class="w3-button w3-padding-large w3-hover-white">
-				<i [hidden]="usuario === undefined || usuario === null" class="fa fa-user" title="Perfil"></i>
+				<i routerLink="perfil" [hidden]="usuario === undefined || usuario === null" class="fa fa-user" title="Perfil"></i>
 			</a>    
 			<a class="w3-button w3-padding-large w3-hover-white w3-right" (click)="logout()" title="sair"><i class="glyphicon glyphicon-log-out"></i></a>
 		</div>
@@ -18,7 +18,7 @@
 	<div  class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
 		<div class="w3-row">
 			<div class="w3-col m3">
-				<app-perfil-usuario></app-perfil-usuario>
+				<app-perfil-usuario>{{usuario?.telefone}}</app-perfil-usuario>
 				<br>
 			</div>
 			<div class="w3-col m7">
@@ -27,7 +27,9 @@
 						<div class="w3-card-2 w3-round w3-white" style="min-height: 270px">
 							<div class="w3-card-2 w3-round w3-white" style="min-height: 270px">          
 								<div [hidden]="errorMessage === null" class="w3-container w3-padding sistema-indisponivel">
-									<h3>{{errorMessage}}</h3>
+									<blockquote class="bs-callout-danger" style="border-left-color: #ce4844;">
+										<h3>{{errorMessage}}</h3>
+									</blockquote>
 								</div>   
 								<div [hidden]="errorMessage !== null || usuario?.id !== null" class="w3-container w3-padding">
 								    <app-usuario-nao-cadastrado></app-usuario-nao-cadastrado>

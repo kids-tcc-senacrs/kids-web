@@ -4,7 +4,7 @@
     <p class="w3-center"><img src="{{foto}}" class="w3-circle" style="height:106px;width:106px" alt="foto perfil"></p>
     <hr>
     <p class="w3-center"><strong>{{nome}}</strong></p>
-    <p class="w3-center"><i class="fa fa-whatsapp" aria-hidden="true" style="color: #04B404;"></i>  <ng-content></ng-content></p>
+    <p [hidden]="usuario === null || usuario === undefined" class="w3-center"><i class="fa fa-mobile" aria-hidden="true"></i>  {{usuario?.telefone}}</p>
     <p class="w3-center w3-opacity"><i>{{email}}</i></p>
   </div>
 </div>

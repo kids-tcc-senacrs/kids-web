@@ -5,6 +5,7 @@ import {HttpModule, JsonpModule} from '@angular/http';
 import {Routes, RouterModule} from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
 import { GoogleMapService } from './google-map.service';
+import { RestUsuarioService } from './rest-usuario.service';
 
 //components de terceiros
 import { AuthService} from 'angular2-google-login';
@@ -16,12 +17,29 @@ import { AppComponent } from './app.component';
 import { LoginService } from './login.service';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { UsuarioNaoCadastradoComponent } from './usuario-nao-cadastrado/usuario-nao-cadastrado.component';
-import { TemplateUsuarioInativoComponent } from './template-usuario-inativo/template-usuario-inativo.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { DefaultComponent } from './default/default.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
+import { MenuComponent } from './menu/menu.component';
+import { UsuarioInativoComponent } from './usuario-inativo/usuario-inativo.component';
+import { UsuarioAtivoComponent } from './usuario-ativo/usuario-ativo.component';
+import { ServicoIndisponivelComponent } from './servico-indisponivel/servico-indisponivel.component';
 
-const appRoutes: Routes = [
-  { path: '',redirectTo: '/',pathMatch: 'full'},
-  { path: 'perfil', component: PerfilComponent, pathMatch: 'full'}
+const routes: Routes = [
+    { path: '',       redirectTo: 'login',pathMatch: 'full'},
+    { path: 'login',   component: LoginComponent},
+    { path: 'home',    component: HomeComponent,
+      children: [
+                  { path: 'usuario-nao-cadastrado',component: UsuarioNaoCadastradoComponent },
+                  { path: 'usuario-inativo',component: UsuarioInativoComponent },
+                  { path: 'usuario-ativo',component: UsuarioAtivoComponent },
+                  { path: 'servico-indisponivel',component: ServicoIndisponivelComponent },
+                  { path: 'perfil',  component: PerfilComponent}
+                ]
+    },
+    { path: '**',      component: PaginaNaoEncontradaComponent}
 ];
 
 @NgModule({
@@ -29,18 +47,26 @@ const appRoutes: Routes = [
     AppComponent,
     PerfilUsuarioComponent,
     UsuarioNaoCadastradoComponent,
-    TemplateUsuarioInativoComponent,
-    PerfilComponent
+    PerfilComponent,
+    DefaultComponent,
+    LoginComponent,
+    HomeComponent,
+    PaginaNaoEncontradaComponent,
+    MenuComponent,
+    UsuarioInativoComponent,
+    UsuarioAtivoComponent,
+    ServicoIndisponivelComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     JsonpModule,
-    RouterModule.forRoot(appRoutes) 
+    RouterModule.forRoot(routes) 
   ],
   providers: [AuthService, 
               LoginService,
               GoogleMapService,
+              RestUsuarioService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

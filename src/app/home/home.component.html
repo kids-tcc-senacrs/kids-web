@@ -1,0 +1,21 @@
+<app-menu></app-menu>
+<div  class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+	<div class="w3-row">
+		<div class="w3-col m3">
+			<app-perfil-usuario>{{usuario?.telefone}}</app-perfil-usuario>
+			<br>
+		</div>
+		<div class="w3-col m7">
+			<div class="w3-row-padding">
+				<div class="w3-col m12">
+					<div class="w3-card-2 w3-round w3-white" style="min-height: 270px">
+						<div class="w3-card-2 w3-round w3-white" style="min-height: 270px">  
+							<router-outlet></router-outlet>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>  
+</div> 	

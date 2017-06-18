@@ -11,6 +11,7 @@ export class PerfilUsuarioComponent implements OnInit {
   private foto:string = null;
   private nome:string = null;
   private email:string = null;
+  private usuario:any = null;
 
   constructor(private loginService: LoginService) { 
     this.foto = this.loginService.getImageURL();
@@ -18,6 +19,16 @@ export class PerfilUsuarioComponent implements OnInit {
     this.email = this.loginService.getEmail();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    let contador = 0;
+    let timer = setInterval(() => { 
+        this.usuario  = this.loginService.getUsuario();
+        if(contador >= 5){
+          clearInterval(timer);
+        }
+        contador++;
+      }
+    , 1000)
+  }
 
 }

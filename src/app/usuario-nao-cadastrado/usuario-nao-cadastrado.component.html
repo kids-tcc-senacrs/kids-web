@@ -1,16 +1,16 @@
-<div class="row" class="text-center">
+{{usuario?.nome}}
+
+<div class="w3-container w3-padding">
+  <div class="row" class="text-center">
     <h2>Seja bem-vindo</h2>
-  <div class="w3-large" class="text-center">
-    <h4>Tipo de usuário</h4>
-  </div>          
-    <div style="padding: 30px">
-    <button type="button" class="btn btn-lg col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center col-sm-offset-3 col-md-offset-4 col-lg-offset-4" style="background-color: #4d636f !important;color: #FFF;">
+    <div class="w3-large" class="text-center">
+      <h4>Tipo de usuário</h4>
+    </div>
+    <button class="btn btn-lg col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center col-sm-offset-3 col-md-offset-4 col-lg-offset-4" style="background-color: #4d636f !important;color: #FFF;" (click)="onClickTipoCreche()">
       <i class="fa fa-university"> sou creche</i>
     </button> 
-  </div>          
-  <div style="padding: 30px">
-    <button type="button" class="btn btn-lg col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center col-sm-offset-3 col-md-offset-4 col-lg-offset-4" style="background-color: #4d636f !important; color:#FFF;">
+    <button class="btn btn-lg col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center col-sm-offset-3 col-md-offset-4 col-lg-offset-4" style="background-color: #4d636f !important; color:#FFF; margin-top: 5px;" (click)="onClickTipoFamiliar()">
       <i class="fa fa-universal-access" aria-hidden="true"> sou familiar</i>
     </button> 
-  </div>          
+  </div>  
 </div>  

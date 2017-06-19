@@ -22,8 +22,22 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.nome = this.loginService.getNome();
+  logout():void{
+	  this.loginService.logout();
   }
+
   
+  ngOnInit() {
+  let contador = 0;
+  let timer = setInterval(() => { 
+      this.nome = this.loginService.getNome();
+      this.usuario = this.loginService.getUsuario();
+      if(contador >= 5){
+        clearInterval(timer);
+      }
+      contador++;
+    }
+  , 1000)
+}
+   
 }

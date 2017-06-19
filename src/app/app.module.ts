@@ -22,7 +22,6 @@ import { DefaultComponent } from './default/default.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
-import { MenuComponent } from './menu/menu.component';
 import { UsuarioInativoComponent } from './usuario-inativo/usuario-inativo.component';
 import { UsuarioAtivoComponent } from './usuario-ativo/usuario-ativo.component';
 import { ServicoIndisponivelComponent } from './servico-indisponivel/servico-indisponivel.component';
@@ -52,7 +51,6 @@ const routes: Routes = [
     LoginComponent,
     HomeComponent,
     PaginaNaoEncontradaComponent,
-    MenuComponent,
     UsuarioInativoComponent,
     UsuarioAtivoComponent,
     ServicoIndisponivelComponent

@@ -7,14 +7,19 @@
 
 <div class="row" style="border:2px dotted #EEE;padding: 9px;">
   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Tipo</label></div>  
-  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><span style="float: right">FAMILIAR</span></div>  
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><span style="float: right">{{usuario?.tipo}}</span></div>  
+</div>
+
+<div class="row" style="border:2px dotted #EEE;padding: 9px;">
+  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Telefone</label></div>  
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12"><span><input class="form-control" type="text" maxlength="20" value="{{usuario?.telefone}}"></span></div>  
 </div>
 
 <div class="row" style="border:2px dotted #EEE;padding: 9px;">
   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label>CEP</label></div>  
   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
     <span>
-      <input #cep (keyup)="onchangeCep(cep.value)" class="form-control" type="text" style="float: left" maxlength="8" required/>
+      <input #cep (keyup)="onchangeCep(cep.value)" class="form-control" type="text" style="float: left" maxlength="8" />
     </span>
   </div>  
   
@@ -22,6 +27,12 @@
   <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="margin-top: 3px;"><span><input class="form-control" type="text" disabled value="{{logradouro}}"></span></div>  
 
   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-top: 3px;"><label>Complemento</label></div>  
-  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="margin-top: 3px;"><span><input class="form-control" type="text" maxlength="100"></span></div>  
+  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="margin-top: 3px;"><span><input value="{{usuario?.endereco?.complemento}}" class="form-control" type="text" maxlength="100"></span></div>  
 
+</div>
+
+<hr>
+
+<div class="row" style="border:2px dotted #EEE;">
+  <button type="button" class="btn btn-primary active col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-2" (click)="atualizarPerfil()">Concluir alterações</button>
 </div>

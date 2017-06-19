@@ -26,37 +26,35 @@ export class PerfilComponent implements OnInit {
     this.usuario = this.loginService.getUsuario();
   }
 
-  onchangeCep(event):void{
+  private onchangeCep(event):void{
 	
-	if (event.length < 8) {
-		return;
-	} else if (event.length > 9) {
-		return;
-	} else if (( event.length === 9 ) && !event.includes('-')) {
-		return;
-	} else if (event.length === 9 && !event.match('[0-9]{5}-[0-9]{3}')) {
-		return;
-	} else if (event.length === 8 && event.includes('-')) {
-		return;
-	}
-	
-  if (event.length === 9) {
-		var cepSplitted = event.split('-');
-		event = cepSplitted[0] + cepSplitted[1];
-    this.cep = event;
-	}
-  
-  this.googleMap.getEndereco(event)
-                .subscribe(data => 
-                          {this.endereco = data
-                           this.logradouro = this.endereco.results[0].formatted_address;
-                          }, 
-                          error => this.errorMessage = <any>error,);
+    if (event.length < 8) {
+      return;
+    } else if (event.length > 9) {
+      return;
+    } else if (( event.length === 9 ) && !event.includes('-')) {
+      return;
+    } else if (event.length === 9 && !event.match('[0-9]{5}-[0-9]{3}')) {
+      return;
+    } else if (event.length === 8 && event.includes('-')) {
+      return;
+    }
+    
+    if (event.length === 9) {
+      var cepSplitted = event.split('-');
+      event = cepSplitted[0] + cepSplitted[1];
+      this.cep = event;
+    }
+    
+    this.googleMap.getEndereco(event)
+                  .subscribe(data => 
+                            {this.endereco = data
+                            this.logradouro = this.endereco.results[0].formatted_address;
+                            }, 
+                            error => this.errorMessage = <any>error,);
   }
 
-  atualizarPerfil():void{
-    alert('em desenvolvimento');
-    /*
+  private atualizarPerfil():void{
     let endereco:any = {logradouro:this.logradouro, cep:this.cep};
     let usuario:any = {  id:this.usuario.id, 
                        nome:this.usuario.nome, 
@@ -66,10 +64,19 @@ export class PerfilComponent implements OnInit {
                    telefone:this.usuario.telefone,
                   endereco: endereco};
     
-    this.restUsuario.updateUsuario(this.usuario).subscribe(res => this.usuario = res);
-    
-    this.router.navigate(['/home'])
-    */
+   this.restUsuario.updateUsuario(usuario)
+                   .subscribe( data => this.redirectPage(data),
+                              error => this.redirectPageError(this.errorMessage = <any>error)
+                             );
+   }
+
+  private redirectPage(usuario:any):void{
+    this.usuario = usuario;
+    this.router.navigate(['/home']);
+  }
+
+  private redirectPageError(erro:string):void{
+    this.router.navigate(['/home/servico-indisponivel']);
   }
 
 }

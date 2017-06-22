@@ -1,6 +1,6 @@
 import {Injectable,OnInit, NgZone} from '@angular/core';
 import {AuthService, AppGlobals} from 'angular2-google-login';
-import {RestUsuarioService} from './rest-usuario.service';
+import {UtilHttpService} from './util-http.service';
 import {Router} from '@angular/router';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class LoginService implements OnInit{
   private errorMessage: string = null;
   private solicitouAutenticacaoGoogle : boolean = false; 
 
-  constructor(private auth: AuthService, private zone: NgZone, private router: Router, private restUsuario:RestUsuarioService) { 
+  constructor(private auth: AuthService, private zone: NgZone, private router: Router, private restUsuario:UtilHttpService) { 
     console.log('[KIDS] serviço de login iniciado...');
     if(!this.solicitouAutenticacaoGoogle){
       console.log('[KIDS] aguardando autenticação com conta google...');
@@ -32,7 +32,6 @@ export class LoginService implements OnInit{
       this.imageURL = localStorage.getItem('image');
       this.nome = localStorage.getItem('name');
       this.email = localStorage.getItem('email');
-      this.buscarUsuarioCadastrado(this.email);
       console.log('[KIDS] usuario autenticado com sucesso...');
       this.router.navigate(['/home']);
       });
@@ -52,29 +51,6 @@ export class LoginService implements OnInit{
       localStorage.removeItem('name');
       localStorage.removeItem('email'); 
     });
-  }
-
-  private buscarUsuarioCadastrado(email:string):void{
-    this.restUsuario.getUsuario(email)
-                    .subscribe( data => this.redirectPage(data),
-                               error => this.redirectPageError(this.errorMessage = <any>error)
-                              );
-    
-  }
-
-  private redirectPage(usuario:any):void{
-    this.usuario = usuario;
-    if(this.usuario === null || this.usuario === undefined){
-       this.router.navigate(['/home/usuario-nao-cadastrado']);
-    }else if(this.usuario.ativo){
-       this.router.navigate(['/home/usuario-ativo']);
-    }else if(!this.usuario.ativo){
-       this.router.navigate(['/home/usuario-inativo']);
-    }
-  }
-
-  private redirectPageError(erro:string):void{
-    this.router.navigate(['/home/servico-indisponivel']);
   }
 
   public getNome():string{

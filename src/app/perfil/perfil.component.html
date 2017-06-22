@@ -1,38 +1,43 @@
-<blockquote class="bs-callout bs-callout-info" style="display: flex">
-  <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><i class="fa fa-user fa-2x" style="margin-top: 12px;"></i></div>  
-  <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11"><strong><h3>  PERFIL</h3></strong></div>  
-</blockquote>
+<h3><p>Tela de perfil blablablablablablablabla</p></h3>
 
-<hr>
+<div class="container">
 
-<div class="row" style="border:2px dotted #EEE;padding: 9px;">
-  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Tipo</label></div>  
-  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"><span style="float: right">{{usuario?.tipo}}</span></div>  
-</div>
+    <div class="row">   
+        <p>Tipo de usuario .... {{usuario?.tipo}} </p>
+    </div>
 
-<div class="row" style="border:2px dotted #EEE;padding: 9px;">
-  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><label>Telefone</label></div>  
-  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12"><span><input class="form-control" type="text" maxlength="20" value="{{usuario?.telefone}}"></span></div>  
-</div>
+    <hr>
 
-<div class="row" style="border:2px dotted #EEE;padding: 9px;">
-  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><label>CEP</label></div>  
-  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-    <span>
-      <input #cep (keyup)="onchangeCep(cep.value)" class="form-control" type="text" style="float: left" maxlength="8" />
-    </span>
-  </div>  
-  
-  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-top: 3px;"><label>Logradouro</label></div>  
-  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="margin-top: 3px;"><span><input class="form-control" type="text" disabled value="{{logradouro}}"></span></div>  
+    <div class="row">   
+        <input value="{{endereco?.telefone}}" #telefone (blur)="onblurTelefone(telefone.value)" type="text" style="float: left" maxlength="20" placeholder="TELEFONE BLABLABLA"/>
+    </div>
 
-  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-top: 3px;"><label>Complemento</label></div>  
-  <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" style="margin-top: 3px;"><span><input value="{{usuario?.endereco?.complemento}}" class="form-control" type="text" maxlength="100"></span></div>  
+    <hr>
 
-</div>
+    <div class="row">   
+        <input value="{{endereco?.cep}}" #cep (keyup)="onchangeCep(cep.value)" type="text" style="float: left" maxlength="8" placeholder="CEP BLABLABLA"/>
+    </div>   
 
-<hr>
+    <hr>
+    
+    <div class="row">   
+        <input value="{{endereco?.complemento}}" #complemento (keyup)="onchangeComplemento(complemento.value)" type="text" style="float: left" maxlength="20" placeholder="COMPLEMENTO BLABLABLA"/>
+    </div>   
 
-<div class="row" style="border:2px dotted #EEE;">
-  <button type="button" class="btn btn-primary active col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-2" (click)="atualizarPerfil()">Concluir alterações</button>
+    <hr>
+    
+    <div class="row">   
+        Endereço encontrado: {{logradouro}}  
+    </div>   
+
+    <hr>
+
+    <div class="row">   
+        <p>{{enderecoJson}}</p> 
+    </div>   
+
+    <hr>
+
+    <button type="button"(click)="atualizarPerfil()">Concluir alterações</button>
+
 </div>

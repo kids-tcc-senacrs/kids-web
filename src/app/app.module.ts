@@ -1,14 +1,14 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpModule, JsonpModule} from '@angular/http';
-import {Routes, RouterModule} from '@angular/router';
-import {APP_BASE_HREF} from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule, JsonpModule } from '@angular/http';
+import { Routes, RouterModule } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 import { GoogleMapService } from './google-map.service';
-import { RestUsuarioService } from './rest-usuario.service';
+import { UtilHttpService } from './util-http.service';
 
 //components de terceiros
-import { AuthService} from 'angular2-google-login';
+import { AuthService } from 'angular2-google-login';
 
 
 import { AppComponent } from './app.component';
@@ -25,13 +25,16 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
 import { UsuarioInativoComponent } from './usuario-inativo/usuario-inativo.component';
 import { UsuarioAtivoComponent } from './usuario-ativo/usuario-ativo.component';
 import { ServicoIndisponivelComponent } from './servico-indisponivel/servico-indisponivel.component';
+import { PaginaAcessoNegadoComponent } from './pagina-acesso-negado/pagina-acesso-negado.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
     { path: 'login',   component: LoginComponent},
+    { path: 'usuario-nao-cadastrado',component: UsuarioNaoCadastradoComponent},
+    { path: 'pagina-acesso-negado', component: PaginaAcessoNegadoComponent},
+    
     { path: 'home',    component: HomeComponent,
       children: [
-                  { path: 'usuario-nao-cadastrado',component: UsuarioNaoCadastradoComponent },
                   { path: 'usuario-inativo',component: UsuarioInativoComponent },
                   { path: 'usuario-ativo',component: UsuarioAtivoComponent },
                   { path: 'servico-indisponivel',component: ServicoIndisponivelComponent },
@@ -53,7 +56,8 @@ const routes: Routes = [
     PaginaNaoEncontradaComponent,
     UsuarioInativoComponent,
     UsuarioAtivoComponent,
-    ServicoIndisponivelComponent
+    ServicoIndisponivelComponent,
+    PaginaAcessoNegadoComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +68,7 @@ const routes: Routes = [
   providers: [AuthService, 
               LoginService,
               GoogleMapService,
-              RestUsuarioService,
+              UtilHttpService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

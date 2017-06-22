@@ -20,7 +20,13 @@ export class LoginComponent implements OnInit {
   }
 
   classesBtnLogin(): any {
-    let cssStyles = {'btn': true,'btn-lg': true,'btn-block': true,'btn-social': true,'btn-google': true,'col-md-offset-9': true,'btn-posicao': true};
+    let cssStyles = {'btn': true,
+                  'btn-lg': false,
+               'btn-block': true,
+              'btn-social': true,
+              'btn-google': true,
+         'col-md-offset-9': true,
+             'btn-posicao': true};
   return cssStyles; 
   }
 

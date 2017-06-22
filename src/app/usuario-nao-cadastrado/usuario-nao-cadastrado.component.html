@@ -1,16 +1,19 @@
-{{usuario?.nome}}
+<div class="w3-top">
+	<div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+		<a class="w3-button w3-padding-large w3-hover-white w3-right" (click)="logout()" title="sair"><i class="glyphicon glyphicon-log-out"></i></a>
+	</div>
+</div>
 
-<div class="w3-container w3-padding">
-  <div class="row" class="text-center">
-    <h2>Seja bem-vindo</h2>
-    <div class="w3-large" class="text-center">
-      <h4>Tipo de usuário</h4>
+<div  class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+    <div class="w3-container w3-padding">
+        <p>- adicionar msg de boas vindas</p>
+        <p>- adicionar logo</p>
+        <p>- add bootsrap</p>
+        <button (click)="onClickTipoCreche()">sou creche</button> 
+        <button (click)="onClickTipoFamiliar()">sou familiar</button> 
     </div>
-    <button class="btn btn-lg col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center col-sm-offset-3 col-md-offset-4 col-lg-offset-4" style="background-color: #4d636f !important;color: #FFF;" (click)="onClickTipoCreche()">
-      <i class="fa fa-university"> sou creche</i>
-    </button> 
-    <button class="btn btn-lg col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center col-sm-offset-3 col-md-offset-4 col-lg-offset-4" style="background-color: #4d636f !important; color:#FFF; margin-top: 5px;" (click)="onClickTipoFamiliar()">
-      <i class="fa fa-universal-access" aria-hidden="true"> sou familiar</i>
-    </button> 
-  </div>  
-</div>  
+
+    <div>
+    <h2 style="color:#F00">{{messageError}}</h2>
+    </div>
+</div>    

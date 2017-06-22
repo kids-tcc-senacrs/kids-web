@@ -1,9 +1,7 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../login.service';
-import {RestUsuarioService} from '../rest-usuario.service';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/Rx';
+import {UtilHttpService } from '../util-http.service';
 
 @Component({
   selector: 'app-home',
@@ -11,33 +9,47 @@ import 'rxjs/Rx';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  
   protected usuario:any = null;
-  private nome:string = null;
+  protected nome:string = null;
   protected errorMessage: string = null;
 
-  constructor(protected loginService: LoginService, protected router: Router,protected restUsuario:RestUsuarioService) {
-    if(this.loginService.getToken() === null){
-      this.router.navigate(['/login']);
+  constructor(protected loginService: LoginService, protected router: Router,protected restUsuario:UtilHttpService) {
+    if(this.loginService.getToken() === null || this.loginService.getToken() === undefined){
+      this.router.navigate(['/pagina-acesso-negado']);
+    }else if(this.usuario === null || this.usuario === undefined){
+      this.buscarUsuarioCadastrado(this.loginService.getEmail());      
     }
   }
 
-  logout():void{
+   logout():void{
 	  this.loginService.logout();
   }
 
   
-  ngOnInit() {
-  let contador = 0;
-  let timer = setInterval(() => { 
-      this.nome = this.loginService.getNome();
-      this.usuario = this.loginService.getUsuario();
-      if(contador >= 5){
-        clearInterval(timer);
-      }
-      contador++;
+  ngOnInit() {}
+
+  private buscarUsuarioCadastrado(email:string):void{
+    this.restUsuario.getUsuario(email)
+                    .subscribe( data => this.redirectPage(data),
+                               error => this.redirectPageError(this.errorMessage = <any>error)
+                              );
+    
+  }
+
+  private redirectPage(usuario:any):void{
+    this.usuario = usuario;
+    if(this.usuario === null || this.usuario === undefined){
+      this.router.navigate(['/usuario-nao-cadastrado']);
+    }else if(this.usuario.ativo){
+       this.router.navigate(['/home/usuario-ativo']);
+    }else if(!this.usuario.ativo){
+       this.router.navigate(['/home/usuario-inativo']);
     }
-  , 1000)
-}
-   
-}
+  }
+
+  private redirectPageError(erro:string):void{
+    this.router.navigate(['/home/servico-indisponivel']);
+  }  
+
+ }

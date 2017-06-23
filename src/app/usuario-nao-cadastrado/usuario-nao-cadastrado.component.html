@@ -5,15 +5,9 @@
 </div>
 
 <div  class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
-    <div class="w3-container w3-padding">
-        <p>- adicionar msg de boas vindas</p>
-        <p>- adicionar logo</p>
-        <p>- add bootsrap</p>
-        <button (click)="onClickTipoCreche()">sou creche</button> 
-        <button (click)="onClickTipoFamiliar()">sou familiar</button> 
-    </div>
-
-    <div>
     <h2 style="color:#F00">{{messageError}}</h2>
-    </div>
+    <div class="w3-container w3-padding">
+        <a [ngClass]="classesBtnCreche()" (click)="onClickTipoCreche()">sou creche</a> 
+        <a [ngClass]="classesBtnFamiliar()" (click)="onClickTipoFamiliar()">sou familiar</a> 
+    </div>    
 </div>    

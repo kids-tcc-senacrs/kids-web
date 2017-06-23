@@ -44,4 +44,35 @@ export class UsuarioNaoCadastradoComponent implements OnInit {
                                                  error => this.messageError = <any>error);
   } 
 
+              //'col-sm-offset-8 col-md-offset-8 col-lg-offset-9': true,
+
+  classesBtnCreche(): any {
+    let cssStyles = {'btn': true,
+              'btn-social': true,
+              'btn-facebook': true,
+              'col-sm-offset-2': true,
+              'col-md-offset-2': true,
+              'col-lg-offset-3': true,
+              'btn-lg':true,
+              'col-xs-12 col-sm-4 col-md-4 col-lg-3' : true,
+              'btn-customizado': true
+};
+  return cssStyles; 
+  }
+
+  classesBtnFamiliar(): any {
+    let cssStyles = {'btn': true,
+              'btn-social': true,
+              'btn-google': true,
+              'col-sm-offset-1': true,
+              'col-md-offset-1': true,
+              'col-lg-offset-1': true,
+              'btn-lg':true,
+              'col-xs-12 col-sm-4 col-md-4 col-lg-3' : true,
+              'btn-customizado': true
+            };
+  return cssStyles; 
+  }
+
+
 }

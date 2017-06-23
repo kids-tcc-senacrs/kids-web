@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions} from '@angular/http';
 import {environment} from '../environments/environment';
 import {Observable} from 'rxjs';
+import {Usuario} from './model/Usuario';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
@@ -15,7 +16,7 @@ export class UtilHttpService {
 
 	constructor(private http:Http) {}
 
-	public getUsuario(email:string):Observable<Response>{
+	public getUsuario(email:string):Observable<Usuario>{
 		console.log('[KIDS] consumindo API de usuarios GET ...');	
 		let url = this.URL_REST_USUARIO + email; 
 		return this.http.get(url)
@@ -23,7 +24,7 @@ export class UtilHttpService {
 				 	  .catch(this.handleError);
 	}
 
-	public saveUsuario(usuario:any):Observable<Response>{
+	public saveUsuario(usuario:Usuario):Observable<Usuario>{
 		console.log('[KIDS] consumindo API de usuarios POST ...');	
 		let url = this.URL_REST_USUARIO; 
 		let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -34,7 +35,7 @@ export class UtilHttpService {
 				 	  .catch(this.handleError);
 	}
 
-	public updateUsuario(usuario:any):Observable<Response>{
+	public updateUsuario(usuario:any):Observable<Usuario>{
 		console.log('[KIDS] consumindo API de usuarios PUT ...');	
 		let url = this.URL_REST_USUARIO; 
 		let headers = new Headers({ 'Content-Type': 'application/json' });

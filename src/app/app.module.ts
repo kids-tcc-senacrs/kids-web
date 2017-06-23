@@ -63,6 +63,7 @@ const routes: Routes = [
     BrowserModule,
     HttpModule,
     JsonpModule,
+    FormsModule,
     RouterModule.forRoot(routes) 
   ],
   providers: [AuthService, 

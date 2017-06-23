@@ -2,6 +2,8 @@ import {Component, OnInit, Input } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../login.service';
 import {UtilHttpService } from '../util-http.service';
+import {Usuario} from '../model/Usuario';
+import {Endereco} from '../model/Endereco';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +12,13 @@ import {UtilHttpService } from '../util-http.service';
 })
 export class HomeComponent implements OnInit {
   
-  protected usuario:any = null;
-  protected nome:string = null;
+  private usuario:Usuario = new Usuario(null,'','','','',false, new Endereco(null, '', '', ''));
   protected errorMessage: string = null;
 
   constructor(protected loginService: LoginService, protected router: Router,protected restUsuario:UtilHttpService) {
     if(this.loginService.getToken() === null || this.loginService.getToken() === undefined){
       this.router.navigate(['/pagina-acesso-negado']);
-    }else if(this.usuario === null || this.usuario === undefined){
+    } else {
       this.buscarUsuarioCadastrado(this.loginService.getEmail());      
     }
   }

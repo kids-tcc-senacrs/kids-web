@@ -1,5 +1,7 @@
 @import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
+.btn-customizado{padding-left: 0px!important;text-align: center!important;border-radius:0px!important}
+.barra-perfil{min-height: 40px;}
 
-blockquote[_ngcontent-c5]{padding: 10px 20px;margin: 0 0 20px;font-size: 17.5px;border-left: 5px solid #286090;}
+
 
 

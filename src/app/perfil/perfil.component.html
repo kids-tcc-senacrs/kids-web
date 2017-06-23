@@ -1,43 +1,24 @@
-<h3><p>Tela de perfil blablablablablablablabla</p></h3>
-
-<div class="container">
-
-    <div class="row">   
-        <p>Tipo de usuario .... {{usuario?.tipo}} </p>
+<div class="w3-container w3-padding">
+    <div class="row">
+        <label>Tipo</label>
+        <input id="tipo" name="tipo" #cep [(ngModel)]="usuario.tipo" type="text" class="form-control" disabled>
     </div>
-
-    <hr>
-
-    <div class="row">   
-        <input value="{{endereco?.telefone}}" #telefone (blur)="onblurTelefone(telefone.value)" type="text" style="float: left" maxlength="20" placeholder="TELEFONE BLABLABLA"/>
+    <div class="row">
+        <label>Telefone</label>
+        <input id="telefone" name="telefone" #telefone [(ngModel)]="usuario.telefone" maxlength="20" type="text" class="form-control" required>
     </div>
+    <div class="row">
+        <label>Cep</label>
+        <input id="cep" name="cep" #cep (keyup)="onchangeCep(cep.value)" [(ngModel)]="usuario.endereco.cep" maxlength="8" type="text" class="form-control" required>
+    </div>
+    <div class="row">
+        <label>Logradouro</label>
+        <input id="logradouro" name="logradouro" [(ngModel)]="usuario.endereco.logradouro" maxlength="60" type="text" class="form-control" required>
+    </div>
+    <div class="row">
+        <label>Localização</label>
+        <input id="localizacao" name="localizacao" [(ngModel)]="usuario.endereco.localizacao" maxlength="100" type="text" class="form-control" disabled>
+    </div>
+</div>    
 
-    <hr>
-
-    <div class="row">   
-        <input value="{{endereco?.cep}}" #cep (keyup)="onchangeCep(cep.value)" type="text" style="float: left" maxlength="8" placeholder="CEP BLABLABLA"/>
-    </div>   
-
-    <hr>
-    
-    <div class="row">   
-        <input value="{{endereco?.complemento}}" #complemento (keyup)="onchangeComplemento(complemento.value)" type="text" style="float: left" maxlength="20" placeholder="COMPLEMENTO BLABLABLA"/>
-    </div>   
-
-    <hr>
-    
-    <div class="row">   
-        Endereço encontrado: {{logradouro}}  
-    </div>   
-
-    <hr>
-
-    <div class="row">   
-        <p>{{enderecoJson}}</p> 
-    </div>   
-
-    <hr>
-
-    <button type="button"(click)="atualizarPerfil()">Concluir alterações</button>
-
-</div>
+<button [ngClass]="classesBtnConcluir()" type="submit" (click)="atualizarPerfil()" >Concluir</button>

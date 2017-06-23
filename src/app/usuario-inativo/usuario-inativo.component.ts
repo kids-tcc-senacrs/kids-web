@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../login.service';
 import {Router} from '@angular/router';
 import {UtilHttpService} from '../util-http.service';
+import {Usuario} from '../model/Usuario';
 
 @Component({
   selector: 'app-usuario-inativo',
@@ -11,9 +12,8 @@ import {UtilHttpService} from '../util-http.service';
 export class UsuarioInativoComponent implements OnInit {
   
   
-  protected usuario:any = null;
+  protected usuario:Usuario = null;
   protected errorMessage: string = null;
-  private usuarioJson: string = null;
 
   constructor(protected loginService: LoginService, protected router: Router,protected utilHttp:UtilHttpService) {
     if(this.loginService.getToken() === null || this.loginService.getToken() === undefined){
@@ -24,13 +24,11 @@ export class UsuarioInativoComponent implements OnInit {
   }
 
   ngOnInit() {}
-
   private buscarUsuarioCadastrado(email:string):void{
     this.utilHttp.getUsuario(email)
-                    .subscribe( data => this.usuarioJson = JSON.stringify(data),
+                    .subscribe( data => this.usuario = data,
                                error => this.redirectPageError(this.errorMessage = <any>error)
                               );
-    
   }
 
   private redirectPageError(erro:string):void{

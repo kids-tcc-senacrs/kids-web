@@ -51,7 +51,7 @@ export class UtilHttpService {
 		if(res.status == 200 || res.status == 201){
 			return res.json();
 		}else{
-			console.log('HTTP CODE NAO ESPERADO' + res.status);
+			//console.log('HTTP CODE NAO ESPERADO' + res.status);
 		}
 	}
 

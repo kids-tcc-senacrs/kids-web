@@ -63,15 +63,11 @@ export class PerfilComponent implements OnInit {
 
   private atualizarPerfil():void{
    this.restUsuario.updateUsuario(this.usuario)
-                       .subscribe( data => this.redirectPage(data),
+                       .subscribe( data =>{ this.usuario = data  
+                                  '' + alert('ok - mensagem em desenvolvimento')},
                                   error => this.redirectPageError(this.errorMessage = <any>error)
                                  );
    }
-
-  private redirectPage(usuario:Usuario):void{
-    this.usuario = usuario;
-    this.router.navigate(['/home']);
-  }
 
   private redirectPageError(erro:string):void{
     this.router.navigate(['/home/servico-indisponivel']);
@@ -81,9 +77,6 @@ export class PerfilComponent implements OnInit {
     let cssStyles = {'btn': true,
               'btn-social': true,
               'btn-facebook': true,
-              'col-sm-offset-2': true,
-              'col-md-offset-2': true,
-              'col-lg-offset-3': true,
               'btn-lg':true,
               'col-xs-12 col-sm-4 col-md-4 col-lg-3' : true,
               'btn-customizado': true

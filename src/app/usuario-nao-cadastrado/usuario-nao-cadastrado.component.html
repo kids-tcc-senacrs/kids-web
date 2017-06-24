@@ -5,9 +5,16 @@
 </div>
 
 <div  class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
-    <h2 style="color:#F00">{{messageError}}</h2>
-    <div class="w3-container w3-padding">
-        <a [ngClass]="classesBtnCreche()" (click)="onClickTipoCreche()">sou creche</a> 
-        <a [ngClass]="classesBtnFamiliar()" (click)="onClickTipoFamiliar()">sou familiar</a> 
-    </div>    
-</div>    
+    <div id="standard-content">
+        <div class="container public_flash_message_container">
+            <div class="alert flash fade in alert-warning">
+               <strong>Você precisa selecionar o tipo de conta que deseja se cadastrar.</strong>
+            </div>
+        </div>
+        <h2 style="color:#F00">{{messageError}}</h2>
+        <div class="w3-container w3-padding">
+            <a [ngClass]="classesBtnCreche()" (click)="onClickTipoCreche()">sou creche</a> 
+            <a [ngClass]="classesBtnFamiliar()" (click)="onClickTipoFamiliar()">sou familiar</a> 
+        </div>    
+    </div>
+</div>

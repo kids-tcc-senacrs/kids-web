@@ -25,7 +25,7 @@ export class UsuarioInativoComponent implements OnInit {
 
   ngOnInit() {}
   private buscarUsuarioCadastrado(email:string):void{
-    this.utilHttp.getUsuario(email)
+    this.utilHttp.get(email)
                     .subscribe( data => this.usuario = data,
                                error => this.redirectPageError(this.errorMessage = <any>error)
                               );

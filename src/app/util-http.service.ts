@@ -16,7 +16,7 @@ export class UtilHttpService {
 
 	constructor(private http:Http) {}
 
-	public getUsuario(email:string):Observable<Usuario>{
+	public get(email:string):Observable<Usuario>{
 		console.log('[KIDS] consumindo API de usuarios GET ...');	
 		let url = this.URL_REST_USUARIO + email; 
 		return this.http.get(url)
@@ -24,7 +24,9 @@ export class UtilHttpService {
 				 	  .catch(this.handleError);
 	}
 
-	public saveUsuario(usuario:Usuario):Observable<Usuario>{
+
+
+	public post(usuario:Usuario):Observable<Usuario>{
 		console.log('[KIDS] consumindo API de usuarios POST ...');	
 		let url = this.URL_REST_USUARIO; 
 		let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -35,7 +37,9 @@ export class UtilHttpService {
 				 	  .catch(this.handleError);
 	}
 
-	public updateUsuario(usuario:any):Observable<Usuario>{
+
+
+	public put(usuario:any):Observable<Usuario>{
 		console.log('[KIDS] consumindo API de usuarios PUT ...');	
 		let url = this.URL_REST_USUARIO; 
 		let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -47,17 +51,18 @@ export class UtilHttpService {
 				 	  .catch(this.handleError);
 	}
 
+
+
 	private extractData(res: Response) {
 		if(res.status == 200 || res.status == 201){
 			return res.json();
 		}else{
-			//console.log('HTTP CODE NAO ESPERADO' + res.status);
+			console.log('HTTP CODE NAO ESPERADO' + res.status);
 		}
 	}
 
-	private handleError (error: Response | any) {
-		console.log('Erro gerado' + error);
-		return Observable.throw('Serviço temporariamente indisponível!');
+	private handleError (res: Response) {
+		return Observable.throw(res);
 	}
 
 }

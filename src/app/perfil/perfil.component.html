@@ -3,6 +3,20 @@
 <div class="w3-container w3-padding">
     <form #f="ngForm">    
 
+       <!-- MENSAGENS DE ERRO -->
+	   <div [hidden]="!f.valid || messagesError === null" class="alert alert-danger" role="alert">
+            <ul *ngFor="let message of messagesError">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                {{message}}
+            </ul>
+        </div>
+
+        <!-- MENSAGEM DE SUCESSO -->
+        <div [hidden]="!f.valid || messageSuccess === null" class="alert alert-success" role="alert">
+            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+            {{messageSuccess}}
+        </div>
+
         <!--TIPO-->
         <div class="form-group">
             <label for="tipo">Tipo</label>
@@ -14,7 +28,7 @@
                                 [class.has-success]="telefone.valid && telefone.touched"
                                 [class.has-feedback]="telefone.touched">
             <label for="telefone" class="control-label">Telefone</label>
-            <input id="telefone" name="telefone" #telefone="ngModel" aria-describedby="telefone" [(ngModel)]="usuario.telefone" maxlength="20" type="text" class="form-control" required>
+            <input id="telefone" name="telefone" #telefone="ngModel" (focus)="onfocusTelefone()" aria-describedby="telefone" [(ngModel)]="usuario.telefone" maxlength="20" type="text" class="form-control" required>
             <span *ngIf="!telefone.valid && telefone.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             <span *ngIf="!telefone.valid && telefone.touched" id="telefone" class="sr-only">(error)</span>
             <span *ngIf="telefone.valid && telefone.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
@@ -30,7 +44,7 @@
                                 [class.has-success]="cep.valid && cep.touched"
                                 [class.has-feedback]="cep.touched">
             <label for="cep" class="control-label">Cep</label>
-            <input id="cep" name="cep" #cep="ngModel" (keyup)="onchangeCep(cep.value)" [(ngModel)]="usuario.endereco.cep" maxlength="8" type="text" class="form-control" required>
+            <input id="cep" name="cep" #cep="ngModel" (keyup)="onchangeCep(cep.value)" (focus)="onfocusCep()" [(ngModel)]="usuario.endereco.cep" maxlength="8" type="text" class="form-control" required>
             <span *ngIf="!cep.valid && cep.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             <span *ngIf="!cep.valid && cep.touched" id="cep" class="sr-only">(error)</span>
             <span *ngIf="cep.valid && cep.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
@@ -46,7 +60,7 @@
                                 [class.has-success]="logradouro.valid && logradouro.touched"
                                 [class.has-feedback]="logradouro.touched">
             <label for="logradouro" class="control-label">Logradouro</label>
-            <input id="logradouro" name="logradouro" #logradouro="ngModel" [(ngModel)]="usuario.endereco.logradouro" maxlength="60" type="text" class="form-control" required>
+            <input id="logradouro" name="logradouro" #logradouro="ngModel" (focus)="onfocusLogradouro()" [(ngModel)]="usuario.endereco.logradouro" maxlength="60" type="text" class="form-control" required>
             <span *ngIf="!logradouro.valid && logradouro.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             <span *ngIf="!logradouro.valid && logradouro.touched" id="logradouro" class="sr-only">(error)</span>
             <span *ngIf="logradouro.valid && logradouro.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>

@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   private buscarUsuarioCadastrado(email:string):void{
-    this.restUsuario.getUsuario(email)
+    this.restUsuario.get(email)
                     .subscribe( data => this.redirectPage(data),
                                error => this.redirectPageError(this.errorMessage = <any>error)
                               );

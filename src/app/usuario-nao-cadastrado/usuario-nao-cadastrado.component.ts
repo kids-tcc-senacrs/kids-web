@@ -40,7 +40,7 @@ export class UsuarioNaoCadastradoComponent implements OnInit {
     let nome = this.loginService.getNome();
     let email = this.loginService.getEmail();
     let usuario:any = {nome:nome,email:email,tipo:tipo};
-    this.utilHttp.saveUsuario(usuario).subscribe( data => this.router.navigate(['/home']),
+    this.utilHttp.post(usuario).subscribe( data => this.router.navigate(['/home']),
                                                  error => this.messageError = <any>error);
   } 
 

@@ -1,3 +1,4 @@
+import { Response } from '@angular/http';
 import {Component, OnInit} from '@angular/core';
 import {GoogleMapService} from '../google-map.service';
 import {LoginService} from '../login.service';
@@ -14,28 +15,29 @@ import {Endereco} from '../model/Endereco';
 export class PerfilComponent implements OnInit {
 
   
-  private resultGoogleMap:any;
-  private errorMessage: string = null;
   private usuario:Usuario = new Usuario(null,'','','','',false, new Endereco(null, '', '', ''));
+  private resultGoogleMap:any;
   private titleButton = "Concluir Atualizações";
-  title = "Perfil";
+  private title = "Perfil";
+  private messagesError: string[] = null;
+  private messageSuccess: string = null;
 
   constructor(private googleMap:GoogleMapService, private loginService: LoginService, private router: Router, private restUsuario: UtilHttpService) {}
+  
+
 
   ngOnInit() {
-     this.restUsuario.getUsuario(this.loginService.getEmail())
-                    .subscribe( data => this.usuario =  data,                              
-                                error => this.redirectPageError(this.errorMessage = <any>error)
-                              );
+     this.restUsuario.get(this.loginService.getEmail()).subscribe( data => this.usuario =  data,                              
+                                                                  error => this.catchError(this.messagesError = <any>error)
+                                                                 );
   }
 
   private onchangeCep(event):void{
-	
+
     if(event === null || event === undefined){
       this.usuario.endereco.localizacao =  '';
        return;
     }
-
     if (event.length < 8) {
       this.usuario.endereco.localizacao =  '';
       return;
@@ -49,39 +51,61 @@ export class PerfilComponent implements OnInit {
       this.usuario.endereco.localizacao =  '';
       return;
     }
-    
     if (event.length === 8) {
 
     this.googleMap.getEndereco(this.usuario.endereco.cep)
-                  .subscribe(data => 
-                            {this.resultGoogleMap = data
-                             if(this.resultGoogleMap.status === 'OK'){
-                              this.usuario.endereco.localizacao = this.resultGoogleMap.results[0].formatted_address;
-                             }else{
-                              this.usuario.endereco.localizacao = 'localização não encontrada!';
-                             }   
-                            }, 
-                            error => this.errorMessage = <any>error,);
+    .subscribe(data => {this.resultGoogleMap = data
+                        if(this.resultGoogleMap.status === 'OK'){
+						   this.usuario.endereco.localizacao = this.resultGoogleMap.results[0].formatted_address;
+						}else{
+						   this.usuario.endereco.localizacao = 'localização não encontrada para o Cep informado!';
+						}}, 
+						error => this.messagesError = <any>error,);
     }
 
   }
 
-  private atualizarPerfil():void{
-   this.titleButton = "Enviando..."; 
-   this.restUsuario.updateUsuario(this.usuario)
-                       .subscribe( data =>
-                                  { this.usuario = data, 
-                                   this.titleButton = "Concluir Atualizações";
-                                  },
-                                  error => this.redirectPageError(this.errorMessage = <any>error)
-                                 );
-   }
-
-  private redirectPageError(erro:string):void{
-    this.router.navigate(['/home/servico-indisponivel']);
+  onfocusCep(){
+    this.clearMessages();
   }
 
-    classesBtnConcluir(): any {
+  onfocusLogradouro(){
+    this.clearMessages();
+  }
+
+  onfocusTelefone(){
+    this.clearMessages();
+  }
+
+  private atualizarPerfil():void{
+   this.clearMessages();
+   this.titleButton = "Enviando..."; 
+   this.restUsuario.put(this.usuario)
+                       .subscribe( data => this.catchResponse(data),
+                                    res => this.catchError(res));
+   }
+
+  private catchResponse(u:Usuario):void{
+      this.usuario = u; 
+      this.titleButton = "Concluir Atualizações";
+      this.messageSuccess = 'Perfil atualizado com sucesso';
+  }
+
+  private catchError(r:Response):void{
+    if(r.status === 400 || r.status === 409){
+      this.messagesError = r.json().messages;
+    }else{
+      this.router.navigate(['/home/servico-indisponivel']);
+    }
+    this.titleButton = "Concluir Atualizações";
+  }
+
+  private clearMessages():void{
+      this.messageSuccess = null;
+      this.messagesError = null;
+  }
+
+  classesBtnConcluir(): any {
     let cssStyles = {'btn': true,
               'btn-social': true,
               'btn-facebook': true,
@@ -90,7 +114,6 @@ export class PerfilComponent implements OnInit {
               'btn-customizado': true
   };
   return cssStyles;
-
  }
 
 }

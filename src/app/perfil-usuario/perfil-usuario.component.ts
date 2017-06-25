@@ -22,7 +22,7 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.utilHttp.getUsuario(this.loginService.getEmail())
+    this.utilHttp.get(this.loginService.getEmail())
                      .subscribe( data => this.usuario =  data);
   }
 

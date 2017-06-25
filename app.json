@@ -1,0 +1,21 @@
+{
+  "name": "kids-web",
+  "description": "json app para kids-web",
+  "scripts": {
+  },
+  "env": {
+    "heroku": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule} from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
@@ -26,12 +27,13 @@ import { UsuarioInativoComponent } from './usuario-inativo/usuario-inativo.compo
 import { UsuarioAtivoComponent } from './usuario-ativo/usuario-ativo.component';
 import { ServicoIndisponivelComponent } from './servico-indisponivel/servico-indisponivel.component';
 import { PaginaAcessoNegadoComponent } from './pagina-acesso-negado/pagina-acesso-negado.component';
+import { ToolbarTitleComponent } from './toolbar-title/toolbar-title.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
     { path: 'login',   component: LoginComponent},
     { path: 'usuario-nao-cadastrado',component: UsuarioNaoCadastradoComponent},
-    { path: 'pagina-acesso-negado', component: PaginaAcessoNegadoComponent},
+    //{ path: 'pagina-acesso-negado', component: PaginaAcessoNegadoComponent},
     
     { path: 'home',    component: HomeComponent,
       children: [
@@ -40,8 +42,8 @@ const routes: Routes = [
                   { path: 'servico-indisponivel',component: ServicoIndisponivelComponent },
                   { path: 'perfil',  component: PerfilComponent}
                 ]
-    },
-    { path: '**',      component: PaginaNaoEncontradaComponent}
+    }
+    //{ path: '**',      component: PaginaNaoEncontradaComponent}
 ];
 
 @NgModule({
@@ -57,9 +59,11 @@ const routes: Routes = [
     UsuarioInativoComponent,
     UsuarioAtivoComponent,
     ServicoIndisponivelComponent,
-    PaginaAcessoNegadoComponent
+    PaginaAcessoNegadoComponent,
+    ToolbarTitleComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpModule,
     JsonpModule,

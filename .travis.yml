@@ -9,7 +9,7 @@ before_script:
 - npm install font-awesome 
 - npm install bootstrap
 - npm install bootstrap-social
-- npm install image-loader-angular
+- npm install ngx-bootstrap bootstrap
 - ng build
 
 script: 

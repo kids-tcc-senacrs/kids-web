@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule } from '@angular/forms';
 import {GoogleMapService} from '../google-map.service';
 import {LoginService} from '../login.service';
 import {UtilHttpService} from '../util-http.service';
@@ -19,6 +17,8 @@ export class PerfilComponent implements OnInit {
   private resultGoogleMap:any;
   private errorMessage: string = null;
   private usuario:Usuario = new Usuario(null,'','','','',false, new Endereco(null, '', '', ''));
+  private titleButton = "Concluir Atualizações";
+  title = "Perfil";
 
   constructor(private googleMap:GoogleMapService, private loginService: LoginService, private router: Router, private restUsuario: UtilHttpService) {}
 
@@ -32,16 +32,21 @@ export class PerfilComponent implements OnInit {
   private onchangeCep(event):void{
 	
     if(event === null || event === undefined){
+      this.usuario.endereco.localizacao =  '';
        return;
     }
 
     if (event.length < 8) {
+      this.usuario.endereco.localizacao =  '';
       return;
     } else if (event.length > 9) {
+      this.usuario.endereco.localizacao =  '';
       return;
     } else if (( event.length === 9 ) && !event.includes('-')) {
+      this.usuario.endereco.localizacao =  '';
       return;
     } else if (event.length === 9 && !event.match('[0-9]{5}-[0-9]{3}')) {
+      this.usuario.endereco.localizacao =  '';
       return;
     }
     
@@ -62,9 +67,12 @@ export class PerfilComponent implements OnInit {
   }
 
   private atualizarPerfil():void{
+   this.titleButton = "Enviando..."; 
    this.restUsuario.updateUsuario(this.usuario)
-                       .subscribe( data =>{ this.usuario = data  
-                                  '' + alert('ok - mensagem em desenvolvimento')},
+                       .subscribe( data =>
+                                  { this.usuario = data, 
+                                   this.titleButton = "Concluir Atualizações";
+                                  },
                                   error => this.redirectPageError(this.errorMessage = <any>error)
                                  );
    }
@@ -83,6 +91,6 @@ export class PerfilComponent implements OnInit {
   };
   return cssStyles;
 
-    }
+ }
 
 }

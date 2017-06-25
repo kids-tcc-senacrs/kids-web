@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   constructor(protected loginService: LoginService, protected router: Router,protected restUsuario:UtilHttpService) {
     if(this.loginService.getToken() === null || this.loginService.getToken() === undefined){
-      this.router.navigate(['/pagina-acesso-negado']);
+      //this.router.navigate(['/pagina-acesso-negado']);
     } else {
       this.buscarUsuarioCadastrado(this.loginService.getEmail());      
     }

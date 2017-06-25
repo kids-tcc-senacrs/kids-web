@@ -5,8 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
-import { GoogleMapService } from './google-map.service';
-import { UtilHttpService } from './util-http.service';
+import { GoogleMapService } from './services-externos/google-map.service';
+import { UtilHttpService } from './services-internos/util-http.service';
 
 //components de terceiros
 import { AuthService } from 'angular2-google-login';
@@ -15,26 +15,22 @@ import { AuthService } from 'angular2-google-login';
 import { AppComponent } from './app.component';
 
 //meus components / servicos
-import { LoginService } from './login.service';
-import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
-import { UsuarioNaoCadastradoComponent } from './usuario-nao-cadastrado/usuario-nao-cadastrado.component';
-import { PerfilComponent } from './perfil/perfil.component';
-import { DefaultComponent } from './default/default.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
-import { UsuarioInativoComponent } from './usuario-inativo/usuario-inativo.component';
-import { UsuarioAtivoComponent } from './usuario-ativo/usuario-ativo.component';
-import { ServicoIndisponivelComponent } from './servico-indisponivel/servico-indisponivel.component';
-import { PaginaAcessoNegadoComponent } from './pagina-acesso-negado/pagina-acesso-negado.component';
-import { ToolbarTitleComponent } from './toolbar-title/toolbar-title.component';
+import { LoginService } from './services-internos/login.service';
+import { PerfilUsuarioComponent } from './pages/perfil-usuario/perfil-usuario.component';
+import { UsuarioNaoCadastradoComponent } from './pages/usuario-nao-cadastrado/usuario-nao-cadastrado.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PaginaNaoEncontradaComponent } from './pages/pagina-nao-encontrada/pagina-nao-encontrada.component';
+import { UsuarioInativoComponent } from './pages/usuario-inativo/usuario-inativo.component';
+import { UsuarioAtivoComponent } from './pages/usuario-ativo/usuario-ativo.component';
+import { ServicoIndisponivelComponent } from './pages/servico-indisponivel/servico-indisponivel.component';
+import { BarraTituloComponent } from './util/barra-titulo/barra-titulo.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
     { path: 'login',   component: LoginComponent},
     { path: 'usuario-nao-cadastrado',component: UsuarioNaoCadastradoComponent},
-    //{ path: 'pagina-acesso-negado', component: PaginaAcessoNegadoComponent},
-    
     { path: 'home',    component: HomeComponent,
       children: [
                   { path: 'usuario-inativo',component: UsuarioInativoComponent },
@@ -42,8 +38,8 @@ const routes: Routes = [
                   { path: 'servico-indisponivel',component: ServicoIndisponivelComponent },
                   { path: 'perfil',  component: PerfilComponent}
                 ]
-    }
-    //{ path: '**',      component: PaginaNaoEncontradaComponent}
+    },
+    { path: '**',      component: PaginaNaoEncontradaComponent}
 ];
 
 @NgModule({
@@ -52,15 +48,13 @@ const routes: Routes = [
     PerfilUsuarioComponent,
     UsuarioNaoCadastradoComponent,
     PerfilComponent,
-    DefaultComponent,
     LoginComponent,
     HomeComponent,
     PaginaNaoEncontradaComponent,
     UsuarioInativoComponent,
     UsuarioAtivoComponent,
     ServicoIndisponivelComponent,
-    PaginaAcessoNegadoComponent,
-    ToolbarTitleComponent
+    BarraTituloComponent
   ],
   imports: [
     CommonModule,

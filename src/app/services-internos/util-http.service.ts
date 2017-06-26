@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
-import {Usuario} from '../model/Usuario';
+import {Usuario} from './../model/usuario';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';

@@ -4,8 +4,8 @@ import {GoogleMapService} from '../../services-externos/google-map.service';
 import {LoginService} from '../../services-internos/login.service';
 import {UtilHttpService } from '../../services-internos/util-http.service';
 import {Router} from '@angular/router';
-import {Usuario} from '../../model/Usuario';
-import {Endereco} from '../../model/Endereco';
+import {Usuario} from '../../model/usuario';
+import {Endereco} from '../../model/endereco';
 
 @Component({
   selector: 'app-perfil',

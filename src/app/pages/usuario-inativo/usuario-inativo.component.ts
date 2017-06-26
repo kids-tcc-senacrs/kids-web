@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../../services-internos/login.service';
 import {UtilHttpService } from '../../services-internos/util-http.service';
-import {Usuario} from '../../model/Usuario';
+import {Usuario} from '../../model/usuario';
 
 @Component({
   selector: 'app-usuario-inativo',

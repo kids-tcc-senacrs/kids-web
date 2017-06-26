@@ -1,18 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule} from '@angular/common';
+import { APP_BASE_HREF,CommonModule} from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
-import { APP_BASE_HREF } from '@angular/common';
-import { GoogleMapService } from './services-externos/google-map.service';
-import { UtilHttpService } from './services-internos/util-http.service';
+import { AppComponent } from './app.component';
 
 //components de terceiros
 import { AuthService } from 'angular2-google-login';
+import { GoogleMapService } from './services-externos/google-map.service';
 
 
-import { AppComponent } from './app.component';
 
 //meus components / servicos
 import { LoginService } from './services-internos/login.service';
@@ -26,6 +24,7 @@ import { UsuarioInativoComponent } from './pages/usuario-inativo/usuario-inativo
 import { UsuarioAtivoComponent } from './pages/usuario-ativo/usuario-ativo.component';
 import { ServicoIndisponivelComponent } from './pages/servico-indisponivel/servico-indisponivel.component';
 import { BarraTituloComponent } from './util/barra-titulo/barra-titulo.component';
+import { UtilHttpService } from './services-internos/util-http.service';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},

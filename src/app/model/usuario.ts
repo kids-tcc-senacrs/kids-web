@@ -1,4 +1,4 @@
-import {Endereco} from './Endereco'
+import {Endereco} from './endereco'
 
 export class Usuario {
 

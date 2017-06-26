@@ -2,8 +2,8 @@ import {Component, OnInit, Input } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../../services-internos/login.service';
 import {UtilHttpService } from '../../services-internos/util-http.service';
-import {Usuario} from '../../model/Usuario';
-import {Endereco} from '../../model/Endereco';
+import {Usuario} from '../../model/usuario';
+import {Endereco} from '../../model/endereco';
 
 @Component({
   selector: 'app-home',

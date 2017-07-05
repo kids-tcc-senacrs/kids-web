@@ -65,7 +65,8 @@ export class UsuarioNaoCadastradoComponent implements OnInit {
               'col-lg-offset-1': true,
               'btn-lg':true,
               'col-xs-12 col-sm-4 col-md-4 col-lg-3' : true,
-              'btn-customizado': true
+              'btn-customizado': true,
+              'btn-familiar':true
             };
   return cssStyles; 
   }

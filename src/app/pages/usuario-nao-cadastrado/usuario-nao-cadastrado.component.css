@@ -1,1 +1,7 @@
 .btn-customizado{padding-left: 0px!important;text-align: center!important;border-radius:0px!important}
+
+@media (max-width: 768px) {
+    .btn-familiar{
+        margin-top: 3%;
+    }
+}

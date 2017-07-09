@@ -3,6 +3,8 @@ import {Router} from '@angular/router';
 import {LoginService} from '../../services-internos/login.service';
 import {UtilHttpService } from '../../services-internos/util-http.service';
 import {Usuario} from '../../model/usuario';
+import {Pessoa} from './../../model/pessoa';
+import { Endereco } from './../../model/endereco';
 
 @Component({
   selector: 'app-usuario-inativo',
@@ -12,7 +14,7 @@ import {Usuario} from '../../model/usuario';
 export class UsuarioInativoComponent implements OnInit {
   
   
-  protected usuario:Usuario = null;
+  private usuario:Usuario = new Usuario(null,'','','',false, new Pessoa(null, '',new Endereco(null, '','','')));
   protected errorMessage: string = null;
 
   constructor(protected loginService: LoginService, protected router: Router,protected utilHttp:UtilHttpService) {

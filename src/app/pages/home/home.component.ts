@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {LoginService} from '../../services-internos/login.service';
 import {UtilHttpService } from '../../services-internos/util-http.service';
 import {Usuario} from '../../model/usuario';
+import {Pessoa} from '../../model/pessoa';
 import {Endereco} from '../../model/endereco';
 
 @Component({
@@ -12,7 +13,7 @@ import {Endereco} from '../../model/endereco';
 })
 export class HomeComponent implements OnInit {
   
-  private usuario:Usuario = new Usuario(null,'','','','',false, new Endereco(null, '', '', ''));
+  private usuario:Usuario = new Usuario(null,'','','',false, new Pessoa(null, '',new Endereco(null, '','','')));
   protected errorMessage: string = null;
 
   constructor(protected loginService: LoginService, protected router: Router,protected restUsuario:UtilHttpService) {

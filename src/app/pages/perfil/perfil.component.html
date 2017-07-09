@@ -44,7 +44,7 @@
                                 [class.has-success]="cep.valid && cep.touched"
                                 [class.has-feedback]="cep.touched">
             <label for="cep" class="control-label">Cep</label>
-            <input id="cep" name="cep" #cep="ngModel" (keyup)="onchangeCep(cep.value)" (focus)="onfocusCep()" [(ngModel)]="usuario.endereco.cep" maxlength="8" type="text" class="form-control" required>
+            <input id="cep" name="cep" #cep="ngModel" (keyup)="onchangeCep(cep.value)" (focus)="onfocusCep()" [(ngModel)]="usuario.pessoa.endereco.cep" maxlength="8" type="text" class="form-control" required>
             <span *ngIf="!cep.valid && cep.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             <span *ngIf="!cep.valid && cep.touched" id="cep" class="sr-only">(error)</span>
             <span *ngIf="cep.valid && cep.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
@@ -60,7 +60,7 @@
                                 [class.has-success]="logradouro.valid && logradouro.touched"
                                 [class.has-feedback]="logradouro.touched">
             <label for="logradouro" class="control-label">Logradouro</label>
-            <input id="logradouro" name="logradouro" #logradouro="ngModel" (focus)="onfocusLogradouro()" [(ngModel)]="usuario.endereco.logradouro" maxlength="60" type="text" class="form-control" required>
+            <input id="logradouro" name="logradouro" #logradouro="ngModel" (focus)="onfocusLogradouro()" [(ngModel)]="usuario.pessoa.endereco.logradouro" maxlength="60" type="text" class="form-control" required>
             <span *ngIf="!logradouro.valid && logradouro.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             <span *ngIf="!logradouro.valid && logradouro.touched" id="logradouro" class="sr-only">(error)</span>
             <span *ngIf="logradouro.valid && logradouro.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
@@ -74,7 +74,7 @@
         <!--LOCALIZACAO-->
         <div class="form-group">
             <label>Localização</label>
-            <input id="localizacao" name="localizacao" [(ngModel)]="usuario.endereco.localizacao" maxlength="100" type="text" class="form-control" disabled>            
+            <input id="localizacao" name="localizacao" [(ngModel)]="usuario.pessoa.endereco.localizacao" maxlength="100" type="text" class="form-control" disabled>            
         </div>
 
         <!--BOTAO CONCLUIR ATUALIZACAO-->

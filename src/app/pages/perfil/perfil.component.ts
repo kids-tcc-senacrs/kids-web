@@ -1,4 +1,4 @@
-import { Response } from '@angular/http';
+import {Response} from '@angular/http';
 import {Component, OnInit} from '@angular/core';
 import {GoogleMapService} from '../../services-externos/google-map.service';
 import {LoginService} from '../../services-internos/login.service';
@@ -6,6 +6,7 @@ import {UtilHttpService } from '../../services-internos/util-http.service';
 import {Router} from '@angular/router';
 import {Usuario} from '../../model/usuario';
 import {Endereco} from '../../model/endereco';
+import {Pessoa} from './../../model/pessoa';
 
 @Component({
   selector: 'app-perfil',
@@ -14,8 +15,8 @@ import {Endereco} from '../../model/endereco';
 })
 export class PerfilComponent implements OnInit {
 
-  
-  private usuario:Usuario = new Usuario(null,'','','','',false, new Endereco(null, '', '', ''));
+  private usuario:Usuario = new Usuario(null,'','','',false, new Pessoa(null, '', new Endereco(null, '','','')));
+
   private resultGoogleMap:any;
   private titleButton = "Concluir Atualizações";
   private title = "Perfil";
@@ -35,30 +36,30 @@ export class PerfilComponent implements OnInit {
   private onchangeCep(event):void{
 
     if(event === null || event === undefined){
-      this.usuario.endereco.localizacao =  '';
+      this.usuario.pessoa.endereco.localizacao =  '';
        return;
     }
     if (event.length < 8) {
-      this.usuario.endereco.localizacao =  '';
+      this.usuario.pessoa.endereco.localizacao =  '';
       return;
     } else if (event.length > 9) {
-      this.usuario.endereco.localizacao =  '';
+      this.usuario.pessoa.endereco.localizacao =  '';
       return;
     } else if (( event.length === 9 ) && !event.includes('-')) {
-      this.usuario.endereco.localizacao =  '';
+      this.usuario.pessoa.endereco.localizacao =  '';
       return;
     } else if (event.length === 9 && !event.match('[0-9]{5}-[0-9]{3}')) {
-      this.usuario.endereco.localizacao =  '';
+      this.usuario.pessoa.endereco.localizacao =  '';
       return;
     }
     if (event.length === 8) {
 
-    this.googleMap.getEndereco(this.usuario.endereco.cep)
+    this.googleMap.getEndereco(this.usuario.pessoa.endereco.cep)
     .subscribe(data => {this.resultGoogleMap = data
                         if(this.resultGoogleMap.status === 'OK'){
-						   this.usuario.endereco.localizacao = this.resultGoogleMap.results[0].formatted_address;
+						   this.usuario.pessoa.endereco.localizacao = this.resultGoogleMap.results[0].formatted_address;
 						}else{
-						   this.usuario.endereco.localizacao = 'localização não encontrada para o Cep informado!';
+						   this.usuario.pessoa.endereco.localizacao = 'localização não encontrada para o Cep informado!';
 						}}, 
 						error => this.messagesError = <any>error,);
     }

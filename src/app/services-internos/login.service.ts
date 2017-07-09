@@ -50,7 +50,6 @@ export class LoginService implements OnInit{
       localStorage.removeItem('image');
       localStorage.removeItem('name');
       localStorage.removeItem('email'); 
-      this.router.navigate(['/login']);
     });
   }
 

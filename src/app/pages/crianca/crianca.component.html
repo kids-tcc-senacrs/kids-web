@@ -6,7 +6,7 @@
       <label>Filtro de pesquisa: </label>
       <div class="input-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-        <input type="text" class="form-control" ng-model="pesquisa_criancas" />
+        <input type="text" class="form-control" [(ngModel)]="filtro">
       </div>
     </div>
   </div>
@@ -18,11 +18,11 @@
       <tr>
         <th>Nomes</th>
       </tr>
-      <tr *ngFor='let c of criancas'>
+      <tr *ngFor='let c of listar()'>
         <td>
           <span>
             <strong>
-              	<a>
+              	<a routerLink="/home/crianca-wizard">
 			            <span [ngClass]="classesTableLine(c.sexo)" title="Editar">{{c.nome}}</span>
 		            </a>  
             </strong>

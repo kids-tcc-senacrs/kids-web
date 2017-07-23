@@ -38,9 +38,8 @@ const routes: Routes = [
                   { path: 'usuario-ativo',component: UsuarioAtivoComponent },
                   { path: 'servico-indisponivel',component: ServicoIndisponivelComponent },
                   { path: 'perfil',  component: PerfilComponent},
-                  { path: 'crianca',  component: CriancaComponent, 
-                    children:[{ path: 'crianca-wizard',  component: CriancaWizardComponent}]
-                  }
+                  { path: 'crianca',  component: CriancaComponent}, 
+                  { path: 'crianca-wizard',  component: CriancaWizardComponent}                  
                 ]
     },
     { path: '**',      component: PaginaNaoEncontradaComponent}

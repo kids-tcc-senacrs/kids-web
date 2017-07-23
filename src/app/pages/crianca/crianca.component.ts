@@ -18,7 +18,7 @@ export class CriancaComponent implements OnInit {
   private crianca2: Crianca = new Crianca(2,'Lucas Portella', new Date(),'MASCULINO','123456789','foto', this.contato2);
 
   private criancas: Crianca[] = [this.crianca1,this.crianca2];
-  
+  private filtro:string;
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -32,6 +32,29 @@ export class CriancaComponent implements OnInit {
       cssStyles = {'text-feminino': true,'table-line-text':true};
     }
   return cssStyles; 
+}
+
+listar(){
+  if(this.criancas.length === 0 || this.filtro === undefined || this.filtro.trim() === ''){
+    return this.criancas;
+  }
+  return this.criancas.filter((v) => {
+    let nomeCompleto:string[] = v.nome.split(' '); 
+    let primeiroNome = nomeCompleto[0];
+    let letrasDigitadasNoFiltro:string[] = this.filtro.split('');
+    let nomeEntrado = false;
+    for (var index = 0; index < letrasDigitadasNoFiltro.length; index++) {
+      if(primeiroNome.length >= letrasDigitadasNoFiltro.length){
+        var letraDoNome = primeiroNome[index].trim().toLocaleUpperCase();
+        if(this.filtro.charAt(index).trim().toLocaleUpperCase() == letraDoNome){
+          nomeEntrado = true;
+        }else{
+          nomeEntrado = false;
+        }
+      }
+    }
+    return nomeEntrado;
+  });
 }
 
 }

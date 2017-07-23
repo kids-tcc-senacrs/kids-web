@@ -3,6 +3,9 @@
 		<a routerLink="perfil" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white">
 			<i routerLink="perfil" [hidden]="usuario === null || usuario === undefined" class="fa fa-user" title="Perfil"></i>
 		</a>    
+		<a routerLink="crianca" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white">
+			<i routerLink="crianca" [hidden]="usuario === null || usuario === undefined" class="fa fa-child" title="Crianças"></i>
+		</a>    
 		<a class="w3-button w3-padding-large w3-hover-white w3-right" (click)="logout()" title="sair"><i class="glyphicon glyphicon-log-out"></i></a>
 	</div>
 </div>

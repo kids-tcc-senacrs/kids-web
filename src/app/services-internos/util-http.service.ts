@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Response, Headers, RequestOptions} from '@angular/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
@@ -64,5 +64,5 @@ export class UtilHttpService {
 	private handleError (res: Response) {
 		return Observable.throw(res);
 	}
-
+	
 }

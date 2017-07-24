@@ -13,7 +13,7 @@
 
 <hr>
 
-  <div> 
+  <div [hidden]="criancas === null || criancas.length == 0"> 
     <table class="table table-striped">
       <tr>
         <th>Nomes</th>
@@ -27,11 +27,15 @@
 		            </a>  
             </strong>
           </span><br>
-          <span>Responsável: {{c.contato.responsavel}}</span><br> 
-          <span>Fone: {{c.contato.fonePrincipal}}</span><br>
+          <span>Responsável: {{c?.contato?.responsavel}}</span><br> 
+          <span>Fone: {{c?.contato?.fonePrincipal}}</span><br>
         </td>
       </tr>
     </table>
+  </div>
+
+  <div [hidden]="criancas !== null"> 
+    <p class="fa fa-exclamation-triangle"> Não há crianças cadastradas para o seu perfil!</p>
   </div>
 
 </div>

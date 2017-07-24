@@ -25,6 +25,7 @@ import { UsuarioAtivoComponent } from './pages/usuario-ativo/usuario-ativo.compo
 import { ServicoIndisponivelComponent } from './pages/servico-indisponivel/servico-indisponivel.component';
 import { BarraTituloComponent } from './util/barra-titulo/barra-titulo.component';
 import { UtilHttpService } from './services-internos/util-http.service';
+import { CriancaService } from './services-internos/crianca.service';
 import { CriancaComponent } from './pages/crianca/crianca.component';
 import { CriancaWizardComponent } from './pages/crianca-wizard/crianca-wizard.component';
 
@@ -73,6 +74,7 @@ const routes: Routes = [
               LoginService,
               GoogleMapService,
               UtilHttpService,
+              CriancaService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

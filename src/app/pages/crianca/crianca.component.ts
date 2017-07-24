@@ -1,7 +1,12 @@
+import { UtilHttpService } from './../../services-internos/util-http.service';
+import { Usuario } from './../../model/usuario';
+import { LoginService } from './../../services-internos/login.service';
+import { Component, OnInit } from '@angular/core';
+import {Response} from '@angular/http';
 import { Router } from '@angular/router';
+import { CriancaService } from './../../services-internos/crianca.service';
 import { Contato } from './../../model/contato';
 import { Crianca } from './../../model/crianca';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-crianca',
@@ -11,19 +16,32 @@ import { Component, OnInit } from '@angular/core';
 export class CriancaComponent implements OnInit {
   
   private title = "Crianças";
-  
-  private contato1:Contato = new Contato(1, 'Luciano Ortiz Silva', 'lucianoortizsilva@gmail.com', '51 821549965', '51 333219985');
-  private contato2:Contato = new Contato(2, 'Liziane Ortiz Silva', 'lizianeortizsilva@gmail.com', '51 985454122', '51 332211458');
-  private crianca1: Crianca = new Crianca(1,'Mariana da Cruz Ortiz Silva', new Date(),'FEMININO','123456789','foto', this.contato1);
-  private crianca2: Crianca = new Crianca(2,'Lucas Portella', new Date(),'MASCULINO','123456789','foto', this.contato2);
-
-  private criancas: Crianca[] = [this.crianca1,this.crianca2];
+  private criancas: Crianca[] = null;
+  private usuarioLogado:Usuario = null;
+  private messagesError: string[] = null;
   private filtro:string;
-  constructor(private router: Router) { }
+
+  constructor(private usuarioService:UtilHttpService, private loginService: LoginService, private criancaService:CriancaService,private router: Router) { }
 
   ngOnInit() {
-  }
+    this.usuarioService.get(this.loginService.getEmail()).subscribe( data => this.usuarioLogado =  data,error => this.catchError(this.messagesError = <any>error));
+    let timer = setInterval(() => { 
+      if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
+        this.criancaService.get(this.usuarioLogado).subscribe( data => this.criancas =  data,error => this.catchError(this.messagesError = <any>error));
+        clearInterval(timer);
+      }
+
+    }, 1000);    
+  }  
   
+   private catchError(r:Response):void{
+    if(r.status === 400 || r.status === 409){
+      this.messagesError = r.json().messages;
+    }else{
+      this.router.navigate(['/home/servico-indisponivel']);
+    }
+  }
+
   classesTableLine(sexo:string): any {
     let cssStyles = {};
     if(sexo === 'MASCULINO'){
@@ -35,7 +53,7 @@ export class CriancaComponent implements OnInit {
 }
 
 listar(){
-  if(this.criancas.length === 0 || this.filtro === undefined || this.filtro.trim() === ''){
+  if(this.criancas === null || this.filtro === undefined || this.filtro.trim() === '' || this.criancas.length === 0 ){
     return this.criancas;
   }
   return this.criancas.filter((v) => {

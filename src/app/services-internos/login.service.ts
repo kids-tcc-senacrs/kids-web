@@ -10,7 +10,6 @@ export class LoginService implements OnInit{
   private nome: string;
   private email: string;
   private imageURL: string; 
-  private usuario:any = null;
   private errorMessage: string = null;
   private solicitouAutenticacaoGoogle : boolean = false; 
 
@@ -69,11 +68,7 @@ export class LoginService implements OnInit{
     return this.token;
   }
 
-  public getUsuario():any{
-    return this.usuario;
-  }
-
-  public getErrorMessage():string{
+   public getErrorMessage():string{
     return this.errorMessage;  
   }
 

@@ -2,6 +2,18 @@
 @import '../node_modules/bootstrap-social/bootstrap-social.css';
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 
+.alerta-filtro-pesquisa{
+  height: 40px;
+  color: #000;
+  background-color: #f0ad4e;
+}
+
+.alerta-filtro-pesquisa-message{
+  padding-top: 13px;
+  margin-left: 2px;
+  font-family: sans-serif, inherit, Arial, Helvetica, sans-serif;
+}
+
 /* Common styles for all types */
 .bs-callout {
   padding: 10px 10px;

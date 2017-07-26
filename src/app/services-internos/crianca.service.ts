@@ -19,7 +19,7 @@ export class CriancaService {
   public get(usuario:Usuario):Observable<Crianca[]>{
 		console.log('[KIDS] consumindo API de criancas GET ...');	
 		let url = this.URL_REST_USUARIO; 
-		let headers = new Headers({ 'Content-Type': 'application/json' });
+		let headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*' });
   	let options = new RequestOptions({ headers: headers });
 		
     return this.http.post(url, usuario, options)

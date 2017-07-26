@@ -29,7 +29,7 @@ export class UtilHttpService {
 	public post(usuario:Usuario):Observable<Usuario>{
 		console.log('[KIDS] consumindo API de usuarios POST ...');	
 		let url = this.URL_REST_USUARIO; 
-		let headers = new Headers({ 'Content-Type': 'application/json' });
+		let headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*' });
   		let options = new RequestOptions({ headers: headers });
 
 		return this.http.post(url, usuario, options)
@@ -42,7 +42,7 @@ export class UtilHttpService {
 	public put(usuario:any):Observable<Usuario>{
 		console.log('[KIDS] consumindo API de usuarios PUT ...');	
 		let url = this.URL_REST_USUARIO; 
-		let headers = new Headers({ 'Content-Type': 'application/json' });
+		let headers = new Headers({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*' });
   		let options = new RequestOptions({ headers: headers });
 		let body:string = JSON.stringify(usuario);
 

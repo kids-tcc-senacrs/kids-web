@@ -53,9 +53,16 @@ export class CriancaComponent implements OnInit {
 }
 
 listar(){
-  if(this.criancas === null || this.filtro === undefined || this.filtro.trim() === '' || this.criancas.length === 0 ){
+
+  if(this.criancas === null || 
+     this.criancas === undefined || 
+     this.criancas.length === 0 || 
+     this.filtro === undefined || 
+     this.filtro === null ||
+     this.filtro.trim() === ''){
     return this.criancas;
   }
+
   return this.criancas.filter((v) => {
     let nomeCompleto:string[] = v.nome.split(' '); 
     let primeiroNome = nomeCompleto[0];

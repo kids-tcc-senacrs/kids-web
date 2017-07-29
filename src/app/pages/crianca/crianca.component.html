@@ -2,18 +2,21 @@
 
 <div class="w3-container w3-padding">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <label>Filtro de pesquisa: </label>
-      <div class="input-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-        <input type="text" class="form-control" [(ngModel)]="filtro">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <label>Filtro de pesquisa: </label>
       </div>
-    </div>
+      <div id="filtroPesquisa" class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+          <input type="text" class="form-control" [(ngModel)]="filtro">
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 btn-cadastrar"> 
+        <button routerLink="/home/crianca-wizard" type="button" class="btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12">cadastrar
+        </button>
+       </div> 
   </div>
 
 <hr>
 
-  <div [hidden]="criancas === null || criancas.length == 0"> 
+  <div [hidden]="criancas === null || criancas === undefined || criancas?.length == 0"> 
     <table class="table table-striped">
       <tr>
         <th>Nomes</th>
@@ -33,9 +36,4 @@
       </tr>
     </table>
   </div>
-
-  <div [hidden]="criancas !== null" class="alerta-filtro-pesquisa"> 
-    <p class="alerta-filtro-pesquisa-message"> Não há resgistros para realizar pesquisa!</p>
-  </div>
-
 </div>

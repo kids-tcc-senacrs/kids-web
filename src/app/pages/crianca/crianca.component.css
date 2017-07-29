@@ -2,3 +2,9 @@
 .table-line-text{text-transform: uppercase;}
 .text-feminino{color:deeppink}
 .text-masculino{color: blue}
+
+@media (max-width: 991px) {
+    .btn-cadastrar{
+        margin-top: 3%;
+    }
+}

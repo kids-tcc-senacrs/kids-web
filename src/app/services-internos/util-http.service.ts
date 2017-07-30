@@ -19,7 +19,12 @@ export class UtilHttpService {
 	public get(email:string):Observable<Usuario>{
 		console.log('[KIDS] consumindo API de usuarios GET ...');	
 		let url = this.URL_REST_USUARIO + email; 
-		return this.http.get(url)
+		let headers = new Headers({ 'Content-Type': 'application/json', 
+									'Access-Control-Allow-Origin' : '*', 									
+									'Access-Control-Allow-Methods' : '*',
+								    'Access-Control-Allow-Credentials' : true});
+  		let options = new RequestOptions({ headers: headers });
+		return this.http.get(url, options)
 						.map(this.extractData)
 				 	  .catch(this.handleError);
 	}

@@ -28,7 +28,7 @@ export class PerfilComponent implements OnInit {
 
 
   ngOnInit() {
-     this.restUsuario.get(this.loginService.getEmail()).subscribe( data => this.usuario =  data,                              
+     this.restUsuario.get(this.loginService.getEmail()).subscribe( data => this.usuario = data,                                                                                                    
                                                                   error => this.catchError(this.messagesError = <any>error)
                                                                  );
   }
@@ -86,10 +86,11 @@ export class PerfilComponent implements OnInit {
                                     res => this.catchError(res));
    }
 
-  private catchResponse(u:Usuario):void{
-      this.usuario = u; 
+  private catchResponse(r:Response):void{
+    if(r.status === 200){
       this.titleButton = "Concluir Atualizações";
-      this.messageSuccess = 'Perfil atualizado com sucesso';
+      this.messageSuccess = 'Perfil atualizado com sucesso';    
+    }
   }
 
   private catchError(r:Response):void{
@@ -104,17 +105,6 @@ export class PerfilComponent implements OnInit {
   private clearMessages():void{
       this.messageSuccess = null;
       this.messagesError = null;
-  }
-
-  classesBtnConcluir(): any {
-    let cssStyles = {'btn': true,
-              'btn-social': true,
-              'btn-facebook': true,
-              'btn-lg':true,
-              'col-xs-12 col-sm-4 col-md-4 col-lg-3' : true,
-              'btn-customizado': true
-  };
-  return cssStyles;
- }
+  } 
 
 }

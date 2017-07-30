@@ -26,28 +26,26 @@ export class UtilHttpService {
 
 
 
-	public post(usuario:Usuario):Observable<Usuario>{
+	public post(usuario:Usuario):Observable<Response>{
 		console.log('[KIDS] consumindo API de usuarios POST ...');	
 		let url = this.URL_REST_USUARIO; 
 		let headers = new Headers({ 'Content-Type': 'application/json'});
   		let options = new RequestOptions({ headers: headers });
 
 		return this.http.post(url, usuario, options)
-						.map(this.extractData)
+						.map(this.throwResponse)
 				 	  .catch(this.handleError);
 	}
 
 
 
-	public put(usuario:any):Observable<Usuario>{
+	public put(usuario:Usuario):Observable<Response>{
 		console.log('[KIDS] consumindo API de usuarios PUT ...');	
-		let url = this.URL_REST_USUARIO; 
+		let url = this.URL_REST_USUARIO 
 		let headers = new Headers({ 'Content-Type': 'application/json'});
   		let options = new RequestOptions({ headers: headers });
-		let body:string = JSON.stringify(usuario);
-
-		return this.http.put(url, JSON.stringify(usuario), options)
-						.map(this.extractData)
+	    return this.http.put(url, usuario, options)
+						.map(this.throwResponse)
 				 	  .catch(this.handleError);
 	}
 
@@ -56,9 +54,11 @@ export class UtilHttpService {
 	private extractData(res: Response) {
 		if(res.status == 200 || res.status == 201){
 			return res.json();
-		}else{
-			console.log('HTTP CODE NAO ESPERADO' + res.status);
 		}
+	}
+
+	private throwResponse(res: Response){
+		return res;
 	}
 
 	private handleError (res: Response) {

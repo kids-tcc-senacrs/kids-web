@@ -1,3 +1,4 @@
+import { CrecheService } from './services-internos/creche.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_BASE_HREF,CommonModule} from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -75,6 +76,7 @@ const routes: Routes = [
               GoogleMapService,
               UtilHttpService,
               CriancaService,
+              CrecheService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

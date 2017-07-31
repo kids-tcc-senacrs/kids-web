@@ -2,6 +2,8 @@
 .table-line-text{text-transform: uppercase;}
 .text-feminino{color:deeppink}
 .text-masculino{color: blue}
+.panel-passos{background-color: #FA5858;color: #FFF;}
+.title-passos{text-transform:uppercase}
 
 @media (max-width: 991px) {
     .btn-cadastrar{

@@ -1,5 +1,3 @@
-import { Pessoa } from './../../model/pessoa';
-import { Creche } from './../../model/creche';
 import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
 import { Router } from '@angular/router';
@@ -8,6 +6,9 @@ import { CrecheService } from './../../services-internos/creche.service';
 import { GoogleMapService } from './../../services-externos/google-map.service';
 import { LoginService } from './../../services-internos/login.service';
 import { CriancaService } from './../../services-internos/crianca.service';
+import { Medicamento } from './../../model/medicamento';
+import { Pessoa } from './../../model/pessoa';
+import { Creche } from './../../model/creche';
 import { Usuario } from './../../model/usuario';
 import { Contato } from './../../model/contato';
 import { Crianca } from './../../model/crianca';
@@ -22,6 +23,7 @@ export class CriancaComponent implements OnInit {
   
   private title = 'Crianças';
   private titleCadastro = 'Cadastrar Criança';
+  private titleButtonAddMedicamento = 'Adicionar Medicamento';
   private titleButtonAnterior = 'Anterior';
   private titleButtonProximo = 'Próximo';
   private titleButtonSalvar = 'Salvar';
@@ -43,7 +45,9 @@ export class CriancaComponent implements OnInit {
   private messageSuccess: string = null;
   private filtro:string;
   private resultGoogleMap:any;
-  private crianca:Crianca = new Crianca(null,null,null,null,null,new Pessoa(),new Endereco(),new Contato());
+  private medicamento: Medicamento = new Medicamento(null,'','','',new Date);
+  private medicamentos: Medicamento[] = [null];
+  private crianca:Crianca = new Crianca(null,null,null,null,null,new Pessoa(),new Endereco(),new Contato(), new Creche(), this.medicamentos);
   private sexos: string[] = ['Masculino','Feminino'];
 
   constructor(private usuarioService:UtilHttpService, 
@@ -244,8 +248,17 @@ listar(){
   }
   
   setSexo(sexo:string):void{
-    console.log('SEXO: ' + sexo);
     this.crianca.sexo = sexo;
+  }
+
+  adicionarMedicamento():void{
+    console.log('MEDICAMENTO ADICIONADO');
+    console.log('NOME: ' + this.medicamento.nome);
+    console.log('DOSAGEM: ' + this.medicamento.dosagem);
+    console.log('INTERVALO HORAS: ' + this.medicamento.intervaloHoras);
+    console.log('DATA FINAL: ' + this.medicamento.dtFinal);
+    this.crianca.medicamentos.push(this.medicamento);
+    this.medicamento = new Medicamento(null,'','','',null);
   }
 
 }

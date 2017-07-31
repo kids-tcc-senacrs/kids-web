@@ -1,3 +1,4 @@
+import { Medicamento } from './medicamento';
 import { Pessoa } from './pessoa';
 import { Creche } from './creche';
 import { Endereco } from './endereco';
@@ -12,6 +13,7 @@ export class Crianca {
              public pessoa?:Pessoa,
              public endereco?:Endereco,
              public contato?:Contato,
-             public creche?:Creche
+             public creche?:Creche,
+             public medicamentos?:Medicamento[]
              ){}
 }

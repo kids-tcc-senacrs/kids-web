@@ -8,7 +8,7 @@
       <div id="filtroPesquisa" class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
           <input type="text" class="form-control" [(ngModel)]="filtro">
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 btn-cadastrar"> 
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 btn-cadastrar" *ngIf="usuarioLogado?.tipo === 'CRECHE'"> 
         <button routerLink="/home/crianca-wizard" type="button" class="btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12">cadastrar
         </button>
        </div> 

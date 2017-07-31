@@ -1,3 +1,4 @@
+import { Endereco } from './endereco';
 import { Contato } from './contato';
 export class Crianca {
 
@@ -7,6 +8,7 @@ export class Crianca {
              public sexo?: string,
              public matricula?: string,
              public foto?: string,
+             public endereco?:Endereco,
              public contato?:Contato
              ){}
 }

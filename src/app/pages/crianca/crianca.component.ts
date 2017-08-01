@@ -46,8 +46,8 @@ export class CriancaComponent implements OnInit {
   private filtro:string;
   private resultGoogleMap:any;
   private medicamento: Medicamento = new Medicamento(null,'','','',new Date);
-  private medicamentos: Medicamento[] = [null];
-  private crianca:Crianca = new Crianca(null,null,null,null,null,new Pessoa(),new Endereco(),new Contato(), new Creche(), this.medicamentos);
+  //private medicamentos: Medicamento[] = [null];
+  private crianca:Crianca = new Crianca(null,null,null,null,null,new Pessoa(),new Endereco(),new Contato(), new Creche(), null);
   private sexos: string[] = ['Masculino','Feminino'];
 
   constructor(private usuarioService:UtilHttpService, 
@@ -63,6 +63,8 @@ export class CriancaComponent implements OnInit {
    
    
   ngOnInit() {
+  this.criarCriancaFake();////////////FAKE
+
     this.usuarioService.get(this.loginService.getEmail()).subscribe( data => this.usuarioLogado =  data,error => this.catchError(this.messagesError = <any>error));
     let timer = setInterval(() => { 
       if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
@@ -257,8 +259,29 @@ listar(){
     console.log('DOSAGEM: ' + this.medicamento.dosagem);
     console.log('INTERVALO HORAS: ' + this.medicamento.intervaloHoras);
     console.log('DATA FINAL: ' + this.medicamento.dtFinal);
+    if(this.crianca.medicamentos === null || this.crianca.medicamentos === undefined){
+       this.crianca.medicamentos = [];
+    }
     this.crianca.medicamentos.push(this.medicamento);
     this.medicamento = new Medicamento(null,'','','',null);
+  }
+
+
+  private criarCriancaFake():void{
+      this.crianca.pessoa.nome = 'Mariana Da Cruz Ortiz Silva';  
+      this.crianca.matricula = '123456789';
+      this.crianca.sexo = 'FEMININO';
+      this.crianca.dtNascimento = new Date();
+
+      this.crianca.contato.responsavel = 'Luciano Ortiz Silva';
+      this.crianca.contato.email = 'lucianoortizsilva@gmail.com';
+      this.crianca.contato.fonePrincipal = '51 9 8107 4804';
+      this.crianca.contato.foneOutro = '51 3333 3333';
+      
+      this.crianca.endereco.cep = '91720090';
+      this.crianca.endereco.logradouro = 'Rua Professor Carvalho Freitas, 115 casa 10';
+      this.crianca.endereco.localizacao = 'Porto Alegre - RS';
+      
   }
 
 }

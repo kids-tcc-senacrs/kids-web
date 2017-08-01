@@ -51,11 +51,16 @@
 
 <!--CADASTRO - NOVO E EDIT-->
 <div [hidden]="hiddenCadastro">
-  <div class="bs-callout bs-callout-warning">{{titleCadastro}}</div>
+  <div class="bs-callout bs-callout-warning">
+    {{titleCadastro}}
+  </div>
 
   <div class="w3-container w3-padding">
       <div id="passo1" [hidden]="hiddenPasso1">
-          <div class="bs-callout bs-callout-danger panel-passos"><span class="title-passos">1º Dados Gerais</span></div>
+          <div class="panel-passos">
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>            
+                <span class="title-passos"><label>1º Dados Gerais</label></span>
+          </div>
           <br>
           <form #f="ngForm">    
           <!-- MENSAGENS DE ERRO -->
@@ -130,11 +135,12 @@
               </div>
               
               <!--BOTAO VOLTAR-->
-              <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning">
+              <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning col-xs-12 col-sm-5 col-md-3 col-lg-3">
+                <span class="fa fa-reply-all" aria-hidden="true"></span>
                 {{titleBtnVoltar}}
               </button>
               <!--BOTAO PROXIMO-->
-              <button id="btnProximo" [disabled]="!f.valid" (click)="proximoPasso(2)" type="button" class="btn btn-primary">
+              <button [disabled]="!f.valid" (click)="proximoPasso(2)" type="button" class="btn btn-primary col-xs-12 col-sm-8 col-md-4 col-lg-4 btnProximo">
                 <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                 {{titleButtonProximo}} 
               </button>
@@ -144,7 +150,10 @@
 
       <!--ENDEREÇO-->
       <div id="passo2" [hidden]="hiddenPasso2">
-          <div class="bs-callout bs-callout-danger panel-passos"><span class="title-passos">2º Endereço</span></div>
+          <div class="panel-passos">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>            
+                <span class="title-passos"><label>2º Endereço</label></span>
+          </div>
           <br>
           <form #f2="ngForm">    
           <!-- MENSAGENS DE ERRO -->
@@ -200,12 +209,12 @@
               </div>
               
               <!--BOTAO ANTERIOR-->
-              <button type="button" (click)="proximoPasso(1)" class="btn btn-primary">
+              <button type="button" (click)="proximoPasso(1)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
                 <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                 {{titleButtonAnterior}}
               </button>
               <!--BOTAO PROXIMO-->
-              <button [disabled]="!f2.valid" type="button" (click)="proximoPasso(3)" class="btn btn-primary">
+              <button [disabled]="!f2.valid" type="button" (click)="proximoPasso(3)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
                   <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                   {{titleButtonProximo}}
               </button>
@@ -215,7 +224,10 @@
 
       <!--CONTATO-->
       <div id="passo3" [hidden]="hiddenPasso3">
-          <div class="bs-callout bs-callout-danger panel-passos"><span class="title-passos">3º Contato</span></div>
+          <div class="panel-passos">
+            <i class="fa fa-address-book-o" aria-hidden="true"></i>            
+            <span class="title-passos"><label>3º Contato</label></span>
+          </div>
           <br>
           <form #f3="ngForm">    
           <!-- MENSAGENS DE ERRO -->
@@ -289,12 +301,12 @@
               </div>
               
               <!--BOTAO ANTERIOR-->
-              <button type="button" (click)="proximoPasso(2)" class="btn btn-primary">
+              <button type="button" (click)="proximoPasso(2)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
                 <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                 {{titleButtonAnterior}}
               </button>
               <!--BOTAO PROXIMO-->
-              <button [disabled]="!f3.valid" type="button" (click)="proximoPasso(4)" class="btn btn-primary">
+              <button [disabled]="!f3.valid" type="button" (click)="proximoPasso(4)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
                 <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                 {{titleButtonProximo}}
               </button>
@@ -304,7 +316,10 @@
 
       <!--MEDICAMENTO-->
       <div id="passo4" [hidden]="hiddenPasso4">
-          <div class="bs-callout bs-callout-danger panel-passos"><span class="title-passos">4º Medicamento</span></div>
+          <div class="panel-passos">
+            <i class="fa fa-medkit" aria-hidden="true"></i>            
+            <span class="title-passos"><label>4º Medicamentos</label></span>
+          </div>
           <br>
           <form #f4="ngForm">    
           <!-- MENSAGENS DE ERRO -->
@@ -344,11 +359,12 @@
                 <label for="dtFinal" class="control-label">Data Final</label>
                 <input id="dtFinal" name="dtFinal" #dtFinal="ngModel" [(ngModel)]="medicamento.dtFinal" maxlength="8" type="text" class="form-control">
               </div>
-              <button type="button" (click)="adicionarMedicamento()" class="btn btn-info" style="float:right; margin-top: 5px">
-                <span class="glyphicon glyphicon-medkit" aria-hidden="true"></span>
+              <button type="button" (click)="adicionarMedicamento()" class="btn btn-success" style="float:right; margin-top: 5px">
+                <span class="fa fa-plus-square" aria-hidden="true"></span>
                 {{titleButtonAddMedicamento}}
               </button>
               
+              <br>
               <br>
               <hr>
               <br>
@@ -370,12 +386,12 @@
             </div>
 
               <!--BOTAO ANTERIOR-->
-              <button type="button" (click)="proximoPasso(3)" class="btn btn-primary">
+              <button type="button" (click)="proximoPasso(3)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
                 <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                 {{titleButtonAnterior}}
               </button>
               <!--BOTAO PROXIMO-->
-              <button [disabled]="!f4.valid" type="button" (click)="proximoPasso(5)" class="btn btn-primary">
+              <button [disabled]="!f4.valid" type="button" (click)="proximoPasso(5)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
                 <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                 {{titleButtonProximo}}
               </button>
@@ -384,7 +400,10 @@
 
       <!--ALERGIA-->
       <div id="passo5" [hidden]="hiddenPasso5">
-          <div class="bs-callout bs-callout-danger panel-passos"><span class="title-passos">5º Alergia</span></div>
+          <div class="panel-passos">
+            <i class="fa fa-bug" aria-hidden="true"></i>            
+            <span class="title-passos"><label>5º Alergia</label></span>
+          </div>
           <br>
           <form #f5="ngForm">    
           <!-- MENSAGENS DE ERRO -->
@@ -401,12 +420,13 @@
                   {{messageSuccess}}
               </div>
               <!--BOTAO ANTERIOR-->
-              <button type="button" (click)="proximoPasso(4)" class="btn btn-primary">
+              <button type="button" (click)="proximoPasso(4)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
                 <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                 {{titleButtonAnterior}}
               </button>
-              <!--BOTAO PROXIMO-->
-              <button [disabled]="!f5.valid" type="button" (click)="salvar()" class="btn btn-success">
+              <!--BOTAO SALVAR-->
+              <button [disabled]="!f5.valid" type="button" (click)="salvar()" class="btn btn-success col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
+                <span class="fa fa-floppy-o" aria-hidden="true"></span>  
               {{titleButtonSalvar}}
               </button>
           </form>

@@ -2,11 +2,23 @@
 .table-line-text{text-transform: uppercase;}
 .text-feminino{color:deeppink}
 .text-masculino{color: blue}
-.panel-passos{background-color: #FA5858;color: #FFF;}
+.panel-passos{color: #000;float: right;margin-bottom: 2px}
 .title-passos{text-transform:uppercase}
 
 @media (max-width: 991px) {
     .btn-cadastrar{
         margin-top: 3%;
     }
+}
+
+@media (max-width: 767px) {
+        .btnProximo{
+            margin-top: 3px
+        }
+}
+
+@media (min-width: 768px) {
+        .btnProximo{
+            margin-left: 5px
+        }
 }

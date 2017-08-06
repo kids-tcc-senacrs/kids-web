@@ -27,15 +27,21 @@ public get(usuario:Usuario):Observable<Crianca[]>{
 
 
 
-public post(crianca:Crianca):Observable<Response>{
+public post(crianca:Crianca):Observable<Crianca>{
 	console.log('[KIDS] consumindo API de criancas POST ...');	
 	let url = this.URL_REST_USUARIO; 
 	let headers = new Headers({ 'Content-Type': 'application/json'});
 	let options = new RequestOptions({ headers: headers });
-	return this.http.post(url, crianca, options).map(this.throwResponse).catch(this.handleError);
+	return this.http.post(url, crianca, options).map(this.extractData).catch(this.handleError);
 }
 
-
+public put(crianca:Crianca):Observable<Crianca>{
+	console.log('[KIDS] consumindo API de criancas PUT ...');	
+	let url = this.URL_REST_USUARIO; 
+	let headers = new Headers({ 'Content-Type': 'application/json'});
+	let options = new RequestOptions({ headers: headers });
+	return this.http.put(url, crianca, options).map(this.extractData).catch(this.handleError);
+}
 
 private extractData(res: Response) {
 	if(res.status == 200 || res.status == 201){

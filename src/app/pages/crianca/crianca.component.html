@@ -114,7 +114,7 @@
                                       [class.has-success]="dtNascimento.valid && dtNascimento.touched"
                                       [class.has-feedback]="dtNascimento.touched">
                   <label for="dtNascimento" class="control-label">Data de Nascimento</label>
-                  <input id="dtNascimento" name="dtNascimento" #dtNascimento="ngModel" aria-describedby="dtNascimento" [(ngModel)]="crianca.dtNascimento" maxlength="8" type="text" class="form-control" required>
+                  <input id="dtNascimento" name="dtNascimento" #dtNascimento="ngModel" aria-describedby="dtNascimento" [(ngModel)]="crianca.dtNascimento" useValueAsDate type="date" class="form-control" required>
                   <span *ngIf="!dtNascimento.valid && dtNascimento.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                   <span *ngIf="!dtNascimento.valid && dtNascimento.touched" id="dtNascimento" class="sr-only">(error)</span>
                   <span *ngIf="dtNascimento.valid && dtNascimento.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
@@ -339,25 +339,25 @@
               <!--NOME DO MEDICAMENTO-->
               <div class="form-group">
                 <label for="nome" class="control-label">Medicamento</label>
-                <input id="nome" name="nome" #nome="ngModel" [(ngModel)]="medicamento.nome" maxlength="40" type="text" class="form-control">
+                <input id="nome" name="nome" #nome="ngModel" (focus)="clearMessages();" [(ngModel)]="medicamento.nome" maxlength="40" type="text" class="form-control">
               </div>
               
               <!--NOME DO DOSAGEM-->
               <div class="form-group">
                 <label for="dosagem" class="control-label">Dosagem</label>
-                <input id="dosagem" name="dosagem" #dosagem="ngModel" [(ngModel)]="medicamento.dosagem" maxlength="25" type="text" class="form-control">
+                <input id="dosagem" name="dosagem" #dosagem="ngModel" (focus)="clearMessages();" [(ngModel)]="medicamento.dosagem" maxlength="25" type="text" class="form-control">
               </div>
                
               <!--INTERVALO HORAS-->
               <div class="form-group">
                 <label for="intervaloHoras" class="control-label">Intervalo de horas</label>
-                <input id="intervaloHoras" name="intervaloHoras" #intervaloHoras="ngModel" [(ngModel)]="medicamento.intervaloHoras" maxlength="10" type="text" class="form-control">
+                <input id="intervaloHoras" name="intervaloHoras" #intervaloHoras="ngModel" (focus)="clearMessages();" [(ngModel)]="medicamento.intervaloHoras" maxlength="10" type="text" class="form-control">
               </div>
               
               <!--DATA FINAL-->
               <div class="form-group">
                 <label for="dtFinal" class="control-label">Data Final</label>
-                <input id="dtFinal" name="dtFinal" #dtFinal="ngModel" [(ngModel)]="medicamento.dtFinal" maxlength="8" type="text" class="form-control">
+                <input id="dtFinal" name="dtFinal" #dtFinal="ngModel" [(ngModel)]="medicamento.dtFinal" (focus)="clearMessages();" type="date" class="form-control">
               </div>
               <button type="button" (click)="adicionarMedicamento()" class="btn btn-success" style="float:right; margin-top: 5px">
                 <span class="fa fa-plus-square" aria-hidden="true"></span>
@@ -374,12 +374,16 @@
                 <tr>
                     <th>Medicamentos Cadastrados - Detalhes</th>
                 </tr>
-                <tr *ngFor='let m of crianca.medicamentos'>
+                <tr *ngFor='let m of crianca.medicamentos; let i = index'>
                     <td>
-                        <span>{{m?.nome}}</span><br>
-                        <span>{{m?.dosagem}}</span><br>
-                        <span>{{m?.intervaloHoras}}</span><br>
-                        <span>{{m?.dtFinal}}</span>
+                        <span><label>Nome:</label>{{m?.nome}}</span><br>
+                        <span><label>Dosagem:</label>{{m?.dosagem}}</span><br>
+                        <span><label>Intervalo horas:</label>{{m?.intervaloHoras}}</span><br>
+                        <span><label>Data final:</label>{{m?.dtFinal}}</span><br>
+                        <button type="button" (click)="removerMedicamento(i)" class="btn btn-danger col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                            {{titleButtonDeleteMedicamento}}
+                        </button>
                     </td>
                 </tr>
                 </table>
@@ -419,6 +423,40 @@
                   <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                   {{messageSuccess}}
               </div>
+
+              <!-- DESCRICAO-->
+              <div class="form-group">
+                <label for="descricao" class="control-label">Descrição</label>
+                <input id="descricao" name="descricao" #descricao="ngModel" (focus)="clearMessages();" [(ngModel)]="alergia.descricao" maxlength="60" type="text" class="form-control">
+              </div>
+              
+              <button type="button" (click)="adicionarAlergia()" class="btn btn-success" style="float:right; margin-top: 5px">
+                <span class="fa fa-plus-square" aria-hidden="true"></span>
+                {{titleButtonAddAlergia}}
+              </button>
+              
+              <br>
+              <br>
+              <hr>
+              <br>
+
+              <div [hidden]="crianca?.alergias === null || crianca?.alergias === undefined || crianca.alergias?.length == 0"> 
+                <table class="table table-striped">
+                <tr>
+                    <th>Alergias Cadastradas - Detalhes</th>
+                </tr>
+                <tr *ngFor='let a of crianca.alergias; let i = index'>
+                    <td>
+                        <span><label>Descrição:</label>{{a?.descricao}}</span><br>
+                        <button type="button" (click)="removerAlergia(i)" class="btn btn-danger col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                            {{titleButtonDeleteAlergia}}
+                        </button>
+                    </td>
+                </tr>
+                </table>
+            </div>
+
               <!--BOTAO ANTERIOR-->
               <button type="button" (click)="proximoPasso(4)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
                 <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>

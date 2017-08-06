@@ -1,3 +1,4 @@
+import { Alergia } from './../../model/alergia';
 import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
 import { Router } from '@angular/router';
@@ -24,6 +25,9 @@ export class CriancaComponent implements OnInit {
   private title = 'Crianças';
   private titleCadastro = 'Cadastrar Criança';
   private titleButtonAddMedicamento = 'Adicionar Medicamento';
+  private titleButtonAddAlergia = 'Adicionar Alergia';
+  private titleButtonDeleteMedicamento = 'Remover Medicamento';
+  private titleButtonDeleteAlergia = 'Remover Alergia';
   private titleButtonAnterior = 'Anterior';
   private titleButtonProximo = 'Próximo';
   private titleButtonSalvar = 'Salvar';
@@ -45,9 +49,9 @@ export class CriancaComponent implements OnInit {
   private messageSuccess: string = null;
   private filtro:string;
   private resultGoogleMap:any;
-  private medicamento: Medicamento = new Medicamento(null,'','','',new Date);
-  //private medicamentos: Medicamento[] = [null];
-  private crianca:Crianca = new Crianca(null,null,null,null,null,new Pessoa(),new Endereco(),new Contato(), new Creche(), null);
+  private medicamento: Medicamento = new Medicamento(null,'','','',null);
+  private alergia: Alergia = new Alergia(null, '');
+  private crianca:Crianca = new Crianca(null,null,null,null,null,new Pessoa(),new Endereco(),new Contato(), new Creche(), null, null);
   private sexos: string[] = ['Masculino','Feminino'];
 
   constructor(private usuarioService:UtilHttpService, 
@@ -64,7 +68,7 @@ export class CriancaComponent implements OnInit {
    
   ngOnInit() {
   this.criarCriancaFake();////////////FAKE
-
+    this.prepararLabelButton();
     this.usuarioService.get(this.loginService.getEmail()).subscribe( data => this.usuarioLogado =  data,error => this.catchError(this.messagesError = <any>error));
     let timer = setInterval(() => { 
       if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
@@ -78,7 +82,14 @@ export class CriancaComponent implements OnInit {
     }, 1000);    
   }  
   
-  
+  prepararLabelButton():void{
+    if(this.crianca.id === null || this.crianca.id === undefined){
+      this.titleButtonSalvar = "Salvar";                                       
+    }else{
+      this.titleButtonSalvar = "Atualizar";                                       
+    }
+
+  }
   
   exibirTelaCadastro():void{
     this.hiddenCadastro = false;
@@ -235,18 +246,30 @@ listar(){
   
   
   salvar():void{
+    console.log('DATA INFORMADA: ' + this.crianca.dtNascimento);
+
     this.clearMessages();
     this.titleButtonSalvar = "Enviando..."; 
-    this.crianca.creche = this.crecheLogada;
-    this.criancaService.post(this.crianca).subscribe( data => this.catchResponse(data),res => this.catchError(res));
-    this.titleButtonSalvar = "Salvar";                                     
+    this.crianca.creche = this.crecheLogada;    
+    if(this.crianca.id === null || this.crianca.id === undefined){
+      this.criancaService.post(this.crianca).subscribe( data => this.catchResponse(data),res => this.catchError(res));
+    }else{
+      this.criancaService.put(this.crianca).subscribe( data => this.catchResponse(data),res => this.catchError(res));
+    }
+    this.titleButtonSalvar = "Atualizar";                                     
   }
 
      
-  private catchResponse(r:Response):void{
-    if(r.status === 200){
-      this.messageSuccess = 'Criança cadastrada com sucesso';    
-    }
+  private catchResponse(c:Crianca):void{
+      if(this.crianca.id === null || this.crianca.id === undefined){
+        this.messageSuccess = 'Criança cadastrada com sucesso';    
+      }else{
+        this.messageSuccess = 'Criança atualizada com sucesso';     
+      }
+      let dtNascimentoJson =  JSON.parse(JSON.stringify(c.dtNascimento));
+      c.dtNascimento = new Date(dtNascimentoJson.year + '-' + dtNascimentoJson.month + '-' + dtNascimentoJson.dayOfMonth);
+      this.crianca = c;
+      this.titleCadastro = 'Atualizar Criança';
   }
   
   setSexo(sexo:string):void{
@@ -254,24 +277,53 @@ listar(){
   }
 
   adicionarMedicamento():void{
-    console.log('MEDICAMENTO ADICIONADO');
-    console.log('NOME: ' + this.medicamento.nome);
-    console.log('DOSAGEM: ' + this.medicamento.dosagem);
-    console.log('INTERVALO HORAS: ' + this.medicamento.intervaloHoras);
-    console.log('DATA FINAL: ' + this.medicamento.dtFinal);
-    if(this.crianca.medicamentos === null || this.crianca.medicamentos === undefined){
-       this.crianca.medicamentos = [];
+    if(this.medicamento.nome.trim().length === 0 ||
+       this.medicamento.dosagem.trim().length === 0 ||
+       this.medicamento.intervaloHoras.trim().length === 0 || 
+       this.medicamento.dtFinal === null){
+       this.messagesError =  ['Para adicionar um medicamento, preencha todos os campos'!];
+    }else{
+      if(this.crianca.medicamentos === null || this.crianca.medicamentos === undefined){
+        this.crianca.medicamentos = [];
+      }
+      this.crianca.medicamentos.push(this.medicamento);
+      this.medicamento = new Medicamento(null,'','','',null);
     }
-    this.crianca.medicamentos.push(this.medicamento);
-    this.medicamento = new Medicamento(null,'','','',null);
   }
 
+  removerMedicamento(index:number):void{
+    for (var i = 0; i < this.crianca.medicamentos.length; i++) {
+      if(i === index) {
+        this.crianca.medicamentos.splice(index, 1);
+      }
+    }
+  }
+
+  adicionarAlergia():void{
+    if(this.alergia.descricao.trim().length === 0){
+       this.messagesError =  ['Para adicionar uma alergia, preencha a descrição'!];
+    }else{
+      if(this.crianca.alergias === null || this.crianca.alergias === undefined){
+        this.crianca.alergias = [];
+      }
+      this.crianca.alergias.push(this.alergia);
+      this.alergia = new Alergia(null,null);
+    }
+  }
+
+  removerAlergia(index:number):void{
+    for (var i = 0; i < this.crianca.alergias.length; i++) {
+      if(i === index) {
+        this.crianca.alergias.splice(index, 1);
+      }
+    }
+  }
 
   private criarCriancaFake():void{
       this.crianca.pessoa.nome = 'Mariana Da Cruz Ortiz Silva';  
       this.crianca.matricula = '123456789';
       this.crianca.sexo = 'FEMININO';
-      this.crianca.dtNascimento = new Date();
+      this.crianca.dtNascimento = null;
 
       this.crianca.contato.responsavel = 'Luciano Ortiz Silva';
       this.crianca.contato.email = 'lucianoortizsilva@gmail.com';

@@ -1,3 +1,4 @@
+import { Alergia } from './alergia';
 import { Medicamento } from './medicamento';
 import { Pessoa } from './pessoa';
 import { Creche } from './creche';
@@ -14,6 +15,7 @@ export class Crianca {
              public endereco?:Endereco,
              public contato?:Contato,
              public creche?:Creche,
-             public medicamentos?:Medicamento[]
+             public medicamentos?:Medicamento[],
+             public alergias?:Alergia[]
              ){}
 }

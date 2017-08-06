@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { DateValueAccessorModule } from 'angular-date-value-accessor';
 
 //components de terceiros
 import { AuthService } from 'angular2-google-login';
@@ -69,6 +70,7 @@ const routes: Routes = [
     HttpModule,
     JsonpModule,
     FormsModule,
+    DateValueAccessorModule,
     RouterModule.forRoot(routes) 
   ],
   providers: [AuthService, 

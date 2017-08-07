@@ -29,7 +29,6 @@ import { BarraTituloComponent } from './util/barra-titulo/barra-titulo.component
 import { UtilHttpService } from './services-internos/util-http.service';
 import { CriancaService } from './services-internos/crianca.service';
 import { CriancaComponent } from './pages/crianca/crianca.component';
-import { CriancaWizardComponent } from './pages/crianca-wizard/crianca-wizard.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
@@ -41,8 +40,7 @@ const routes: Routes = [
                   { path: 'usuario-ativo',component: UsuarioAtivoComponent },
                   { path: 'servico-indisponivel',component: ServicoIndisponivelComponent },
                   { path: 'perfil',  component: PerfilComponent},
-                  { path: 'crianca',  component: CriancaComponent}, 
-                  { path: 'crianca-wizard',  component: CriancaWizardComponent}                  
+                  { path: 'crianca',  component: CriancaComponent} 
                 ]
     },
     { path: '**',      component: PaginaNaoEncontradaComponent}
@@ -61,8 +59,7 @@ const routes: Routes = [
     UsuarioAtivoComponent,
     ServicoIndisponivelComponent,
     BarraTituloComponent,
-    CriancaComponent,
-    CriancaWizardComponent    
+    CriancaComponent
   ],
   imports: [
     CommonModule,

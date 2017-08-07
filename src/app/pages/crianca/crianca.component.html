@@ -25,9 +25,9 @@
         <td>
           <span>
             <strong>
-              	<a routerLink="/home/crianca-wizard">
-			            <span [ngClass]="classesTableLine(c.sexo)" title="Editar">{{c.nome}}</span>
-		            </a>  
+              	<a>
+			        <span [ngClass]="classesTableLine(c.sexo)" (click)="editar(c)" title="Editar">{{c.pessoa.nome}}</span>
+		        </a>  
             </strong>
           </span><br>
           <span>Responsável: {{c?.contato?.responsavel}}</span><br> 
@@ -175,7 +175,7 @@
                                       [class.has-success]="cep.valid && cep.touched"
                                       [class.has-feedback]="cep.touched">
                   <label for="cep" class="control-label">Cep</label>
-                  <input id="cep" name="cep" #cep="ngModel" (keyup)="onchangeCep(cep.value)" (focus)="onfocusCep()" [(ngModel)]="crianca.endereco.cep" maxlength="8" type="text" class="form-control" required>
+                  <input id="cep" name="cep" #cep="ngModel" (keyup)="onchangeCep(cep.value)" (focus)="onfocusCep()" [(ngModel)]="crianca.pessoa.endereco.cep" maxlength="8" type="text" class="form-control" required>
                   <span *ngIf="!cep.valid && cep.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                   <span *ngIf="!cep.valid && cep.touched" id="cep" class="sr-only">(error)</span>
                   <span *ngIf="cep.valid && cep.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
@@ -191,7 +191,7 @@
                                       [class.has-success]="logradouro.valid && logradouro.touched"
                                       [class.has-feedback]="logradouro.touched">
                   <label for="logradouro" class="control-label">Logradouro</label>
-                  <input id="logradouro" name="logradouro" #logradouro="ngModel" (focus)="onfocusLogradouro()" [(ngModel)]="crianca.endereco.logradouro" maxlength="60" type="text" class="form-control" required>
+                  <input id="logradouro" name="logradouro" #logradouro="ngModel" (focus)="onfocusLogradouro()" [(ngModel)]="crianca.pessoa.endereco.logradouro" maxlength="60" type="text" class="form-control" required>
                   <span *ngIf="!logradouro.valid && logradouro.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                   <span *ngIf="!logradouro.valid && logradouro.touched" id="logradouro" class="sr-only">(error)</span>
                   <span *ngIf="logradouro.valid && logradouro.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
@@ -202,11 +202,21 @@
                   </div>
               </div>
 
-              <!--LOCALIZACAO-->
-              <div class="form-group">
-                  <label>Localização</label>
-                  <input id="localizacao" name="localizacao" [(ngModel)]="crianca.endereco.localizacao" maxlength="100" type="text" class="form-control" disabled>            
-              </div>
+                <!--LOCALIZACAO-->
+                <div class="form-group" [class.has-error]="!localizacao.valid && localizacao.touched" 
+                                    [class.has-success]="localizacao.valid && localizacao.touched"
+                                    [class.has-feedback]="localizacao.touched">
+                    <label for="localizacao" class="control-label">Localização</label>
+                    <input id="localizacao" name="localizacao" #localizacao="ngModel" (focus)="onfocusCep()" [(ngModel)]="crianca.pessoa.endereco.localizacao" maxlength="100" type="text" class="form-control" required>
+                    <span *ngIf="!localizacao.valid && localizacao.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span *ngIf="!localizacao.valid && localizacao.touched" id="localizacao" class="sr-only">(error)</span>
+                    <span *ngIf="localizacao.valid && localizacao.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span *ngIf="localizacao.valid && localizacao.touched" id="localizacao" class="sr-only">(success)</span>
+                    <div *ngIf="!localizacao.valid && localizacao.touched" class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        Localização é obrigatório.
+                    </div>
+                </div>
               
               <!--BOTAO ANTERIOR-->
               <button type="button" (click)="proximoPasso(1)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
@@ -357,7 +367,7 @@
               <!--DATA FINAL-->
               <div class="form-group">
                 <label for="dtFinal" class="control-label">Data Final</label>
-                <input id="dtFinal" name="dtFinal" #dtFinal="ngModel" [(ngModel)]="medicamento.dtFinal" (focus)="clearMessages();" type="date" class="form-control">
+                <input id="dtFinal" name="dtFinal" #dtFinal="ngModel" [(ngModel)]="medicamento.dtFinal" useValueAsDate (focus)="clearMessages();" type="date" class="form-control">
               </div>
               <button type="button" (click)="adicionarMedicamento()" class="btn btn-success" style="float:right; margin-top: 5px">
                 <span class="fa fa-plus-square" aria-hidden="true"></span>
@@ -372,14 +382,14 @@
               <div [hidden]="crianca?.medicamentos === null || crianca?.medicamentos === undefined || crianca.medicamentos?.length == 0"> 
                 <table class="table table-striped">
                 <tr>
-                    <th>Medicamentos Cadastrados - Detalhes</th>
+                    <th><span style="text-align: center">Medicamentos Cadastrados - Detalhes</span></th>
                 </tr>
                 <tr *ngFor='let m of crianca.medicamentos; let i = index'>
                     <td>
                         <span><label>Nome:</label>{{m?.nome}}</span><br>
                         <span><label>Dosagem:</label>{{m?.dosagem}}</span><br>
                         <span><label>Intervalo horas:</label>{{m?.intervaloHoras}}</span><br>
-                        <span><label>Data final:</label>{{m?.dtFinal}}</span><br>
+                        <span><label>Data final:</label>{{m?.dtFinal | date: 'dd/MM/yyyy'}}</span><br>
                         <button type="button" (click)="removerMedicamento(i)" class="btn btn-danger col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
                         <i class="fa fa-times" aria-hidden="true"></i>
                             {{titleButtonDeleteMedicamento}}
@@ -443,7 +453,7 @@
               <div [hidden]="crianca?.alergias === null || crianca?.alergias === undefined || crianca.alergias?.length == 0"> 
                 <table class="table table-striped">
                 <tr>
-                    <th>Alergias Cadastradas - Detalhes</th>
+                    <th><span style="text-align: center">Alergias Cadastradas - Detalhes</span></th>
                 </tr>
                 <tr *ngFor='let a of crianca.alergias; let i = index'>
                     <td>

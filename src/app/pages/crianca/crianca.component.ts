@@ -51,7 +51,8 @@ export class CriancaComponent implements OnInit {
   private resultGoogleMap:any;
   private medicamento: Medicamento = new Medicamento(null,'','','',null);
   private alergia: Alergia = new Alergia(null, '');
-  private crianca:Crianca = new Crianca(null,null,null,null,null,new Pessoa(),new Endereco(),new Contato(), new Creche(), null, null);
+  private pessoa:Pessoa = new Pessoa(null, null, new Endereco());
+  private crianca:Crianca = new Crianca(null,null,null,null,null,this.pessoa,new Contato(), new Creche(), null, null);
   private sexos: string[] = ['Masculino','Feminino'];
 
   constructor(private usuarioService:UtilHttpService, 
@@ -67,7 +68,6 @@ export class CriancaComponent implements OnInit {
    
    
   ngOnInit() {
-  this.criarCriancaFake();////////////FAKE
     this.prepararLabelButton();
     this.usuarioService.get(this.loginService.getEmail()).subscribe( data => this.usuarioLogado =  data,error => this.catchError(this.messagesError = <any>error));
     let timer = setInterval(() => { 
@@ -94,7 +94,6 @@ export class CriancaComponent implements OnInit {
   exibirTelaCadastro():void{
     this.hiddenCadastro = false;
     this.hiddenPesquisa = true;
-
   }
 
   
@@ -195,29 +194,29 @@ listar(){
    */
   private onchangeCep(event):void{
     if(event === null || event === undefined){
-      this.crianca.endereco.localizacao =  '';
+      this.crianca.pessoa.endereco.localizacao =  '';
        return;
     }
     if (event.length < 8) {
-      this.crianca.endereco.localizacao =  '';
+      this.crianca.pessoa.endereco.localizacao =  '';
       return;
     } else if (event.length > 9) {
-      this.crianca.endereco.localizacao =  '';
+      this.crianca.pessoa.endereco.localizacao =  '';
       return;
     } else if (( event.length === 9 ) && !event.includes('-')) {
-      this.crianca.endereco.localizacao =  '';
+      this.crianca.pessoa.endereco.localizacao =  '';
       return;
     } else if (event.length === 9 && !event.match('[0-9]{5}-[0-9]{3}')) {
-      this.crianca.endereco.localizacao =  '';
+      this.crianca.pessoa.endereco.localizacao =  '';
       return;
     }
     if (event.length === 8) {
-    this.googleMap.getEndereco(this.crianca.endereco.cep)
+    this.googleMap.getEndereco(this.crianca.pessoa.endereco.cep)
     .subscribe(data => {this.resultGoogleMap = data
                         if(this.resultGoogleMap.status === 'OK'){
-						   this.crianca.endereco.localizacao = this.resultGoogleMap.results[0].formatted_address;
+						   this.crianca.pessoa.endereco.localizacao = this.resultGoogleMap.results[0].formatted_address;
 						}else{
-						   this.crianca.endereco.localizacao = 'localização não encontrada para o Cep informado!';
+						   this.crianca.pessoa.endereco.localizacao = 'localização não encontrada para o Cep informado!';
 						}}, 
 						error => this.messagesError = <any>error,);
     }
@@ -268,10 +267,22 @@ listar(){
       }
       let dtNascimentoJson =  JSON.parse(JSON.stringify(c.dtNascimento));
       c.dtNascimento = new Date(dtNascimentoJson.year + '-' + dtNascimentoJson.month + '-' + dtNascimentoJson.dayOfMonth);
+      this.ajustarDatasDosMedicamentos(c);
       this.crianca = c;
       this.titleCadastro = 'Atualizar Criança';
   }
   
+  ajustarDatasDosMedicamentos(c:Crianca):void{
+    if(c.medicamentos !== null && c.medicamentos !== undefined){
+      for (var i = 0; i < c.medicamentos.length; i++) {
+        let medicamento = c.medicamentos[i];
+        let dtFinalJson = JSON.parse(JSON.stringify(medicamento.dtFinal));
+        let dtFinalAjustada = new Date(dtFinalJson.year + '-' + dtFinalJson.month + '-' + dtFinalJson.dayOfMonth);
+        c.medicamentos[i].dtFinal = dtFinalAjustada;
+      }
+    }
+  }
+
   setSexo(sexo:string):void{
     this.crianca.sexo = sexo;
   }
@@ -318,22 +329,20 @@ listar(){
       }
     }
   }
-
-  private criarCriancaFake():void{
-      this.crianca.pessoa.nome = 'Mariana Da Cruz Ortiz Silva';  
-      this.crianca.matricula = '123456789';
-      this.crianca.sexo = 'FEMININO';
-      this.crianca.dtNascimento = null;
-
-      this.crianca.contato.responsavel = 'Luciano Ortiz Silva';
-      this.crianca.contato.email = 'lucianoortizsilva@gmail.com';
-      this.crianca.contato.fonePrincipal = '51 9 8107 4804';
-      this.crianca.contato.foneOutro = '51 3333 3333';
-      
-      this.crianca.endereco.cep = '91720090';
-      this.crianca.endereco.logradouro = 'Rua Professor Carvalho Freitas, 115 casa 10';
-      this.crianca.endereco.localizacao = 'Porto Alegre - RS';
-      
+  
+  editar(c:Crianca):void{
+    let dtNascimentoJson = JSON.parse(JSON.stringify(c.dtNascimento));
+    let dtNascimentoAjustada = new Date(dtNascimentoJson.year + '-' + dtNascimentoJson.month + '-' + dtNascimentoJson.dayOfMonth);
+    c.dtNascimento = dtNascimentoAjustada;
+    if(c.medicamentos !== null){
+      for (var i = 0; i < c.medicamentos.length; i++) {
+        let dtFinal = JSON.parse(JSON.stringify(c.medicamentos[i].dtFinal));
+        let dtFinalAjustada = new Date(dtFinal.year + '-' + dtFinal.month + '-' + dtFinal.dayOfMonth);        
+        c.medicamentos[i].dtFinal = dtFinalAjustada;
+      }
+    }
+    this.crianca = c;
+    this.exibirTelaCadastro();
   }
 
 }

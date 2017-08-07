@@ -72,9 +72,19 @@
         </div>
 
         <!--LOCALIZACAO-->
-        <div class="form-group">
-            <label>Localização</label>
-            <input id="localizacao" name="localizacao" [(ngModel)]="usuario.pessoa.endereco.localizacao" maxlength="100" type="text" class="form-control" disabled>            
+        <div class="form-group" [class.has-error]="!localizacao.valid && localizacao.touched" 
+					  [class.has-success]="localizacao.valid && localizacao.touched"
+					  [class.has-feedback]="localizacao.touched">
+        <label for="localizacao" class="control-label">Localizacão</label>
+        <input id="localizacao" name="localizacao" #localizacao="ngModel" (focus)="onfocusCep()" [(ngModel)]="usuario.pessoa.endereco.localizacao" maxlength="100" type="text" class="form-control" required>
+        <span *ngIf="!localizacao.valid && localizacao.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+        <span *ngIf="!localizacao.valid && localizacao.touched" id="localizacao" class="sr-only">(error)</span>
+        <span *ngIf="localizacao.valid && localizacao.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+        <span *ngIf="localizacao.valid && localizacao.touched" id="localizacao" class="sr-only">(success)</span>
+        <div *ngIf="!localizacao.valid && localizacao.touched" class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Localização é obrigatório.
+        </div>
         </div>
 
         <!--BOTAO CONCLUIR ATUALIZACAO-->

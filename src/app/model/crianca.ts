@@ -12,7 +12,6 @@ export class Crianca {
              public matricula?: string,
              public foto?: string,
              public pessoa?:Pessoa,
-             public endereco?:Endereco,
              public contato?:Contato,
              public creche?:Creche,
              public medicamentos?:Medicamento[],

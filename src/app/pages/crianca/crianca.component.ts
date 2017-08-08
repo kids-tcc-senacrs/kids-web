@@ -53,7 +53,7 @@ export class CriancaComponent implements OnInit {
   private alergia: Alergia = new Alergia(null, '');
   private pessoa:Pessoa = new Pessoa(null, null, new Endereco());
   private crianca:Crianca = new Crianca(null,null,null,null,null,this.pessoa,new Contato(), new Creche(), null, null);
-  private sexos: string[] = ['Masculino','Feminino'];
+  private sexos: string[] = ['MASCULINO','FEMININO'];
 
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -245,8 +245,6 @@ listar(){
   
   
   salvar():void{
-    console.log('DATA INFORMADA: ' + this.crianca.dtNascimento);
-
     this.clearMessages();
     this.titleButtonSalvar = "Enviando..."; 
     this.crianca.creche = this.crecheLogada;    
@@ -281,10 +279,6 @@ listar(){
         c.medicamentos[i].dtFinal = dtFinalAjustada;
       }
     }
-  }
-
-  setSexo(sexo:string):void{
-    this.crianca.sexo = sexo;
   }
 
   adicionarMedicamento():void{

@@ -4,6 +4,7 @@
 .text-masculino{color: blue}
 .panel-passos{color: #000;float: right;margin-bottom: 2px}
 .title-passos{text-transform:uppercase}
+.btn-customizado{padding-left: 0px!important;text-align: center!important;border-radius:0px!important}
 
 @media (max-width: 991px) {
     .btn-cadastrar{

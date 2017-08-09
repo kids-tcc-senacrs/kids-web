@@ -1,3 +1,4 @@
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Alergia } from './alergia';
 import { Medicamento } from './medicamento';
 import { Pessoa } from './pessoa';
@@ -10,7 +11,7 @@ export class Crianca {
              public dtNascimento?: Date,
              public sexo?: string,
              public matricula?: string,
-             public foto?: string,
+             public foto?: any,
              public pessoa?:Pessoa,
              public contato?:Contato,
              public creche?:Creche,

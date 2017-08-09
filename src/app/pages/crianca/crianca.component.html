@@ -9,7 +9,9 @@
             <input type="text" class="form-control" [(ngModel)]="filtro">
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 btn-cadastrar" *ngIf="usuarioLogado?.tipo === 'CRECHE'"> 
-          <button type="button" (click)="exibirTelaCadastro()" class="btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12">cadastrar
+          <button type="button" (click)="exibirTelaCadastro()" class="btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-customizado">
+            <i class="fa fa-plus-circle" aria-hidden="true" style="margin-left: 10px;"></i>  
+            cadastrar
           </button>
         </div> 
     </div>
@@ -77,6 +79,15 @@
                   {{messageSuccess}}
               </div>
 
+              <!--FOTO-->
+              <!--
+              <div class="form-group"> 
+                  <label class="control-label">Selecionar foto</label>
+                  <input type="file" name="foto" class="btn btn-success"/>
+                  <input type="button" name="foto" class="btn btn-primary" (click)="uploadFoto()" value="Carregar..."/>
+              </div>
+              -->
+
               <!--MATRICULA-->
               <div class="form-group" [class.has-error]="!matricula.valid && matricula.touched" 
                                       [class.has-success]="matricula.valid && matricula.touched"
@@ -125,23 +136,34 @@
                   </div>
               </div>
 
-              <!--SEXO-->
-              <div class="form-group">
-                <label class="control-label">Sexo</label>
+            <!--SEXO-->
+            <div class="form-group" [class.has-error]="!sexo.valid && sexo.touched" 
+                                    [class.has-success]="sexo.valid && sexo.touched"
+                                    [class.has-feedback]="sexo.touched">						  
+                <label for="sexo" class="control-label">Sexo</label>
                 <br>
-                <select [(ngModel)]="crianca.sexo" class="form-control" name="sexo">
+                <select [(ngModel)]="crianca.sexo" class="form-control" name="sexo" #sexo="ngModel" aria-describedby="sexo" required>
                     <option *ngFor="let sexo of sexos" [value]="sexo" name="sexo">{{sexo}}</option>
                 </select>
-              </div>
+                <span *ngIf="!sexo.valid && sexo.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                <span *ngIf="!sexo.valid && sexo.touched" id="sexo" class="sr-only">(error)</span>
+                <span *ngIf="sexo.valid && sexo.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                <span *ngIf="sexo.valid && sexo.touched" id="sexo" class="sr-only">(success)</span>
+                <div *ngIf="!sexo.valid && sexo.touched" class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    Sexo é obrigatório.
+                </div>
+            </div>
+
               
               <!--BOTAO VOLTAR-->
               <div class="form-group">
-                <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning col-xs-12 col-sm-5 col-md-3 col-lg-3">
+                <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
                     <span class="fa fa-reply-all" aria-hidden="true"></span>
                     {{titleBtnVoltar}}
                 </button>
                 <!--BOTAO PROXIMO-->
-                <button [disabled]="!f.valid" (click)="proximoPasso(2)" type="button" class="btn btn-primary col-xs-12 col-sm-8 col-md-4 col-lg-4 btnProximo">
+                <button [disabled]="!f.valid" (click)="proximoPasso(2)" type="button" class="btn btn-primary btn-customizado col-xs-12 col-sm-8 col-md-4 col-lg-4 btnProximo">
                     <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                     {{titleButtonProximo}} 
                 </button>
@@ -220,12 +242,12 @@
                 </div>
               
               <!--BOTAO ANTERIOR-->
-              <button type="button" (click)="proximoPasso(1)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
+              <button type="button" (click)="proximoPasso(1)" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
                 <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                 {{titleButtonAnterior}}
               </button>
               <!--BOTAO PROXIMO-->
-              <button [disabled]="!f2.valid" type="button" (click)="proximoPasso(3)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
+              <button [disabled]="!f2.valid" type="button" (click)="proximoPasso(3)" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
                   <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                   {{titleButtonProximo}}
               </button>
@@ -312,12 +334,12 @@
               </div>
               
               <!--BOTAO ANTERIOR-->
-              <button type="button" (click)="proximoPasso(2)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
+              <button type="button" (click)="proximoPasso(2)" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
                 <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                 {{titleButtonAnterior}}
               </button>
               <!--BOTAO PROXIMO-->
-              <button [disabled]="!f3.valid" type="button" (click)="proximoPasso(4)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
+              <button [disabled]="!f3.valid" type="button" (click)="proximoPasso(4)" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
                 <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                 {{titleButtonProximo}}
               </button>
@@ -370,8 +392,8 @@
                 <label for="dtFinal" class="control-label">Data Final</label>
                 <input id="dtFinal" name="dtFinal" #dtFinal="ngModel" [(ngModel)]="medicamento.dtFinal" useValueAsDate (focus)="clearMessages();" type="date" class="form-control">
               </div>
-              <button type="button" (click)="adicionarMedicamento()" class="btn btn-success" style="float:right; margin-top: 5px">
-                <span class="fa fa-plus-square" aria-hidden="true"></span>
+              <button type="button" (click)="adicionarMedicamento()" class="btn btn-success btn-customizado" style="float:right; margin-top: 5px">
+                <span class="fa fa-plus-square" style="margin-left: 10px;" aria-hidden="true"></span>
                 {{titleButtonAddMedicamento}}
               </button>
               
@@ -391,8 +413,8 @@
                         <span><label>Dosagem:</label>{{m?.dosagem}}</span><br>
                         <span><label>Intervalo horas:</label>{{m?.intervaloHoras}}</span><br>
                         <span><label>Data final:</label>{{m?.dtFinal | date: 'dd/MM/yyyy'}}</span><br>
-                        <button type="button" (click)="removerMedicamento(i)" class="btn btn-danger col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
-                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <button type="button" (click)="removerMedicamento(i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
+                        <i class="fa fa-times" aria-hidden="true" style="margin-left: 10px;"></i>
                             {{titleButtonDeleteMedicamento}}
                         </button>
                     </td>
@@ -401,12 +423,12 @@
             </div>
 
               <!--BOTAO ANTERIOR-->
-              <button type="button" (click)="proximoPasso(3)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
+              <button type="button" (click)="proximoPasso(3)" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
                 <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                 {{titleButtonAnterior}}
               </button>
               <!--BOTAO PROXIMO-->
-              <button [disabled]="!f4.valid" type="button" (click)="proximoPasso(5)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
+              <button [disabled]="!f4.valid" type="button" (click)="proximoPasso(5)" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
                 <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                 {{titleButtonProximo}}
               </button>
@@ -441,8 +463,8 @@
                 <input id="descricao" name="descricao" #descricao="ngModel" (focus)="clearMessages();" [(ngModel)]="alergia.descricao" maxlength="60" type="text" class="form-control">
               </div>
               
-              <button type="button" (click)="adicionarAlergia()" class="btn btn-success" style="float:right; margin-top: 5px">
-                <span class="fa fa-plus-square" aria-hidden="true"></span>
+              <button type="button" (click)="adicionarAlergia()" class="btn btn-success btn-customizado" style="float:right; margin-top: 5px">
+                <span class="fa fa-plus-square" aria-hidden="true" style="margin-left: 10px;"></span>
                 {{titleButtonAddAlergia}}
               </button>
               
@@ -459,7 +481,7 @@
                 <tr *ngFor='let a of crianca.alergias; let i = index'>
                     <td>
                         <span><label>Descrição:</label>{{a?.descricao}}</span><br>
-                        <button type="button" (click)="removerAlergia(i)" class="btn btn-danger col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
+                        <button type="button" (click)="removerAlergia(i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
                         <i class="fa fa-times" aria-hidden="true"></i>
                             {{titleButtonDeleteAlergia}}
                         </button>
@@ -469,12 +491,12 @@
             </div>
 
               <!--BOTAO ANTERIOR-->
-              <button type="button" (click)="proximoPasso(4)" class="btn btn-primary col-xs-12 col-sm-5 col-md-3 col-lg-3">
+              <button type="button" (click)="proximoPasso(4)" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
                 <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                 {{titleButtonAnterior}}
               </button>
               <!--BOTAO SALVAR-->
-              <button [disabled]="!f5.valid" type="button" (click)="salvar()" class="btn btn-success col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
+              <button [disabled]="!f5.valid" type="button" (click)="salvar()" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnProximo">
                 <span class="fa fa-floppy-o" aria-hidden="true"></span>  
               {{titleButtonSalvar}}
               </button>

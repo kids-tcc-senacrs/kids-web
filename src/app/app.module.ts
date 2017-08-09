@@ -7,6 +7,7 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
+import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 
 //components de terceiros
 import { AuthService } from 'angular2-google-login';
@@ -59,7 +60,9 @@ const routes: Routes = [
     UsuarioAtivoComponent,
     ServicoIndisponivelComponent,
     BarraTituloComponent,
-    CriancaComponent
+    CriancaComponent,
+    FileDropDirective, 
+    FileSelectDirective
   ],
   imports: [
     CommonModule,

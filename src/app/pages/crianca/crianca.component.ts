@@ -1,3 +1,4 @@
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Alergia } from './../../model/alergia';
 import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
@@ -54,6 +55,21 @@ export class CriancaComponent implements OnInit {
   private pessoa:Pessoa = new Pessoa(null, null, new Endereco());
   private crianca:Crianca = new Crianca(null,null,null,null,null,this.pessoa,new Contato(), new Creche(), null, null);
   private sexos: string[] = ['MASCULINO','FEMININO'];
+
+  public uploader:FileUploader = new FileUploader({url: ''});
+  public hasBaseDropZoneOver:boolean = false;
+  public hasAnotherDropZoneOver:boolean = false;
+ 
+  
+  public fileOverBase(e:any):void {
+    console.log('a' + e);
+    this.hasBaseDropZoneOver = e;
+  }
+ 
+  public fileOverAnother(e:any):void {
+    console.log('b' + e);
+    this.hasAnotherDropZoneOver = e;
+  }
 
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -183,6 +199,7 @@ listar(){
                   this.hiddenPasso5 = false; 
                   break;                           
     }
+    this.clearMessages();
   }
 
   
@@ -245,6 +262,8 @@ listar(){
   
   
   salvar():void{
+    console.log('arquivo gerado: ' +  this.uploader);
+    //this.crianca.foto = this.uploader;
     this.clearMessages();
     this.titleButtonSalvar = "Enviando..."; 
     this.crianca.creche = this.crecheLogada;    
@@ -339,4 +358,7 @@ listar(){
     this.exibirTelaCadastro();
   }
 
+  uploadFoto():void{
+    console.log("upload foto");
+  }
 }

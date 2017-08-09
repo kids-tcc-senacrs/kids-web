@@ -33,6 +33,7 @@ public get(email:string):Observable<Usuario>{
 
 
 
+
 public post(usuario:Usuario):Observable<Response>{
 	console.log('[KIDS] consumindo API de usuarios POST ...');	
 	let url = this.URL_REST_USUARIO; 

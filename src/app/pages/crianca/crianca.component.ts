@@ -25,8 +25,8 @@ export class CriancaComponent implements OnInit {
   
   private title = 'Crianças';
   private titleCadastro = 'Cadastrar Criança';
-  private titleButtonAddMedicamento = 'Adicionar Medicamento';
-  private titleButtonAddAlergia = 'Adicionar Alergia';
+  private titleButtonAddMedicamento = 'Adicionar';
+  private titleButtonAddAlergia = 'Adicionar';
   private titleButtonDeleteMedicamento = 'Remover Medicamento';
   private titleButtonDeleteAlergia = 'Remover Alergia';
   private titleButtonAnterior = 'Anterior';
@@ -117,6 +117,7 @@ export class CriancaComponent implements OnInit {
   exibirTelaPesquisa():void{
     this.hiddenCadastro = true;
     this.hiddenPesquisa = false;
+    this.crianca = new Crianca(null,null,null,null,null,this.pessoa,new Contato(), new Creche(), null, null);
   }
 
   

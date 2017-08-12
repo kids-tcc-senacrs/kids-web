@@ -20,9 +20,7 @@
 
   <div [hidden]="criancas === null || criancas === undefined || criancas?.length == 0"> 
     <table class="table table-striped">
-      <tr>
-        <th>Nomes</th>
-      </tr>
+      <tr style="text-align:center !important;background-color: darkgrey;border: 1px solid darkgray;"><th style="text-align:center !important;">DETALHES</th></tr>
       <tr *ngFor='let c of listar()'>
         <td>
           <span>
@@ -105,19 +103,19 @@
               </div>
               
               <!--NOME-->
-              <div class="form-group" [class.has-error]="!nome.valid && nome.touched" 
-                                      [class.has-success]="nome.valid && nome.touched"
-                                      [class.has-feedback]="nome.touched">
-                  <label for="nome" class="control-label">Nome</label>
-                  <input id="nome" name="nome" #nome="ngModel" aria-describedby="nome" [(ngModel)]="crianca.pessoa.nome" maxlength="60" type="text" class="form-control" required>
-                  <span *ngIf="!nome.valid && nome.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                  <span *ngIf="!nome.valid && nome.touched" id="nome" class="sr-only">(error)</span>
-                  <span *ngIf="nome.valid && nome.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                  <span *ngIf="nome.valid && nome.touched" id="nome" class="sr-only">(success)</span>
-                  <div *ngIf="!nome.valid && nome.touched" class="alert alert-danger" role="alert">
-                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                      Nome é obrigatório.
-                  </div>
+              <div class="form-group" [class.has-error]="!nomePessoa.valid && nomePessoa.touched" 
+                                [class.has-success]="nomePessoa.valid && nomePessoa.touched"
+                                [class.has-feedback]="nomePessoa.touched">
+                    <label for="nomePessoa" class="control-label">Nome</label>
+                    <input id="nomePessoa" name="nomePessoa" #nomePessoa="ngModel" aria-describedby="nomePessoa" [(ngModel)]="crianca.pessoa.nome" maxlength="60" type="text" class="form-control" required>
+                    <span *ngIf="!nomePessoa.valid && nomePessoa.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span *ngIf="!nomePessoa.valid && nomePessoa.touched" id="nomePessoa" class="sr-only">(error)</span>
+                    <span *ngIf="nomePessoa.valid && nomePessoa.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span *ngIf="nomePessoa.valid && nomePessoa.touched" id="nomePessoa" class="sr-only">(success)</span>
+                    <div *ngIf="!nomePessoa.valid && nomePessoa.touched" class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        Nome é obrigatório.
+                   </div>
               </div>
               
               <!--DATA NASCIMENTO-->
@@ -230,7 +228,7 @@
                                     [class.has-success]="localizacao.valid && localizacao.touched"
                                     [class.has-feedback]="localizacao.touched">
                     <label for="localizacao" class="control-label">Localização</label>
-                    <input id="localizacao" name="localizacao" #localizacao="ngModel" (focus)="onfocusCep()" [(ngModel)]="crianca.pessoa.endereco.localizacao" maxlength="100" type="text" class="form-control" required>
+                    <input id="localizacao" name="localizacao" #localizacao="ngModel" (focus)="onfocusCep()" [(ngModel)]="crianca.pessoa.endereco.localizacao" maxlength="100" type="text" class="form-control" required placeholder="exemplo: bairro, cidade, estado">
                     <span *ngIf="!localizacao.valid && localizacao.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                     <span *ngIf="!localizacao.valid && localizacao.touched" id="localizacao" class="sr-only">(error)</span>
                     <span *ngIf="localizacao.valid && localizacao.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
@@ -372,19 +370,19 @@
               <!--NOME DO MEDICAMENTO-->
               <div class="form-group">
                 <label for="nome" class="control-label">Medicamento</label>
-                <input id="nome" name="nome" #nome="ngModel" (focus)="clearMessages();" [(ngModel)]="medicamento.nome" maxlength="40" type="text" class="form-control">
+                <input id="nome" name="nome" #nome="ngModel" (focus)="clearMessages();" [(ngModel)]="medicamento.nome" maxlength="40" type="text" class="form-control" placeholder="Digite o nome do medicamento...">
               </div>
               
               <!--NOME DO DOSAGEM-->
               <div class="form-group">
                 <label for="dosagem" class="control-label">Dosagem</label>
-                <input id="dosagem" name="dosagem" #dosagem="ngModel" (focus)="clearMessages();" [(ngModel)]="medicamento.dosagem" maxlength="25" type="text" class="form-control">
+                <input id="dosagem" name="dosagem" #dosagem="ngModel" (focus)="clearMessages();" [(ngModel)]="medicamento.dosagem" maxlength="25" type="text" class="form-control" placeholder="exemplo: 1 comprimido de 250 mg">
               </div>
                
               <!--INTERVALO HORAS-->
               <div class="form-group">
                 <label for="intervaloHoras" class="control-label">Intervalo de horas</label>
-                <input id="intervaloHoras" name="intervaloHoras" #intervaloHoras="ngModel" (focus)="clearMessages();" [(ngModel)]="medicamento.intervaloHoras" maxlength="10" type="text" class="form-control">
+                <input id="intervaloHoras" name="intervaloHoras" #intervaloHoras="ngModel" (focus)="clearMessages();" [(ngModel)]="medicamento.intervaloHoras" maxlength="10" type="text" class="form-control" placeholder="exemplo: a cada 6h">
               </div>
               
               <!--DATA FINAL-->
@@ -392,7 +390,7 @@
                 <label for="dtFinal" class="control-label">Data Final</label>
                 <input id="dtFinal" name="dtFinal" #dtFinal="ngModel" [(ngModel)]="medicamento.dtFinal" useValueAsDate (focus)="clearMessages();" type="date" class="form-control">
               </div>
-              <button type="button" (click)="adicionarMedicamento()" class="btn btn-success btn-customizado" style="float:right; margin-top: 5px">
+              <button type="button" (click)="adicionarMedicamento()" class="btn btn-success btn-customizado" class="btn btn-success btn-customizado col-xs-12 col-sm-6 col-md-3 col-lg-3" style="margin-top: 5px">
                 <span class="fa fa-plus-square" style="margin-left: 10px;" aria-hidden="true"></span>
                 {{titleButtonAddMedicamento}}
               </button>
@@ -404,15 +402,13 @@
 
               <div [hidden]="crianca?.medicamentos === null || crianca?.medicamentos === undefined || crianca.medicamentos?.length == 0"> 
                 <table class="table table-striped">
-                <tr>
-                    <th><span style="text-align: center">Medicamentos Cadastrados - Detalhes</span></th>
-                </tr>
+                <tr style="text-align:center !important;background-color: darkgrey;border: 1px solid darkgray;"><th style="text-align:center !important;">DETALHES</th></tr>
                 <tr *ngFor='let m of crianca.medicamentos; let i = index'>
-                    <td>
-                        <span><label>Nome:</label>{{m?.nome}}</span><br>
-                        <span><label>Dosagem:</label>{{m?.dosagem}}</span><br>
-                        <span><label>Intervalo horas:</label>{{m?.intervaloHoras}}</span><br>
-                        <span><label>Data final:</label>{{m?.dtFinal | date: 'dd/MM/yyyy'}}</span><br>
+                    <td style="border: 1px solid darkgray;border: 1px solid darkgray;">
+                        <span class="medicamento-descricao"><li>{{m?.nome}}</li></span><br>
+                        <span class="medicamento-descricao"><li>{{m?.dosagem}}</li></span><br>
+                        <span class="medicamento-descricao"><li>{{m?.intervaloHoras}}</li></span><br>
+                        <span class="medicamento-descricao"><li>até o dia {{m?.dtFinal | date: 'dd/MM/yyyy'}}</li></span><br>
                         <button type="button" (click)="removerMedicamento(i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
                         <i class="fa fa-times" aria-hidden="true" style="margin-left: 10px;"></i>
                             {{titleButtonDeleteMedicamento}}
@@ -460,10 +456,10 @@
               <!-- DESCRICAO-->
               <div class="form-group">
                 <label for="descricao" class="control-label">Descrição</label>
-                <input id="descricao" name="descricao" #descricao="ngModel" (focus)="clearMessages();" [(ngModel)]="alergia.descricao" maxlength="60" type="text" class="form-control">
+                <input id="descricao" name="descricao" #descricao="ngModel" (focus)="clearMessages();" [(ngModel)]="alergia.descricao" maxlength="50" type="text" class="form-control">
               </div>
               
-              <button type="button" (click)="adicionarAlergia()" class="btn btn-success btn-customizado" style="float:right; margin-top: 5px">
+              <button type="button" (click)="adicionarAlergia()" class="btn btn-success btn-customizado col-xs-12 col-sm-6 col-md-4 col-lg-4" style="margin-top: 5px">
                 <span class="fa fa-plus-square" aria-hidden="true" style="margin-left: 10px;"></span>
                 {{titleButtonAddAlergia}}
               </button>
@@ -475,12 +471,10 @@
 
               <div [hidden]="crianca?.alergias === null || crianca?.alergias === undefined || crianca.alergias?.length == 0"> 
                 <table class="table table-striped">
-                <tr>
-                    <th><span style="text-align: center">Alergias Cadastradas - Detalhes</span></th>
-                </tr>
+                <tr style="text-align:center !important;background-color: darkgrey;border: 1px solid darkgray;"><th style="text-align:center !important;">DETALHES</th></tr>
                 <tr *ngFor='let a of crianca.alergias; let i = index'>
-                    <td>
-                        <span><label>Descrição:</label>{{a?.descricao}}</span><br>
+                    <td style="border: 1px solid darkgray;">
+                        <span class="alergia-descricao"><li>{{a?.descricao}}</li></span><br>
                         <button type="button" (click)="removerAlergia(i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
                         <i class="fa fa-times" aria-hidden="true"></i>
                             {{titleButtonDeleteAlergia}}

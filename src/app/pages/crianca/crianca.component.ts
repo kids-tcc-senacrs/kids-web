@@ -135,9 +135,9 @@ export class CriancaComponent implements OnInit {
   classesTableLine(sexo:string): any {
     let cssStyles = {};
     if(sexo === 'MASCULINO'){
-      cssStyles = {'text-masculino': true, 'table-line-text':true};
+      cssStyles = {'text-masculino': true, 'table-line-text':true, 'quebrar-texto':true};
     }else{
-      cssStyles = {'text-feminino': true,'table-line-text':true};
+      cssStyles = {'text-feminino': true,'table-line-text':true, 'quebrar-texto':true};
     }
   return cssStyles; 
 }

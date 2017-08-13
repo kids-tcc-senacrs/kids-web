@@ -7,6 +7,8 @@
 .btn-customizado{padding-left: 0px!important;text-align: center!important;border-radius:0px!important}
 .alergia-descricao{color:dimgrey}
 .medicamento-descricao{color:dimgrey}
+.aviso-required{color:dimgrey;float: right;font-style: italic}
+.pnl-aviso-required{margin-top: 18px}
 
 @media (max-width: 991px) {
     .btn-cadastrar{

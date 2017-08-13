@@ -58,8 +58,13 @@
   <div class="w3-container w3-padding">
       <div id="passo1" [hidden]="hiddenPasso1">
           <div class="panel-passos">
-            <i class="fa fa-address-card-o" aria-hidden="true"></i>            
-                <span class="title-passos"><label>1º Dados Gerais</label></span>
+
+            <i class="fa fa-address-card-o w3-opacity hidden-xs" aria-hidden="true"></i>            
+            <span class="title-passos w3-opacity hidden-xs"><label>1º Dados Gerais</label></span>
+            <p class="w3-center w3-opacity hidden-sm hidden-md hidden-lg">
+                <i class="fa fa-address-card-o" title="1º Dados Gerais"></i>
+            </p>
+
           </div>
           <br>
           <form #f="ngForm">    
@@ -153,19 +158,16 @@
                 </div>
             </div>
 
-              
-              <!--BOTAO VOLTAR-->
-              <div class="form-group">
-                <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
-                    <span class="fa fa-reply-all" aria-hidden="true"></span>
-                    {{titleBtnVoltar}}
-                </button>
-                <!--BOTAO PROXIMO-->
-                <button [disabled]="!f.valid" (click)="proximoPasso(2)" type="button" class="btn btn-primary btn-customizado col-xs-12 col-sm-8 col-md-4 col-lg-4 btnProximo">
-                    <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
-                    {{titleButtonProximo}} 
-                </button>
-              </div>
+            <!--BOTAO VOLTAR-->
+            <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
+                <span class="fa fa-reply-all" aria-hidden="true"></span>
+                {{titleBtnVoltar}}
+            </button>
+            <!--BOTAO PROXIMO-->
+            <button [disabled]="!f.valid" (click)="proximoPasso(2)" type="button" class="btn btn-primary btn-customizado col-xs-12 col-sm-8 col-md-4 col-lg-4 btnProximo btnProximoPasso1">
+                <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                {{titleButtonProximo}} 
+            </button>
               <div class="pnl-aviso-required col-xs-12 col-sm-12 col-md-12 col-lg-12">
                   <span class="aviso-required">(*) preenchimento obrigatório</span>
               </div>
@@ -175,9 +177,14 @@
       <!--ENDEREÇO-->
       <div id="passo2" [hidden]="hiddenPasso2">
           <div class="panel-passos">
-            <i class="fa fa-map-marker" aria-hidden="true"></i>            
-                <span class="title-passos"><label>2º Endereço</label></span>
-          </div>
+
+            <i class="fa fa-map-marker w3-opacity hidden-xs" aria-hidden="true"></i>            
+            <span class="title-passos w3-opacity hidden-xs"><label>2º Endereço</label></span>
+            <p class="w3-center w3-opacity hidden-sm hidden-md hidden-lg">
+                <i class="fa fa-map-marker" title="2º Endereço"></i>
+            </p>
+
+        </div>
           <br>
           <form #f2="ngForm">    
           <!-- MENSAGENS DE ERRO -->
@@ -261,8 +268,13 @@
       <!--CONTATO-->
       <div id="passo3" [hidden]="hiddenPasso3">
           <div class="panel-passos">
-            <i class="fa fa-address-book-o" aria-hidden="true"></i>            
-            <span class="title-passos"><label>3º Contato</label></span>
+
+            <i class="fa fa-address-book-o w3-opacity hidden-xs" aria-hidden="true"></i>            
+            <span class="title-passos w3-opacity hidden-xs"><label>3º Contato</label></span>
+            <p class="w3-center w3-opacity hidden-sm hidden-md hidden-lg">
+                <i class="fa fa-address-book-o" title="3º Contato"></i>
+            </p>
+
           </div>
           <br>
           <form #f3="ngForm">    
@@ -355,8 +367,13 @@
       <!--MEDICAMENTO-->
       <div id="passo4" [hidden]="hiddenPasso4">
           <div class="panel-passos">
-            <i class="fa fa-medkit" aria-hidden="true"></i>            
-            <span class="title-passos"><label>4º Medicamentos</label></span>
+
+            <i class="fa fa-medkit w3-opacity hidden-xs" aria-hidden="true"></i>            
+            <span class="title-passos w3-opacity hidden-xs"><label>4º Medicamentos</label></span>
+            <p class="w3-center w3-opacity hidden-sm hidden-md hidden-lg">
+                <i class="fa fa-medkit" title="4º Medicamentos"></i>
+            </p>
+
           </div>
           <br>
           <form #f4="ngForm">    
@@ -412,12 +429,12 @@
                 <tr style="text-align:center !important;background-color: darkgrey;border: 1px solid darkgray;"><th style="text-align:center !important;">DETALHES</th></tr>
                 <tr *ngFor='let m of crianca.medicamentos; let i = index'>
                     <td style="border: 1px solid darkgray;border: 1px solid darkgray;">
-                        <span class="medicamento-descricao"><li>{{m?.nome}}</li></span><br>
-                        <span class="medicamento-descricao"><li>{{m?.dosagem}}</li></span><br>
-                        <span class="medicamento-descricao"><li>{{m?.intervaloHoras}}</li></span><br>
-                        <span class="medicamento-descricao"><li>até o dia {{m?.dtFinal | date: 'dd/MM/yyyy'}}</li></span><br>
-                        <button type="button" (click)="removerMedicamento(i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
-                        <i class="fa fa-times" aria-hidden="true" style="margin-left: 10px;"></i>
+                        <span class="medicamento-descricao"><li style="word-break: break-all;">{{m?.nome}}</li></span><br>
+                        <span class="medicamento-descricao"><li style="word-break: break-all;">{{m?.dosagem}}</li></span><br>
+                        <span class="medicamento-descricao"><li style="word-break: break-all;">{{m?.intervaloHoras}}</li></span><br>
+                        <span class="medicamento-descricao"><li style="word-break: break-all;">até o dia {{m?.dtFinal | date: 'dd/MM/yyyy'}}</li></span><br>
+                        <button type="button" (click)="removerMedicamento(i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-4 col-md-3 col-lg-3" style="margin-top: 1px">
+                        <i class="fa fa-trash-o" aria-hidden="true" style="margin-left: 10px;"></i>
                             {{titleButtonDeleteMedicamento}}
                         </button>
                     </td>
@@ -441,8 +458,13 @@
       <!--ALERGIA-->
       <div id="passo5" [hidden]="hiddenPasso5">
           <div class="panel-passos">
-            <i class="fa fa-bug" aria-hidden="true"></i>            
-            <span class="title-passos"><label>5º Alergia</label></span>
+
+            <i class="fa fa-bug w3-opacity hidden-xs" aria-hidden="true"></i>            
+            <span class="title-passos w3-opacity hidden-xs"><label>5º Alergia</label></span>
+            <p class="w3-center w3-opacity hidden-sm hidden-md hidden-lg">
+                <i class="fa fa-bug" title="5º Alergia"></i>
+            </p>
+
           </div>
           <br>
           <form #f5="ngForm">    
@@ -481,9 +503,9 @@
                 <tr style="text-align:center !important;background-color: darkgrey;border: 1px solid darkgray;"><th style="text-align:center !important;">DETALHES</th></tr>
                 <tr *ngFor='let a of crianca.alergias; let i = index'>
                     <td style="border: 1px solid darkgray;">
-                        <span class="alergia-descricao"><li>{{a?.descricao}}</li></span><br>
-                        <button type="button" (click)="removerAlergia(i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px">
-                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <span class="alergia-descricao"><li style="word-break: break-all;">{{a?.descricao}}</li></span><br>
+                        <button type="button" (click)="removerAlergia(i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-4 col-md-3 col-lg-3" style="margin-top: 1px">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                             {{titleButtonDeleteAlergia}}
                         </button>
                     </td>

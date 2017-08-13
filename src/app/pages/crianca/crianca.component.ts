@@ -27,8 +27,8 @@ export class CriancaComponent implements OnInit {
   private titleCadastro = 'Cadastrar Criança';
   private titleButtonAddMedicamento = 'Adicionar';
   private titleButtonAddAlergia = 'Adicionar';
-  private titleButtonDeleteMedicamento = 'Remover Medicamento';
-  private titleButtonDeleteAlergia = 'Remover Alergia';
+  private titleButtonDeleteMedicamento = 'Remover';
+  private titleButtonDeleteAlergia = 'Remover';
   private titleButtonAnterior = 'Anterior';
   private titleButtonProximo = 'Próximo';
   private titleButtonSalvar = 'Salvar';

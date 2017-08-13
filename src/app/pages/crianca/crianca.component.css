@@ -14,6 +14,10 @@
     .btn-cadastrar{
         margin-top: 3%;
     }
+    .btnProximoPasso1{
+          margin-top: 5px;            
+          margin-left: unset!important;
+   }
 }
 
 @media (max-width: 767px) {

@@ -1,0 +1,17 @@
+@media (max-width: 991px) {
+    .btnAddSalvar{
+          margin-top: 0px!important;                      
+   }
+}
+
+@media (max-width: 767px) {
+        .btnAddSalvar{
+            margin-top: 5px!important;
+        }
+}
+
+@media (min-width: 768px) {
+        .btnAddSalvar{
+            margin-left: 5px!important;
+        }
+}

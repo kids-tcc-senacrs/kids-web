@@ -37,9 +37,10 @@ export class FamiliaComponent implements OnInit {
   private hiddenPesquisa:boolean = false;
   private filtro:string;
   private parentescos: string[] = ['PAI', 'MÃE', 'TIO', 'TIA', 'VÔ', 'VÓ', 'PADRINHO', 'MADRINHA', 'PRIMO', 'PRIMA', 'IRMÃO', 'IRMÃ', 'AMIGO', 'AMIGA', 'OUTROS'];
-  private titleButtonAddFamiliar:string = 'Adicionar e Salvar';
+  private titleButtonAddFamiliar:string = 'Add e Salvar';
   private titleButtonDeleteVinculo:string = 'Remover';
   private titleButtonSalvar:string = 'Salvar';
+  private titleBtnVoltar:string = 'Voltar';
 
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -98,7 +99,6 @@ export class FamiliaComponent implements OnInit {
 private catchError(r:Response):void{
     if(r.status === 400 || r.status === 409){
       this.messagesError = r.json().messages;
-      console.log('erro encontrado: ' + this.messagesError);
     }else{
       this.router.navigate(['/home/servico-indisponivel']);
     }
@@ -148,13 +148,20 @@ exibirTelaPesquisa():void{
     }
   }
 
-  removerVinculo(index:number):void{
+  removerVinculo(index:number, id:number):void{
     for (var i = 0; i < this.criancaFamiliaList.length; i++) {
       if(i === index) {
         this.criancaFamiliaList.splice(index, 1);
+        this.familiaService.delete(id)
+                           .subscribe( data => this.catchResponseCode(data),
+                                        res => this.catchError(res));   
       }
     }
   }
+
+ private catchResponseCode(result:Response):void{
+     console.log('RESULTADO POS DELETE' + result.status);
+ }
 
   private catchResponse(result:CriancaFamilia[]):void{
     this.criancaFamiliaList = result;
@@ -163,4 +170,10 @@ exibirTelaPesquisa():void{
     this.criancaFamiliaVO.parentesco = null;
   }
   
+
+  listarCriancas():void{
+    this.hiddenCadastro = true;
+    this.hiddenPesquisa = false; 
+  }
+
 }

@@ -1,12 +1,12 @@
 <div [hidden]="hiddenPesquisa">
-  <div class="bs-callout bs-callout-warning">{{title}}</div>
+  <div class="bs-callout bs-callout-warning title">{{title}}</div>
   <div class="w3-container w3-padding">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <label>Filtro de pesquisa: </label>
         </div>
         <div id="filtroPesquisa" class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
-            <input type="text" class="form-control" [(ngModel)]="filtro">
+            <input type="text" class="form-control" [(ngModel)]="filtro" maxlength="60">
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 btn-cadastrar" *ngIf="usuarioLogado?.tipo === 'CRECHE'"> 
           <button type="button" (click)="exibirTelaCadastro()" class="btn btn-primary col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-customizado">
@@ -20,7 +20,7 @@
 
   <div [hidden]="criancas === null || criancas === undefined || criancas?.length == 0"> 
     <table class="table table-striped">
-      <tr style="text-align:center !important;background-color: darkgrey;border: 1px solid darkgray;"><th style="text-align:center !important;">DETALHES</th></tr>
+      <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
       <tr *ngFor='let c of listar()'>
         <td>
           <span>
@@ -51,8 +51,8 @@
 
 <!--CADASTRO - NOVO E EDIT-->
 <div [hidden]="hiddenCadastro">
-  <div class="bs-callout bs-callout-warning">
-    {{titleCadastro}}
+  <div class="bs-callout bs-callout-warning title">
+    {{title}}
   </div>
 
   <div class="w3-container w3-padding">
@@ -426,7 +426,7 @@
 
               <div [hidden]="crianca?.medicamentos === null || crianca?.medicamentos === undefined || crianca.medicamentos?.length == 0"> 
                 <table class="table table-striped">
-                <tr style="text-align:center !important;background-color: darkgrey;border: 1px solid darkgray;"><th style="text-align:center !important;">DETALHES</th></tr>
+                <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
                 <tr *ngFor='let m of crianca.medicamentos; let i = index'>
                     <td style="border: 1px solid darkgray;border: 1px solid darkgray;">
                         <span class="medicamento-descricao"><li style="word-break: break-all;">{{m?.nome}}</li></span><br>
@@ -500,7 +500,7 @@
 
               <div [hidden]="crianca?.alergias === null || crianca?.alergias === undefined || crianca.alergias?.length == 0"> 
                 <table class="table table-striped">
-                <tr style="text-align:center !important;background-color: darkgrey;border: 1px solid darkgray;"><th style="text-align:center !important;">DETALHES</th></tr>
+                <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
                 <tr *ngFor='let a of crianca.alergias; let i = index'>
                     <td style="border: 1px solid darkgray;">
                         <span class="alergia-descricao"><li style="word-break: break-all;">{{a?.descricao}}</li></span><br>

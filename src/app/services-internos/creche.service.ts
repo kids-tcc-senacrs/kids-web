@@ -14,11 +14,11 @@ private URL_REST_USUARIO:string =  environment.HOST_KIDS_CORE + this.API;
 constructor(private http:Http) {}
 
 public get(usuario:Usuario):Observable<Creche>{
-	console.log('[KIDS] consumindo API de creches GET ...');	
+  console.log('[KIDS] consumindo API de creches GET ...');	
   let url = this.URL_REST_USUARIO; 
   let headers = new Headers({ 'Content-Type': 'application/json'});
-	let options = new RequestOptions({ headers: headers });
-	return this.http.post(url, usuario, options).map(this.extractData).catch(this.handleError);
+  let options = new RequestOptions({ headers: headers });
+  return this.http.post(url, usuario, options).map(this.extractData).catch(this.handleError);
 }
 
 

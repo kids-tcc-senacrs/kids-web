@@ -3,6 +3,11 @@
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 .quebrar-texto{word-break: break-all;}
+.text-feminino{color:deeppink}
+.text-masculino{color: blue}
+.title{text-transform: uppercase;font-weight: bold}
+.btn-customizado{padding-left: 0px!important;text-align: center!important;border-radius:0px!important}
+.kids-header-table{text-align:center !important;background-color: #4d636f!important;border: 1px solid #4d636f !important;}
 
 .alerta-filtro-pesquisa{
   height: 40px;
@@ -32,24 +37,34 @@
 .bs-callout code {
   border-radius: 3px;
 }
+/* Common styles for all types */
 
-
-/* Variations */
 .bs-callout-danger {
   border-left-color: #ce4844;
 }
 .bs-callout-danger h4 {
   color: #ce4844;
 }
+
 .bs-callout-warning {
   border-left-color: #aa6708;
 }
 .bs-callout-warning h4 {
   color: #aa6708;
 }
+
+
 .bs-callout-info {
   border-left-color: #1b809e;
 }
 .bs-callout-info h4 {
   color: #1b809e;
+}
+
+
+.bs-callout-verde {
+  border-left-color: #088A08;
+}
+.bs-callout-verde h4 {
+  color: #088A08;
 }

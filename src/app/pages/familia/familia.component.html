@@ -1,0 +1,115 @@
+<div [hidden]="hiddenPesquisa">
+  <div class="bs-callout bs-callout-verde title">{{title}}</div>
+  <div class="w3-container w3-padding">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <label>Pesquisar Crianças: </label>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+            <input type="text" class="form-control" [(ngModel)]="filtro">
+        </div>
+    </div>
+  <hr>
+</div>
+
+
+  <div [hidden]="criancas === null || criancas === undefined || criancas?.length == 0"> 
+    <table class="table table-striped">
+      <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
+      <tr *ngFor='let c of listar()'>
+        <td>
+          <span>
+            <strong>
+              	<a>
+			        <span [ngClass]="classesTableLine(c.sexo)" (click)="editar(c)" title="Editar">{{c.pessoa.nome}}</span>
+		        </a>  
+            </strong>
+          </span><br>
+          <span class="quebrar-texto">Responsável: {{c?.contato?.responsavel}}</span><br> 
+          <span class="quebrar-texto">Fone: {{c?.contato?.fonePrincipal}}</span><br>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+
+
+
+<!--CADASTRO - NOVO E EDIT-->
+<div [hidden]="hiddenCadastro">
+  <div class="bs-callout bs-callout-verde title">
+    {{title}}
+  </div>
+
+  <div class="w3-container w3-padding">
+      <div>
+          <br>
+          <form #f="ngForm">    
+          <!-- MENSAGENS DE ERRO -->
+          <div [hidden]="!f.valid || messagesError === null" class="alert alert-danger" role="alert">
+                  <ul *ngFor="let message of messagesError">
+                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                      {{message}}
+                  </ul>
+              </div>
+
+              <!-- MENSAGEM DE SUCESSO -->
+              <div [hidden]="!f.valid || messageSuccess === null" class="alert alert-success" role="alert">
+                  <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                  {{messageSuccess}}
+              </div>
+
+              <!--CRIANCA-->
+              <div class="form-group">
+                  <label for="nome" class="control-label">Criança</label>
+                  <input id="nome" name="nome" #nome="ngModel" aria-describedby="nome" [(ngModel)]="criancaFamilia.crianca.pessoa.nome" maxlength="60" type="text" class="form-control" disabled>
+              </div>
+
+              <!--FAMILIAR-->
+              <div class="form-group">
+                    <label for="nomePessoa" class="control-label">Nome</label>
+                    <input id="nomePessoa" name="nomePessoa" #nomePessoa="ngModel" aria-describedby="nomePessoa" [(ngModel)]="criancaFamiliaVO.nome" maxlength="60" type="text" class="form-control" (click)="clearMessages()">
+              </div>
+
+              <!--EMAIL-->
+              <div class="form-group">
+                  <label for="email" class="control-label">E-mail</label>
+                  <input id="email" name="email" #email="ngModel" aria-describedby="email" [(ngModel)]="criancaFamiliaVO.email" maxlength="255" type="text" class="form-control" (click)="clearMessages()">
+              </div>
+
+            <!--PARENTESCO-->
+            <div class="form-group">						  
+                <label for="parentesco" class="control-label">Parentesco</label>
+                <br>
+                <select [(ngModel)]="criancaFamiliaVO.parentesco" class="form-control" name="parentesco" #parentesco="ngModel" aria-describedby="parentesco" (click)="clearMessages()">
+                    <option *ngFor="let parentesco of parentescos" [value]="parentesco" name="parentesco">{{parentesco}}</option>
+                </select>
+            </div>
+            
+            <button type="button" (click)="vincularFamiliar()" class="btn btn-success btn-customizado col-xs-12 col-sm-6 col-md-4 col-lg-4" style="margin-top: 5px">
+                <i class="fa fa-plus" aria-hidden="true"  style="margin-left: 10px;"></i>
+                {{titleButtonAddFamiliar}}
+            </button>
+
+          </form>
+      </div>    
+</div>        
+
+<div [hidden]="criancaFamiliaList === null || criancaFamiliaList === undefined || criancaFamiliaList.length == 0"> 
+    <table class="table table-striped">
+    <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
+    <tr *ngFor='let f of criancaFamiliaList; let i = index'>
+        <td style="border: 1px solid darkgray;border: 1px solid darkgray;">
+            <span><li class="quebrar-texto">{{f?.usuario?.pessoa?.nome}}</li></span><br>
+            <span><li class="quebrar-texto">{{f?.usuario?.email}}</li></span><br>
+            <span><li class="quebrar-texto">{{f?.parentesco}}</li></span><br>
+            <button type="button" (click)="removerVinculo(i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-4 col-md-3 col-lg-3" style="margin-top: 1px">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+              {{titleButtonDeleteVinculo}}
+            </button>
+        </td>
+    </tr>
+    </table>
+</div>

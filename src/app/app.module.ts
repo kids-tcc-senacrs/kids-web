@@ -1,3 +1,4 @@
+import { FamiliaService } from './services-internos/familia.service';
 import { CrecheService } from './services-internos/creche.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { APP_BASE_HREF,CommonModule} from '@angular/common';
@@ -30,6 +31,7 @@ import { BarraTituloComponent } from './util/barra-titulo/barra-titulo.component
 import { UtilHttpService } from './services-internos/util-http.service';
 import { CriancaService } from './services-internos/crianca.service';
 import { CriancaComponent } from './pages/crianca/crianca.component';
+import { FamiliaComponent } from './pages/familia/familia.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
@@ -41,7 +43,8 @@ const routes: Routes = [
                   { path: 'usuario-ativo',component: UsuarioAtivoComponent },
                   { path: 'servico-indisponivel',component: ServicoIndisponivelComponent },
                   { path: 'perfil',  component: PerfilComponent},
-                  { path: 'crianca',  component: CriancaComponent} 
+                  { path: 'crianca',  component: CriancaComponent},
+                  { path: 'familia',  component: FamiliaComponent}  
                 ]
     },
     { path: '**',      component: PaginaNaoEncontradaComponent}
@@ -62,7 +65,7 @@ const routes: Routes = [
     BarraTituloComponent,
     CriancaComponent,
     FileDropDirective, 
-    FileSelectDirective
+    FileSelectDirective, FamiliaComponent
   ],
   imports: [
     CommonModule,
@@ -79,6 +82,7 @@ const routes: Routes = [
               UtilHttpService,
               CriancaService,
               CrecheService,
+              FamiliaService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

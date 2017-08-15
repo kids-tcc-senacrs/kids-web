@@ -263,7 +263,6 @@ listar(){
   
   
   salvar():void{
-    console.log('arquivo gerado: ' +  this.uploader);
     //this.crianca.foto = this.uploader;
     this.clearMessages();
     this.titleButtonSalvar = "Enviando..."; 

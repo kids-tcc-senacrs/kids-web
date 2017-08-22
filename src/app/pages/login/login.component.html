@@ -1,7 +1,93 @@
-<div>
-  <div [class.capa]="true">
-    <button id="google-login-button" [ngClass]="classesBtnLogin()" (click)="login()">
-        <span [class.fa]="true" [class.fa-google]="true"></span> Login usando Google
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <button id="google-login-button" [ngClass]="classesBtnLogin()" (click)="login()" style="font-size:large;margin-left:auto;">
+      Login usando Google
     </button>    
-   </div>   
-</div>  
+</nav>
+
+<!-- Header -->
+<header class="masthead">
+  <div class="container">
+    <img class="img-fluid" src="../../../assets/images/profile.gif" style="max-width: 190px;" alt="">
+    <div class="intro-text">
+      <span class="name">KIDS</span>
+      <hr class="star-light">
+      <span class="skills">Portal web que aproxima creches e familiares</span>
+    </div>
+  </div>
+</header>
+
+<!-- Portfolio Grid Section -->
+    <section id="portfolio">
+      <div class="container">
+        <h3 class="text-center">Portfolio</h3>
+        <hr class="star-primary">
+        <div class="row">
+          <div class="col-sm-4 portfolio-item">
+            <a class="portfolio-link" data-toggle="modal">
+              <img class="img-fluid" src="../../../assets/images/cabin.png" alt="">
+            </a>
+          </div>
+          <div class="col-sm-4 portfolio-item">
+            <a class="portfolio-link"  data-toggle="modal">
+              <img class="img-fluid" src="../../../assets/images/cake.png" alt="">
+            </a>
+          </div>
+          <div class="col-sm-4 portfolio-item">
+            <a class="portfolio-link" data-toggle="modal">
+              <img class="img-fluid" src="../../../assets/images/circus.png" alt="">
+            </a>
+          </div>
+          <div class="col-sm-4 portfolio-item">
+            <a class="portfolio-link" data-toggle="modal">
+              <img class="img-fluid" src="../../../assets/images/game.png" alt="">
+            </a>
+          </div>
+          <div class="col-sm-4 portfolio-item">
+            <a class="portfolio-link" data-toggle="modal">
+              <img class="img-fluid" src="../../../assets/images/safe.png" alt="">
+            </a>
+          </div>
+          <div class="col-sm-4 portfolio-item">
+            <a class="portfolio-link" data-toggle="modal">
+              <img class="img-fluid" src="../../../assets/images/submarine.png" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section class="success" id="about">
+      <div class="container">
+        <h2 class="text-center">Sobre</h2>
+        <hr class="star-light">
+        <div class="row">
+          <div class="col-lg-2 ml-auto"></div>
+          <div class="col-lg-8 ml-auto">
+            <p>Trata-se de um sistema web que busca auxiliar na comunicação entre creches e familiares com crianças matriculadas na mesma</p>
+          </div>
+          <div class="col-lg-2 ml-auto"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="text-center">
+      <div class="footer-above">
+        <div class="container">
+          <div class="row">
+          </div>
+        </div>
+      </div>
+      <div class="footer-below">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <i>Desenvolvido por Luciano Ortiz - lucianoortizsilva@gmail.com</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>

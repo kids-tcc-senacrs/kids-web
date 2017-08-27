@@ -1,0 +1,13 @@
+@media (min-width: 768px) {
+        .btnTipoDiario{
+            max-width: 150px;
+            margin-left: 1px;
+        }
+}
+
+@media (max-width: 767px) {
+        .btnTipoDiario{
+            margin-top: 2px;
+        }
+}
+    

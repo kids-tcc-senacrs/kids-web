@@ -1,3 +1,4 @@
+import { DiarioService } from './services-internos/diario.service';
 import { FamiliaService } from './services-internos/familia.service';
 import { CrecheService } from './services-internos/creche.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -85,6 +86,7 @@ const routes: Routes = [
               CriancaService,
               CrecheService,
               FamiliaService,
+              DiarioService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

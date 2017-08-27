@@ -32,6 +32,7 @@ import { UtilHttpService } from './services-internos/util-http.service';
 import { CriancaService } from './services-internos/crianca.service';
 import { CriancaComponent } from './pages/crianca/crianca.component';
 import { FamiliaComponent } from './pages/familia/familia.component';
+import { DiarioComponent } from './pages/diario/diario.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
@@ -44,7 +45,8 @@ const routes: Routes = [
                   { path: 'servico-indisponivel',component: ServicoIndisponivelComponent },
                   { path: 'perfil',  component: PerfilComponent},
                   { path: 'crianca',  component: CriancaComponent},
-                  { path: 'familia',  component: FamiliaComponent}  
+                  { path: 'familia',  component: FamiliaComponent} ,
+                  { path: 'diario',  component: DiarioComponent},   
                 ]
     },
     { path: '**',      component: PaginaNaoEncontradaComponent}
@@ -65,7 +67,7 @@ const routes: Routes = [
     BarraTituloComponent,
     CriancaComponent,
     FileDropDirective, 
-    FileSelectDirective, FamiliaComponent
+    FileSelectDirective, FamiliaComponent, DiarioComponent
   ],
   imports: [
     CommonModule,

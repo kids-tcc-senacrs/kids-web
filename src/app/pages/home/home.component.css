@@ -1,3 +1,42 @@
+.btn-menu{margin-bottom: 3px;display:-webkit-box;}
+
+.bs-callout-perfil:hover{border-left-color: #ce4844;color: #ce4844;background-color:#ce4844 !important;}
+.bs-callout-perfil:active{border-left-color: #ce4844;color: #ce4844;background-color:#ce4844 !important;}
+.bs-callout-perfil:checked{border-left-color: #ce4844;color: #ce4844;background-color:yellowgreen !important;}
+
+.bs-callout-crianca:hover{
+   border-left-color: #aa6708;
+   color: #aa6708;
+}
+
+.bs-callout-crianca:active{
+   border-left-color: #aa6708;
+   color: #aa6708;
+   background-color: #aa6708 !important;
+}
+
+.bs-callout-familia:hover{
+   border-left-color: #088A08;
+   color: #088A08;
+}
+
+.bs-callout-familia:active{
+   border-left-color: #088A08;
+   color: #088A08;
+   background-color:  #088A08 !important;
+}
+
+.bs-callout-diario:hover{
+   border-left-color: #3366FF;
+   color: #3366FF;
+}
+
+.bs-callout-diario:active{
+   border-left-color: #3366FF;
+   color: #3366FF;
+   background-color: #3366FF !important;
+}
+
 .w3-white {
     padding: 10px;
 }

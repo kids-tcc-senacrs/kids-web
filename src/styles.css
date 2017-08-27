@@ -68,3 +68,18 @@
 .bs-callout-verde h4 {
   color: #088A08;
 }
+
+.bs-callout-azul {
+  border-left-color: #3366FF;
+}
+.bs-callout-azul h4 {
+  color: #3366FF;
+}
+
+.bs-callout-original {
+  border-left-color: #4d636f ;
+}
+.bs-callout-original h4 {
+  color: #4d636f ;
+}
+

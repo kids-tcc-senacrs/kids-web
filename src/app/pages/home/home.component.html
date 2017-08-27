@@ -1,26 +1,35 @@
-<!--BARRA DE MENU-->
 <div class="w3-top">
 	<div class="w3-bar w3-theme-d2 w3-left-align w3-large">
-		<a routerLink="perfil" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white">
-			<i routerLink="perfil" [hidden]="usuario === null || usuario === undefined" class="fa fa-user" title="Perfil"></i>
-		</a>    
-		<a routerLink="crianca" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white">
-			<i routerLink="crianca" [hidden]="usuario === null || usuario === undefined" class="fa fa-child" title="Crianças"></i>
-		</a>    
-		<a routerLink="familia" [hidden]="usuario === null || usuario === undefined || usuario.tipo === 'FAMILIAR'" class="w3-button w3-padding-large w3-hover-white">
-			<i routerLink="familia" [hidden]="usuario === null || usuario === undefined || usuario.tipo === 'FAMILIAR'" class="fa fa-users" title="Acesso de familiares"></i>
-		</a>    
-		<a class="w3-button w3-padding-large w3-hover-white w3-right" (click)="logout()" title="sair"><i class="glyphicon glyphicon-log-out"></i></a>
+		&nbsp;
 	</div>
 </div>
 
 <!--CONTEUDO-->
-<div  class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+<div  class="w3-container w3-content" style="max-width:1400px;margin-top:50px">    
 	<div class="w3-row">
 		<!--COLUNA DA ESQUERDA-->
 		<div [hidden]="usuario === null || usuario === undefined || usuario.id === null" class="w3-col col-xs-12 col-sm-5 col-md-4 col-lg-3">
 			<app-perfil-usuario></app-perfil-usuario>
 			<br>
+			<a routerLink="perfil" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-perfil col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
+				<i routerLink="perfil" [hidden]="usuario === null || usuario === undefined" class="fa fa-user" title="Perfil"></i>
+				Perfil
+			</a>    
+			<a routerLink="crianca" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-crianca col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
+				<i routerLink="crianca" [hidden]="usuario === null || usuario === undefined" class="fa fa-child" title="Crianças"></i>
+				Crianças
+			</a>    
+			<a routerLink="familia" [hidden]="usuario === null || usuario === undefined || usuario.tipo === 'FAMILIAR'" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-familia col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
+				<i routerLink="familia" [hidden]="usuario === null || usuario === undefined || usuario.tipo === 'FAMILIAR'" class="fa fa-users" title="Acesso de familiares"></i>
+				Familiares
+			</a>    
+			<a routerLink="diario" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
+				<i routerLink="diario" [hidden]="usuario === null || usuario === undefined" class="fa fa-book" title="Diário"></i>
+				Diário
+			</a>    
+			<a class="w3-button w3-padding-large w3-hover-white w3-right col-xs-12 col-sm-12 col-md-12 col-lg-12" (click)="logout()" title="sair">
+				<i class="glyphicon glyphicon-log-out"></i>
+			</a>
 		</div>
 		<!--COLUNA DO MEIO-->
 		<div class="w3-col col-xs-12 col-sm-7 col-md-8 col-lg-9">

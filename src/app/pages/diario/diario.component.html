@@ -2,7 +2,6 @@
   <div class="bs-callout bs-callout-azul title">{{title}}</div>
 </div>
 
-<!--MENU PARA USUARIO DO TIPO CRECHE-->
 <div class="w3-container">
   <div class="w3-container row" style="margin-top: 2px">
       <button type="button" (click)="exibirTipoDiario('REFEICAO_CAFE_MANHA')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-3 col-lg-2 btn-customizado">
@@ -34,6 +33,53 @@
 
 <!--LISTA DE DIARIOS PARA O TIPO CRECHE-->
 <div *ngIf="usuarioLogado?.tipo === 'CRECHE'" [hidden]="diariosVO === null || diariosVO === undefined || diariosVO?.length == 0"> 
+
+ <div style="margin-top: 2px">
+   <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">
+    <i class="fa fa-cutlery" aria-hidden="true"></i>   
+    {{tipoDiarioSelecionadoAndRenomeado}}
+    </div>
+  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_ALMOCO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">
+    <i class="fa fa-coffee" aria-hidden="true"></i>   
+    {{tipoDiarioSelecionadoAndRenomeado}}
+    </div>
+  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'REFEICAO_ALMOCO' == tipoDiarioSelecionado">
+    <i class="fa fa-bed" aria-hidden="true"></i>   
+    {{tipoDiarioSelecionadoAndRenomeado}}
+    </div>
+  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'REFEICAO_ALMOCO' == tipoDiarioSelecionado">
+    <i class="fa fa-bath" aria-hidden="true"></i>  
+    {{tipoDiarioSelecionadoAndRenomeado}}
+    </div>
+ </div>
+    
+   <table class="table table-striped">
+      <tr *ngFor='let diario of diariosVO'>  
+        <form #f="ngForm">  
+          <td>
+            <strong>
+              <span [ngClass]="classesTableLine(diario.criancaSexo)">{{diario.criancaNome}}</span>
+            </strong>
+          </td>      
+          <td>  
+          </td> 
+        </form>
+      </tr>
+  </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--LISTA DE DIARIOS PARA O TIPO FAMILIAR-->
+<div *ngIf="usuarioLogado?.tipo === 'FAMILIAR'" [hidden]="diariosVO === null || diariosVO === undefined || diariosVO?.length == 0"> 
 
  <div style="margin-top: 2px">
    <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">

@@ -13,9 +13,14 @@ private URL_DEFAULT:string =  environment.HOST_KIDS_CORE + this.API;
 
 constructor(private http:Http) {}
 
-public get(dto:DiarioDTO):Observable<DiarioVO[]>{
+public get(dto:DiarioDTO, tipoUsuario:string, usuarioId:number):Observable<DiarioVO[]>{
 	console.log('[KIDS] consumindo API de diarios GET ...');	
-	let url = this.URL_DEFAULT + dto.crecheId + '/' + dto.tipo 
+	let url = null;
+	if(tipoUsuario === 'CRECHE'){
+		url = this.URL_DEFAULT + dto.crecheId + '/' + dto.tipo 
+	}else{
+        url = this.URL_DEFAULT + usuarioId + '/' + dto.tipo + '/' + true
+	}
 	return this.http.get(url).map(this.extractData).catch(this.handleError);
 }  
 

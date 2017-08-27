@@ -58,8 +58,15 @@ export class DiarioComponent implements OnInit {
   private exibirTipoDiario(tipo:string):void{
     this.tipoDiarioSelecionado = tipo;    
     this.renomearTipo();
-    this.diarioDTO = new DiarioDTO(null,null,this.crecheLogada.id,this.tipoDiarioSelecionado,null);
-    this.diarioService.get(this.diarioDTO).subscribe( data => this.diariosVO =  data,error => this.catchError(this.messagesError = <any>error));
+    
+    if(this.usuarioLogado.tipo === 'CRECHE'){
+      this.diarioDTO = new DiarioDTO(null,null,this.crecheLogada.id,this.tipoDiarioSelecionado,null);
+      this.diarioService.get(this.diarioDTO, 'CRECHE', null).subscribe( data => this.diariosVO =  data,error => this.catchError(this.messagesError = <any>error));
+    }else if(this.usuarioLogado.tipo === 'FAMILIAR'){
+      this.diarioDTO = new DiarioDTO(null,null,null,this.tipoDiarioSelecionado,null);
+      this.diarioService.get(this.diarioDTO, 'FAMILIAR', this.usuarioLogado.id).subscribe( data => this.diariosVO =  data,error => this.catchError(this.messagesError = <any>error));
+    }
+    
   }
 
   renomearTipo():void{

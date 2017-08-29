@@ -26,7 +26,9 @@ export class DiarioComponent implements OnInit {
   private diarioDTO:DiarioDTO=null;
   private diariosVO:DiarioVO[];
   private ultimaNotaSelecionada:string;
+  private titleButtonSalvar:string = "Salvar";
   private tipos: string[] = ['Não Avaliado','POUCO', 'NORMAL', 'MUITO'];
+  private messageSuccess: string = null;
 
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -56,6 +58,7 @@ export class DiarioComponent implements OnInit {
   }
 
   private exibirTipoDiario(tipo:string):void{
+    this.clearMessages();
     this.tipoDiarioSelecionado = tipo;    
     this.renomearTipo();
     
@@ -96,10 +99,44 @@ classesTableLine(sexo:string): any {
   return cssStyles; 
 }
 
-definirNota(diario:DiarioVO, notaDiario:string){
-    console.log('nota atual: ' + diario.nota);
-    diario.nota = notaDiario;
-    console.log('nota posterior: ' + diario.nota);
+setNota(diario:DiarioVO, notaDiario:string){
+    this.clearMessages();
+    diario.nota = notaDiario;    
 }
+
+isChecked(diario:DiarioVO, notaAtual:string):boolean{
+  if(diario.nota == notaAtual){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+getNameRadioButton(index:number):string{
+  return "" + index + "";
+}
+
+salvar():void{
+    this.titleButtonSalvar = "Enviando..."; 
+    let diariosDTO:DiarioDTO[] = [];
+    for (var i = 0; i < this.diariosVO.length; i++) {
+      let diarioVO:DiarioVO = this.diariosVO[i];
+      let diarioDTO:DiarioDTO = new DiarioDTO(diarioVO.diarioId, diarioVO.criancaId, this.crecheLogada.id, this.tipoDiarioSelecionado, diarioVO.nota);
+      diariosDTO.push(diarioDTO);
+    }
+    this.diarioService.post(diariosDTO).subscribe( data => this.catchResponse(data),res => this.catchError(res));
+    this.titleButtonSalvar = "Atualizar";                                     
+    this.clearMessages();
+  }
+
+  private clearMessages():void{
+      this.messageSuccess = null;
+      this.messagesError = null;
+  }
+
+ private catchResponse(diariosSalvos:DiarioVO[]):void{
+   this.diariosVO =diariosSalvos;
+   this.messageSuccess = "Diário atualizado com sucesso!";    
+ }
 
 }

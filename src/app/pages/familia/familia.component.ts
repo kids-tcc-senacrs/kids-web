@@ -122,6 +122,7 @@ editar(c:Crianca):void{
 }
 
 exibirTelaPesquisa():void{
+    this.clearMessages();
     this.hiddenCadastro = true;
     this.hiddenPesquisa = false;
     this.criancaFamilia =  new CriancaFamilia(null,null,null,null,null);
@@ -133,9 +134,14 @@ exibirTelaPesquisa():void{
   }
 
   vincularFamiliar():void{
-    if(this.criancaFamiliaVO.nome.trim().length === 0  ||
+    this.clearMessages();
+    if(this.criancaFamiliaVO.nome === null  ||
+       this.criancaFamiliaVO.email === null ||
+      this.criancaFamiliaVO.nome.trim().length === 0  ||
        this.criancaFamiliaVO.email.trim().length === 0 ||
-       this.criancaFamiliaVO.parentesco === null 
+       this.criancaFamiliaVO.parentesco === null || 
+       this.criancaFamiliaVO.parentesco === undefined || 
+       this.criancaFamiliaVO.parentesco === ''
        ){
        this.messagesError =  ['Para vincular um familiar, preencha todos os campos'!];
     }else{
@@ -144,11 +150,13 @@ exibirTelaPesquisa():void{
       this.criancaFamiliaVO.criancaId = this.criancaFamilia.crianca.id;
       this.criancaFamiliaVO.ativo = true;
       this.familiaService.post(this.criancaFamiliaVO).subscribe( data => this.catchResponse(data),res => this.catchError(res));   
-      this.titleButtonSalvar = "Salvar";                                        
+      this.titleButtonSalvar = "Salvar";    
+      this.messageSuccess = "Familiar vinculado com sucesso!";                                    
     }
   }
 
   removerVinculo(index:number, id:number):void{
+    this.clearMessages();
     for (var i = 0; i < this.criancaFamiliaList.length; i++) {
       if(i === index) {
         this.criancaFamiliaList.splice(index, 1);
@@ -160,7 +168,7 @@ exibirTelaPesquisa():void{
   }
 
  private catchResponseCode(result:Response):void{
-     console.log('RESULTADO POS DELETE' + result.status);
+     this.messageSuccess = "Vinculo de familiar removido com sucesso!";                                    
  }
 
   private catchResponse(result:CriancaFamilia[]):void{

@@ -2,29 +2,43 @@
   <div class="bs-callout bs-callout-azul title">{{title}}</div>
 </div>
 
+<!-- MENSAGENS DE ERRO -->
+<div [hidden]="messagesError === null" class="alert alert-danger" role="alert" style="margin-top: 15px;">
+<ul *ngFor="let message of messagesError">
+<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+{{message}}
+</ul>
+</div>
+
+<!-- MENSAGEM DE SUCESSO -->
+<div [hidden]="messageSuccess === null" class="alert alert-success" role="alert" style="margin-top: 15px;">
+<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+{{messageSuccess}}
+</div>
+
 <div class="w3-container">
   <div class="w3-container row" style="margin-top: 2px">
-      <button type="button" (click)="exibirTipoDiario('REFEICAO_CAFE_MANHA')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-3 col-lg-2 btn-customizado">
+      <button type="button" (click)="exibirTipoDiario('REFEICAO_CAFE_MANHA')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-6 col-lg-2 btn-customizado">
         <i class="fa fa-coffee" aria-hidden="true"></i>  
         Café da manhã
       </button>
-      <button type="button" (click)="exibirTipoDiario('REFEICAO_ALMOCO')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-3 col-lg-2 btn-customizado">
+      <button type="button" (click)="exibirTipoDiario('REFEICAO_ALMOCO')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-6 col-lg-2 btn-customizado">
         <i class="fa fa-cutlery" aria-hidden="true"></i>  
         Almoço
       </button>
-      <button type="button" (click)="exibirTipoDiario('REFEICAO_CAFE_TARDE')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-3 col-lg-2 btn-customizado">
+      <button type="button" (click)="exibirTipoDiario('REFEICAO_CAFE_TARDE')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-6 col-lg-2 btn-customizado">
         <i class="fa fa-coffee" aria-hidden="true"></i>  
         Café da tarde
       </button>
-      <button type="button" (click)="exibirTipoDiario('REFEICAO_JANTA')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-3 col-lg-2 btn-customizado">
+      <button type="button" (click)="exibirTipoDiario('REFEICAO_JANTA')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-6 col-lg-2 btn-customizado">
         <i class="fa fa-cutlery" aria-hidden="true"></i>  
         Janta
       </button>
-      <button type="button" (click)="exibirTipoDiario('SONO')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-3 col-lg-2 btn-customizado">
+      <button type="button" (click)="exibirTipoDiario('SONO')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-6 col-lg-2 btn-customizado">
         <i class="fa fa-bed" aria-hidden="true"></i>  
         Sono
       </button>
-      <button type="button" (click)="exibirTipoDiario('EVACUACAO')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-3 col-lg-2 btn-customizado">
+      <button type="button" (click)="exibirTipoDiario('EVACUACAO')" class="btnTipoDiario btn btn-primary col-xs-12 col-sm-12 col-md-6 col-lg-2 btn-customizado">
         <i class="fa fa-bath" aria-hidden="true"></i>  
         Evacuação
       </button>
@@ -35,40 +49,54 @@
 <div *ngIf="usuarioLogado?.tipo === 'CRECHE'" [hidden]="diariosVO === null || diariosVO === undefined || diariosVO?.length == 0"> 
 
  <div style="margin-top: 2px">
-   <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">
+   <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;margin-bottom: 10px;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">
     <i class="fa fa-cutlery" aria-hidden="true"></i>   
     {{tipoDiarioSelecionadoAndRenomeado}}
     </div>
-  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_ALMOCO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">
+  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;margin-bottom: 10px;" [hidden]="'REFEICAO_ALMOCO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">
     <i class="fa fa-coffee" aria-hidden="true"></i>   
     {{tipoDiarioSelecionadoAndRenomeado}}
     </div>
-  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'REFEICAO_ALMOCO' == tipoDiarioSelecionado">
+  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;margin-bottom: 10px;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'REFEICAO_ALMOCO' == tipoDiarioSelecionado">
     <i class="fa fa-bed" aria-hidden="true"></i>   
     {{tipoDiarioSelecionadoAndRenomeado}}
     </div>
-  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'REFEICAO_ALMOCO' == tipoDiarioSelecionado">
+  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;margin-bottom: 10px;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'REFEICAO_ALMOCO' == tipoDiarioSelecionado">
     <i class="fa fa-bath" aria-hidden="true"></i>  
     {{tipoDiarioSelecionadoAndRenomeado}}
     </div>
  </div>
     
-   <table class="table table-striped">
-      <tr *ngFor='let diario of diariosVO'>  
-        <form #f="ngForm">  
-          <td>
-            <strong>
-              <span [ngClass]="classesTableLine(diario.criancaSexo)">{{diario.criancaNome}}</span>
-            </strong>
-          </td>      
-          <td>  
-          </td> 
-        </form>
-      </tr>
-  </table>
-</div>
+<table class="table table-striped">
+  <tr *ngFor='let diario of diariosVO; let i = index' class="row">  
 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 radio divRadio">
+        <li><strong><span [ngClass]="classesTableLine(diario.criancaSexo)">{{diario.criancaNome}}</span></strong></li>
+      </div> 
 
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 radio divRadio" style="margin-top: 10px;">
+        <span><input type="radio" [checked]="isChecked(diario, 'POUCO')" (click)="setNota(diario, 'POUCO')" value="POUCO">Pouco</span>
+      </div> 
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 radio divRadio" style="margin-top: 10px;">
+        <span><input type="radio" [checked]="isChecked(diario, 'NORMAL')" (click)="setNota(diario, 'NORMAL')" value="NORMAL">Normal</span>
+      </div>   
+
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 radio divRadio" style="margin-top: 10px;">
+        <span><input type="radio" [checked]="isChecked(diario, 'MUITO')" (click)="setNota(diario, 'MUITO')" value="MUITO">Muito</span>
+      </div>   
+
+    </div>
+
+  </tr>
+</table>
+
+<button type="button" (click)="salvar()" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3" style="margin-top: 20px;">
+  <span class="fa fa-floppy-o" aria-hidden="true"></span>  
+  {{titleButtonSalvar}} {{tipoDiarioSelecionadoAndRenomeado}}
+</button>
 
 
 

@@ -2,6 +2,7 @@
         .btnTipoDiario{
             max-width: 150px;
             margin-left: 1px;
+            margin-top: 2px;
         }
 }
 
@@ -11,3 +12,8 @@
         }
 }
     
+@media (max-width: 991px) {
+    .divRadio{
+        text-align:center !important;
+    }
+}    

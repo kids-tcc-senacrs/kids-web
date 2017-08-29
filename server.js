@@ -1,5 +1,17 @@
 const express = require('express');
 const app = express();
+var http = require('http');
+var HttpCors = require('http-cors');
+
+// configure (all allowed - see source for options) 
+var cors = new HttpCors();
+ 
+var server = http.createServer(function( request, response ){
+    if (cors.apply(request, response))
+        return;	// this was an OPTIONS request - no further action needed  
+    // do your things 
+});
+
 // Run the app by serving the static files
 // in the dist directory
 app.use(express.static(__dirname + '/dist'));

@@ -17,6 +17,7 @@ before_script:
 - npm install bootstrap-social
 - npm install --save angular-date-value-accessor
 - npm install ngx-bootstrap bootstrap
+- npm install http-cors
 - npm install --save express
 - ng build
 

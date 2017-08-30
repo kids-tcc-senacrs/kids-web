@@ -46,7 +46,7 @@
 </div>
 
 <!--LISTA DE DIARIOS PARA O TIPO CRECHE-->
-<div *ngIf="usuarioLogado?.tipo === 'CRECHE'" [hidden]="diariosVO === null || diariosVO === undefined || diariosVO?.length == 0"> 
+<div [hidden]="diariosVO === null || diariosVO === undefined || diariosVO?.length == 0"> 
 
  <div style="margin-top: 2px">
    <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;margin-bottom: 10px;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">
@@ -67,7 +67,7 @@
     </div>
  </div>
     
-<table class="table table-striped">
+<table class="table table-striped" *ngIf="usuarioLogado?.tipo === 'CRECHE'">
   <tr *ngFor='let diario of diariosVO; let i = index' class="row">  
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -93,52 +93,31 @@
   </tr>
 </table>
 
-<button type="button" (click)="salvar()" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3" style="margin-top: 20px;">
+<button *ngIf="usuarioLogado?.tipo === 'CRECHE'" type="button" (click)="salvar()" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3" style="margin-top: 20px;">
   <span class="fa fa-floppy-o" aria-hidden="true"></span>  
   {{titleButtonSalvar}} {{tipoDiarioSelecionadoAndRenomeado}}
 </button>
 
-
-
-
-
-
-
-
-
-<!--LISTA DE DIARIOS PARA O TIPO FAMILIAR-->
-<div *ngIf="usuarioLogado?.tipo === 'FAMILIAR'" [hidden]="diariosVO === null || diariosVO === undefined || diariosVO?.length == 0"> 
-
- <div style="margin-top: 2px">
-   <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">
-    <i class="fa fa-cutlery" aria-hidden="true"></i>   
-    {{tipoDiarioSelecionadoAndRenomeado}}
-    </div>
-  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_ALMOCO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado">
-    <i class="fa fa-coffee" aria-hidden="true"></i>   
-    {{tipoDiarioSelecionadoAndRenomeado}}
-    </div>
-  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'EVACUACAO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'REFEICAO_ALMOCO' == tipoDiarioSelecionado">
-    <i class="fa fa-bed" aria-hidden="true"></i>   
-    {{tipoDiarioSelecionadoAndRenomeado}}
-    </div>
-  <div class="bs-callout title" style="text-align:center !important;background-color:lightgray;" [hidden]="'REFEICAO_CAFE_MANHA' == tipoDiarioSelecionado || 'REFEICAO_CAFE_TARDE' == tipoDiarioSelecionado || 'SONO' == tipoDiarioSelecionado || 'REFEICAO_JANTA' == tipoDiarioSelecionado || 'REFEICAO_ALMOCO' == tipoDiarioSelecionado">
-    <i class="fa fa-bath" aria-hidden="true"></i>  
-    {{tipoDiarioSelecionadoAndRenomeado}}
-    </div>
- </div>
-    
-   <table class="table table-striped">
+   
+   <table class="table table-striped" *ngIf="usuarioLogado?.tipo === 'FAMILIAR'">
       <tr *ngFor='let diario of diariosVO'>  
-        <form #f="ngForm">  
-          <td>
-            <strong>
-              <span [ngClass]="classesTableLine(diario.criancaSexo)">{{diario.criancaNome}}</span>
-            </strong>
-          </td>      
-          <td>  
-          </td> 
-        </form>
+        
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 nomeCrianca">
+            <li><strong><span [ngClass]="classesTableLine(diario.criancaSexo)">{{diario.criancaNome}}</span></strong></li>
+          </div> 
+          
+         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 radio divRadio img-responsive" style="margin-top: 10px;">
+            <img [hidden]="diario.nota === 'POUCO' || diario.nota === 'NORMAL' || diario.nota === 'MUITO'" src="../../../assets/images/notaVazia.jpg">
+            <img [hidden]="diario.nota ===  null   || diario.nota === 'NORMAL' || diario.nota === 'MUITO'" src="../../../assets/images/notaPouco.jpg">
+            <img [hidden]="diario.nota ===  null   || diario.nota === 'POUCO' || diario.nota === 'MUITO'"  src="../../../assets/images/notaNormal.jpg">
+            <img [hidden]="diario.nota ===  null   || diario.nota === 'POUCO' || diario.nota === 'NORMAL'" src="../../../assets/images/notaMuito.jpg">
+         </div>   
+
+        </div> 
+
       </tr>
+      <img src="../../../assets/images/legenda.jpg" class="hidden-md hidden-sm hidden-xs" style="margin-left: 15px;">
   </table>
 </div>

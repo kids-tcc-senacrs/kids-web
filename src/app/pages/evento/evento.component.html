@@ -55,51 +55,21 @@
                 </div>
 
                 <!--NOME EVENTO-->
-                <div class="form-group" [class.has-error]="!nomeEvento.valid && nomeEvento.touched" 
-                          [class.has-success]="nomeEvento.valid && nomeEvento.touched"
-                          [class.has-feedback]="nomeEvento.touched">
+                <div class="form-group">
                     <label for="nomeEvento" class="control-label">Nome*</label>
                     <input id="nomeEvento" name="nomeEvento" #nomeEvento="ngModel" aria-describedby="nomeEvento" [(ngModel)]="evento.eventoNome" maxlength="60" type="text" class="form-control" (focus)="clearMessages()">
-                    <span *ngIf="!nomeEvento.valid && nomeEvento.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                    <span *ngIf="!nomeEvento.valid && nomeEvento.touched" id="nomeEvento" class="sr-only">(error)</span>
-                    <span *ngIf="nomeEvento.valid && nomeEvento.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                    <span *ngIf="nomeEvento.valid && nomeEvento.touched" id="nomeEvento" class="sr-only">(success)</span>
-                    <div *ngIf="!nomeEvento.valid && nomeEvento.touched" class="alert alert-danger" role="alert">
-                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                      Nome do evento é obrigatório.
-                  </div>
                 </div>
 
                 <!--DATA REALIZACAO-->
-                <div class="form-group" [class.has-error]="!dtRealizacao.valid && dtRealizacao.touched" 
-                          [class.has-success]="dtRealizacao.valid && dtRealizacao.touched"
-                          [class.has-feedback]="dtRealizacao.touched">
-                <label for="dtRealizacao" class="control-label">Data de Realização*</label>
-                <input id="dtRealizacao" name="dtRealizacao" #dtRealizacao="ngModel" aria-describedby="dtRealizacao" [(ngModel)]="evento.dtRealizacao" type="datetime-local" class="form-control" (focus)="clearMessages()">
-                <span *ngIf="!dtRealizacao.valid && dtRealizacao.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                <span *ngIf="!dtRealizacao.valid && dtRealizacao.touched" id="dtRealizacao" class="sr-only">(error)</span>
-                <span *ngIf="dtRealizacao.valid && dtRealizacao.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                <span *ngIf="dtRealizacao.valid && dtRealizacao.touched" id="dtRealizacao" class="sr-only">(success)</span>
-                <div *ngIf="!dtRealizacao.valid && dtRealizacao.touched" class="alert alert-danger" role="alert">
-                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                  Data de Realização é obrigatório.
+                <div class="form-group">
+                  <label for="dtRealizacao" class="control-label">Data de Realização*</label>
+                  <input id="dtRealizacao" name="dtRealizacao" #dtRealizacao="ngModel" aria-describedby="dtRealizacao" [(ngModel)]="evento.dtRealizacao" type="datetime-local" class="form-control" (focus)="clearMessages()">
                 </div>
-              </div>
 
               <!--DESCRICAO-->
-                <div class="form-group" [class.has-error]="!descricao.valid && descricao.touched" 
-                      [class.has-success]="descricao.valid && descricao.touched"
-                      [class.has-feedback]="descricao.touched">
+                <div class="form-group">
                   <label for="descricao" class="control-label">Descrição*</label>
                   <textarea id="descricao" class="form-control" rows="5" name="descricao" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="evento.descricao" maxlength="255" (focus)="clearMessages()"></textarea>
-                  <span *ngIf="!descricao.valid && descricao.touched" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                  <span *ngIf="!descricao.valid && descricao.touched" id="descricao" class="sr-only">(error)</span>
-                  <span *ngIf="descricao.valid && descricao.touched" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-                  <span *ngIf="descricao.valid && descricao.touched" id="descricao" class="sr-only">(success)</span>
-                  <div *ngIf="!descricao.valid && descricao.touched" class="alert alert-danger" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    Descrição é obrigatório.
-                  </div>
                 </div>
 
                 <!--BOTAO SALVAR-->

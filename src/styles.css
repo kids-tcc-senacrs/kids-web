@@ -83,6 +83,13 @@
   color: #FF69B4;
 }
 
+.bs-callout-laranja {
+  border-left-color:#FF4500;
+}
+.bs-callout-laranja h4 {
+  color: #FF4500;
+}
+
 .bs-callout-original {
   border-left-color: #4d636f ;
 }

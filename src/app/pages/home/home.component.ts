@@ -84,4 +84,8 @@ public exibirMenuFamiliares():boolean{
   return !(this.usuario === null || this.usuario === undefined || this.usuario.tipo == 'FAMILIAR');
 }
 
+public exibirMenuAvisos():boolean{
+  return !(this.usuario === null || this.usuario === undefined || this.usuario.tipo == 'FAMILIAR');
+}
+
  }

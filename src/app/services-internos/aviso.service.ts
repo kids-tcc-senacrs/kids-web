@@ -1,6 +1,7 @@
-import { Observable } from 'rxjs';
+import { AvisoDTO } from './../dto/aviso-dto';
 import { AvisoVO } from './../vo/aviso-vo';
 import { Usuario } from './../model/usuario';
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/throw';
@@ -22,6 +23,14 @@ export class AvisoService {
 	return this.http.get(url).map(this.extractData).catch(this.handleError);
   }  
   
+  public post(avisoDTO:AvisoDTO):Observable<Response>{
+    console.log('[KIDS] consumindo API de aviso POST ...');	
+    let url = this.URL_DEFAULT 
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, avisoDTO, options).map(this.throwResponse).catch(this.handleError);
+  } 
+
   private throwResponse(res: Response){
   	return res;
   }

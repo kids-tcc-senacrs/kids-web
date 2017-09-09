@@ -38,7 +38,7 @@ export class EventoService {
   } 
 
   public post(eventoDTO:EventoDTO):Observable<Response>{
-    console.log('[KIDS] consumindo API de evento PUT ...');	
+    console.log('[KIDS] consumindo API de evento POST ...');	
     let url = this.URL_DEFAULT 
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });

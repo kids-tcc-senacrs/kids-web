@@ -37,6 +37,7 @@ import { CriancaComponent } from './pages/crianca/crianca.component';
 import { FamiliaComponent } from './pages/familia/familia.component';
 import { DiarioComponent } from './pages/diario/diario.component';
 import { EventoComponent } from './pages/evento/evento.component';
+import { AvisoComponent } from './pages/aviso/aviso.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
@@ -52,6 +53,7 @@ const routes: Routes = [
                   { path: 'familia',  component: FamiliaComponent} ,
                   { path: 'diario',  component: DiarioComponent},   
                   { path: 'evento',  component: EventoComponent},   
+                  { path: 'aviso',  component: AvisoComponent},   
                 ]
     },
     { path: '**',      component: PaginaNaoEncontradaComponent}
@@ -72,7 +74,7 @@ const routes: Routes = [
     BarraTituloComponent,
     CriancaComponent,
     FileDropDirective, 
-    FileSelectDirective, FamiliaComponent, DiarioComponent, EventoComponent
+    FileSelectDirective, FamiliaComponent, DiarioComponent, EventoComponent, AvisoComponent
   ],
   imports: [
     CommonModule,

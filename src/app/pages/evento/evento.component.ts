@@ -52,9 +52,7 @@ export class EventoComponent implements OnInit {
   }
 
   private catchError(r:Response):void{
-    console.log('aaaaaaaaa' + r.status);
     if(r.status === 400 || r.status === 409){
-      console.log('bbbb' + r.json().messages);
       this.messagesError = r.json().messages;
     }else{
       this.router.navigate(['/home/servico-indisponivel']);
@@ -76,6 +74,18 @@ export class EventoComponent implements OnInit {
     this.evento.dtRealizacao = dtFinalAjustada;
     this.evento.crecheId = this.crecheLogada.id;
     this.eventoService.post(this.evento).subscribe( data => this.extractData(data) ,error => this.catchError(this.messagesError = <any>error));         
+
+    let timer = setInterval(() => { 
+      if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
+        if(this.usuarioLogado.tipo === 'FAMILIAR'){
+          this.eventoService.get(this.usuarioLogado, true).subscribe( data => this.eventos =  data,error => this.catchError(this.messagesError = <any>error));         
+        }else if(this.usuarioLogado.tipo === 'CRECHE'){
+          this.eventoService.getEventosByCreche(this.usuarioLogado).subscribe( data => this.eventos =  data,error => this.catchError(this.messagesError = <any>error));         
+          this.crecheService.get(this.usuarioLogado).subscribe( data => this.crecheLogada =  data,error => this.catchError(this.messagesError = <any>error));
+        }
+        clearInterval(timer);
+      }
+    }, 1000);    
   }
 
   private clearMessages():void{

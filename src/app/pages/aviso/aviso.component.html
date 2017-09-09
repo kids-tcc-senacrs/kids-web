@@ -1,0 +1,55 @@
+<div>
+  <div class="bs-callout bs-callout-laranja title" style="margin-bottom: 5px">{{title}}</div>
+</div>
+
+<div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
+    <div class="w3-container w3-padding">
+        <div>
+            <br>
+            <form #f="ngForm">    
+            <!-- MENSAGENS DE ERRO -->
+            <div [hidden]="!f.valid || messagesError === null" class="alert alert-danger" role="alert">
+                    <ul *ngFor="let message of messagesError">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        {{message}}
+                    </ul>
+                </div>
+
+                <!-- MENSAGEM DE SUCESSO -->
+                <div [hidden]="!f.valid || messageSuccess === null" class="alert alert-success" role="alert">
+                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                    {{messageSuccess}}
+                </div>
+
+                <!--DESCRICAO-->
+                <div class="form-group">
+                  <label for="descricao" class="control-label">Descrição*</label>
+                  <textarea id="descricao" class="form-control" rows="5" name="descricao" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="aviso.descricao" maxlength="255" (focus)="clearMessages()"></textarea>
+                </div>
+
+                <!--TIPO-->
+                <div class="form-group">
+                  <label for="tipo" class="control-label">Tipo*</label>
+                  <select [(ngModel)]="aviso.tipo" class="form-control" name="tipo" #tipo="ngModel" aria-describedby="tipo">
+                      <option *ngFor="let t of tipos" [value]="t" name="t">{{t}}</option>
+                  </select>
+                </div>
+                
+                <!--DT EXPIRACAO--> 
+                <div class="form-group">
+                  <label for="tipo" class="control-label">Data de expiração*</label>
+                  <input id="dtExpiracao" name="dtExpiracao" #dtExpiracao="ngModel" aria-describedby="dtExpiracao" [(ngModel)]="aviso.dtExpiracao" useValueAsDate type="date" class="form-control">
+                </div>
+
+                <!--BOTAO SALVAR-->
+              <button [disabled]="!f.valid" type="button" (click)="salvar()" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
+                <span class="fa fa-floppy-o" aria-hidden="true"></span>                
+                  Salvar
+              </button>
+
+                <div class="pnl-aviso-required col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <span class="aviso-required">(*) preenchimento obrigatório</span>
+                </div>
+            </form>
+        </div>  
+  </div>

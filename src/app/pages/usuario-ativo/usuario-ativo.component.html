@@ -1,1 +1,19 @@
 <p>Olá <strong>{{nome}}</strong></p><br>
+
+<div [hidden]="usuario?.tipo == 'CRECHE'">     
+  <table class="table table-striped" style="margin-top: 5px">
+    <tr class="kids-header-table"><th style="text-align:center !important;" [hidden]="avisos == null || avisos == undefined  || avisos?.length == 0">AVISOS</th></tr>
+    <tr *ngFor='let a of avisos; let i = index' class="row table-line-style">  
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h3 [hidden]="a.tipo == 'CANCELAMENTO'">
+            <i class="fa fa-info-circle" [ngClass]="classesTableLine(a.tipo)" aria-hidden="true"></i>Aviso informativo
+          </h3>
+          <h3 [hidden]="a.tipo == 'INFORMACAO'">
+            <i [ngClass]="classesTableLine(a.tipo)" aria-hidden="true"></i>Aviso Cancelamento
+          </h3>
+          <strong><span>{{a?.crecheNome}}</span></strong>, informa: <br>
+          <span>{{a?.descricao}}</span><br>
+        </div>           
+    </tr>
+  </table>
+</div>         

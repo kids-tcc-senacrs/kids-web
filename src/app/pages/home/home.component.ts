@@ -1,3 +1,5 @@
+import { AvisoVO } from './../../vo/aviso-vo';
+import { AvisoService } from './../../services-internos/aviso.service';
 import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../../services-internos/login.service';
@@ -16,8 +18,10 @@ export class HomeComponent implements OnInit {
   private usuario:Usuario = new Usuario(null,'','','',false, new Pessoa(null, '',new Endereco(null, '','','')));
   protected errorMessage: string = null;
   private rendarizarMenu:boolean = false;
-
-  constructor(protected loginService: LoginService, protected router: Router,protected restUsuario:UtilHttpService) {
+  
+  constructor(protected loginService: LoginService, 
+               protected router: Router,
+               protected restUsuario:UtilHttpService) {
     if(this.loginService.getToken() === null || this.loginService.getToken() === undefined){
       this.router.navigate(['/login']);
     } else {
@@ -31,13 +35,9 @@ export class HomeComponent implements OnInit {
 
   
   ngOnInit() {}
-
-  private buscarUsuarioCadastrado(email:string):void{
-    this.restUsuario.get(email)
-                    .subscribe( data => this.redirectPage(data),
-                               error => this.redirectPageError(this.errorMessage = <any>error)
-                              );
     
+  private buscarUsuarioCadastrado(email:string):void{
+   this.restUsuario.get(email).subscribe( data => this.redirectPage(data),error => this.redirectPageError(this.errorMessage = <any>error));
   }
 
   private redirectPage(usuario:any):void{

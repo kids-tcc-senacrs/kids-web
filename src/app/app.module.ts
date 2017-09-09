@@ -1,3 +1,4 @@
+import { AvisoService } from './services-internos/aviso.service';
 import { EventoService } from './services-internos/evento.service';
 import { DiarioService } from './services-internos/diario.service';
 import { FamiliaService } from './services-internos/familia.service';
@@ -91,6 +92,7 @@ const routes: Routes = [
               FamiliaService,
               DiarioService,
               EventoService,
+              AvisoService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

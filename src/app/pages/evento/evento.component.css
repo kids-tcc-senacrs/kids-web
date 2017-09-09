@@ -1,0 +1,25 @@
+.label-evento{color: blue;font-weight: bold}
+.aviso-required{color:dimgrey;float: right;font-style: italic}
+.pnl-aviso-required{margin-top: 18px}
+.table-line-style{border: 1px solid currentColor}
+
+@media (min-width: 768px) {
+        .btnEvetos{
+            min-width: 230px;
+        }
+}
+
+/*até 952px*/
+@media (max-width: 952px) {
+        .btnConfirmar{
+            margin-top: 3px;
+        }
+}
+
+/*após 953px*/
+@media (min-width: 953px) {
+        .btnConfirmar{
+            margin-top: unset !important;
+            margin-left: 3px;
+        }
+}

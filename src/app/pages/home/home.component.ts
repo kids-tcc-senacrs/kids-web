@@ -80,4 +80,8 @@ export class HomeComponent implements OnInit {
     return cssStyles; 
   }
 
+public exibirMenuFamiliares():boolean{
+  return !(this.usuario === null || this.usuario === undefined || this.usuario.tipo == 'FAMILIAR');
+}
+
  }

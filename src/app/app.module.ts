@@ -1,3 +1,4 @@
+import { EventoService } from './services-internos/evento.service';
 import { DiarioService } from './services-internos/diario.service';
 import { FamiliaService } from './services-internos/familia.service';
 import { CrecheService } from './services-internos/creche.service';
@@ -34,6 +35,7 @@ import { CriancaService } from './services-internos/crianca.service';
 import { CriancaComponent } from './pages/crianca/crianca.component';
 import { FamiliaComponent } from './pages/familia/familia.component';
 import { DiarioComponent } from './pages/diario/diario.component';
+import { EventoComponent } from './pages/evento/evento.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
@@ -48,6 +50,7 @@ const routes: Routes = [
                   { path: 'crianca',  component: CriancaComponent},
                   { path: 'familia',  component: FamiliaComponent} ,
                   { path: 'diario',  component: DiarioComponent},   
+                  { path: 'evento',  component: EventoComponent},   
                 ]
     },
     { path: '**',      component: PaginaNaoEncontradaComponent}
@@ -68,7 +71,7 @@ const routes: Routes = [
     BarraTituloComponent,
     CriancaComponent,
     FileDropDirective, 
-    FileSelectDirective, FamiliaComponent, DiarioComponent
+    FileSelectDirective, FamiliaComponent, DiarioComponent, EventoComponent
   ],
   imports: [
     CommonModule,
@@ -87,6 +90,7 @@ const routes: Routes = [
               CrecheService,
               FamiliaService,
               DiarioService,
+              EventoService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

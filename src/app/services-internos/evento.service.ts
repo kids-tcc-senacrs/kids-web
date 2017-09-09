@@ -1,3 +1,4 @@
+import { RespostaEventoDTO } from './../dto/resposta-evento-dto';
 import { EventoDTO } from './../dto/evento-dto';
 import { EventoVO } from './../vo/evento-vo';
 import { Usuario } from './../model/usuario';
@@ -43,6 +44,14 @@ export class EventoService {
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
     return this.http.post(url, eventoDTO, options).map(this.throwResponse).catch(this.handleError);
+  } 
+
+  public postResposta(resposta:RespostaEventoDTO):Observable<Response>{
+    console.log('[KIDS] consumindo API de resposta POST ...');	
+    let url = environment.HOST_KIDS_CORE + 'resposta/'
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(url, resposta, options).map(this.throwResponse).catch(this.handleError);
   } 
 
 private throwResponse(res: Response){

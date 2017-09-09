@@ -1,3 +1,4 @@
+import { RespostaEventoDTO } from './../../dto/resposta-evento-dto';
 import { CrecheService } from './../../services-internos/creche.service';
 import { Creche } from './../../model/creche';
 import { EventoDTO } from './../../dto/evento-dto';
@@ -60,11 +61,54 @@ export class EventoComponent implements OnInit {
   }
 
   public rejeitarPresenca(e:EventoVO):void{
-    console.log('rejeitarPresenca');
+    let resposta = new RespostaEventoDTO(e.eventoId, e.criancaId, this.usuarioLogado.id, 'REJEITADO');
+    this.eventoService.postResposta(resposta).subscribe( data => this.extractDataRejeitada(data) ,error => this.catchError(this.messagesError = <any>error));         
   }
 
+ private extractDataConfirmado(res: Response) {
+	if(res.status == 200 || res.status == 201){
+    this.evento = new EventoDTO(null,null,'','',null,null);
+    this.clearMessages();
+    this.messageSuccess = "Presença Confirmada!";
+
+    let timer = setInterval(() => { 
+      if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
+        if(this.usuarioLogado.tipo === 'FAMILIAR'){
+          this.eventoService.get(this.usuarioLogado, true).subscribe( data => this.eventos =  data,error => this.catchError(this.messagesError = <any>error));         
+        }else if(this.usuarioLogado.tipo === 'CRECHE'){
+          this.eventoService.getEventosByCreche(this.usuarioLogado).subscribe( data => this.eventos =  data,error => this.catchError(this.messagesError = <any>error));         
+          this.crecheService.get(this.usuarioLogado).subscribe( data => this.crecheLogada =  data,error => this.catchError(this.messagesError = <any>error));
+        }
+        clearInterval(timer);
+      }
+    }, 1000);    
+	}
+}
+
+private extractDataRejeitada(res: Response) {
+	if(res.status == 200 || res.status == 201){
+    this.evento = new EventoDTO(null,null,'','',null,null);
+    this.clearMessages();
+    this.messageSuccess = "Presença Rejeitada!";
+
+    let timer = setInterval(() => { 
+      if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
+        if(this.usuarioLogado.tipo === 'FAMILIAR'){
+          this.eventoService.get(this.usuarioLogado, true).subscribe( data => this.eventos =  data,error => this.catchError(this.messagesError = <any>error));         
+        }else if(this.usuarioLogado.tipo === 'CRECHE'){
+          this.eventoService.getEventosByCreche(this.usuarioLogado).subscribe( data => this.eventos =  data,error => this.catchError(this.messagesError = <any>error));         
+          this.crecheService.get(this.usuarioLogado).subscribe( data => this.crecheLogada =  data,error => this.catchError(this.messagesError = <any>error));
+        }
+        clearInterval(timer);
+      }
+    }, 1000);    
+	}
+}
+
+
   public confirmarPresenca(e:EventoVO):void{
-    console.log('confirmarPresenca');
+    let resposta = new RespostaEventoDTO(e.eventoId, e.criancaId, this.usuarioLogado.id, 'CONFIRMADO');
+    this.eventoService.postResposta(resposta).subscribe( data => this.extractDataConfirmado(data) ,error => this.catchError(this.messagesError = <any>error));         
   }
 
   public salvarEvento():void{

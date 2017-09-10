@@ -23,6 +23,14 @@ export class AvisoService {
 	return this.http.get(url).map(this.extractData).catch(this.handleError);
   }  
   
+  public delete(avisoId:number):Observable<Response>{
+	console.log('[KIDS] consumindo API de aviso DELETE ...');	
+	let url = this.URL_DEFAULT + avisoId; 
+	let headers = new Headers({ 'Content-Type': 'application/json'});
+	let options = new RequestOptions({ headers: headers });
+	return this.http.delete(url, options).map(this.extractResponse).catch(this.handleError);
+}
+
   public post(avisoDTO:AvisoDTO):Observable<Response>{
     console.log('[KIDS] consumindo API de aviso POST ...');	
     let url = this.URL_DEFAULT 
@@ -45,4 +53,7 @@ export class AvisoService {
 	    return Observable.throw(res);
   }
 
+  private extractResponse(res: Response) {
+	return res;
+}
 }

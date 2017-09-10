@@ -33,11 +33,9 @@ export class UsuarioAtivoComponent implements OnInit {
     let timer = setInterval(() => { 
       if(this.usuario !== null && this.usuario !== undefined){
         if(this.usuario.tipo === 'FAMILIAR'){
-          console.log('buscando avisos...');
           this.avisoService.get(this.usuario).subscribe( data => this.avisos =  data,error => this.redirectPageError(this.errorMessage = <any>error));         
         }
         clearInterval(timer);
-        console.log('parou de buscar....');
       }
     }, 1000);    
   }

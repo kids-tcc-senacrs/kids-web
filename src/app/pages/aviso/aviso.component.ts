@@ -1,3 +1,4 @@
+import { AvisoVO } from './../../vo/aviso-vo';
 import { AvisoService } from './../../services-internos/aviso.service';
 import { AvisoDTO } from './../../dto/aviso-dto';
 import { Response } from '@angular/http';
@@ -24,6 +25,7 @@ export class AvisoComponent implements OnInit {
   private messagesError: string[] = null;
   private aviso:AvisoDTO = new AvisoDTO(null,null,null,null);
   private tipos: string[] = ['Cancelamento','Informação'];
+  private avisos:AvisoVO[] = [];
 
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -39,6 +41,7 @@ export class AvisoComponent implements OnInit {
       if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
         if(this.usuarioLogado.tipo === 'CRECHE'){
           this.crecheService.get(this.usuarioLogado).subscribe( data => this.crecheLogada =  data,error => this.catchError(this.messagesError = <any>error));
+          this.avisoService.get(this.usuarioLogado).subscribe( data => this.avisos =  data,error => this.catchError(this.messagesError = <any>error));         
         }
         clearInterval(timer);
       }
@@ -75,7 +78,43 @@ export class AvisoComponent implements OnInit {
     this.aviso = new AvisoDTO(null,null,null,null);
     this.clearMessages();
     this.messageSuccess = "Aviso Cadastrado com sucesso!";
-	}
-}
 
+    let timer = setInterval(() => { 
+      if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
+        if(this.usuarioLogado.tipo === 'CRECHE'){
+          this.crecheService.get(this.usuarioLogado).subscribe( data => this.crecheLogada =  data,error => this.catchError(this.messagesError = <any>error));
+          this.avisoService.get(this.usuarioLogado).subscribe( data => this.avisos =  data,error => this.catchError(this.messagesError = <any>error));         
+        }
+        clearInterval(timer);
+      }
+    }, 1000);    
+  }
+  }
+  
+  removerAviso(index:number, aviso:AvisoVO):void{
+    for (var i = 0; i < this.avisos.length; i++) {
+      if(i === index) {
+        this.avisos.splice(index, 1);
+      }
+    }
+    this.avisoService.delete(aviso.avisoId).subscribe( data => this.extractDataAposRemover(data) ,error => this.catchError(this.messagesError = <any>error));         
+  }
+
+  private extractDataAposRemover(res: Response) {
+	if(res.status == 200 || res.status == 201){
+    this.aviso = new AvisoDTO(null,null,null,null);
+    this.clearMessages();
+    this.messageSuccess = "Aviso removido sucesso!";
+
+    let timer = setInterval(() => { 
+      if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
+        if(this.usuarioLogado.tipo === 'CRECHE'){
+          this.crecheService.get(this.usuarioLogado).subscribe( data => this.crecheLogada =  data,error => this.catchError(this.messagesError = <any>error));
+          this.avisoService.get(this.usuarioLogado).subscribe( data => this.avisos =  data,error => this.catchError(this.messagesError = <any>error));         
+        }
+        clearInterval(timer);
+      }
+    }, 1000);    
+  }
+  }
 }

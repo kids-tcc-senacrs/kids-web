@@ -150,8 +150,6 @@ exibirTelaPesquisa():void{
       this.criancaFamiliaVO.criancaId = this.criancaFamilia.crianca.id;
       this.criancaFamiliaVO.ativo = true;
       this.familiaService.post(this.criancaFamiliaVO).subscribe( data => this.catchResponse(data),res => this.catchError(res));   
-      this.titleButtonSalvar = "Salvar";    
-      this.messageSuccess = "Familiar vinculado com sucesso!";                                    
     }
   }
 
@@ -176,6 +174,8 @@ exibirTelaPesquisa():void{
     this.criancaFamiliaVO.nome = null;
     this.criancaFamiliaVO.email = null;
     this.criancaFamiliaVO.parentesco = null;
+    this.titleButtonSalvar = "Salvar";    
+    this.messageSuccess = "Familiar vinculado com sucesso!";                                    
   }
   
 

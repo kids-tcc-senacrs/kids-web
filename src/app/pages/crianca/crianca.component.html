@@ -17,6 +17,18 @@
     </div>
   <hr>
 </div>
+   
+
+<div class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped" 
+         role="progressbar"
+         aria-valuemin="0" 
+         aria-valuemax="100" 
+         [ngStyle]="widthBarraProgresso">
+         {{widthBarraProgressoTexto}}
+    </div>
+</div>
+
 
   <div [hidden]="criancas === null || criancas === undefined || criancas?.length == 0"> 
     <table class="table table-striped">

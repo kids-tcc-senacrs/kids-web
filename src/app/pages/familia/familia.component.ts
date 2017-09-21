@@ -41,6 +41,8 @@ export class FamiliaComponent implements OnInit {
   private titleButtonDeleteVinculo:string = 'Remover';
   private titleButtonSalvar:string = 'Salvar';
   private titleBtnVoltar:string = 'Voltar';
+  private widthBarraProgresso:any = {width:"10%"};
+  private widthBarraProgressoTexto:string = "10%";
 
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -51,6 +53,7 @@ export class FamiliaComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.atualizarStylesProgress();
     let crianca:Crianca = new Crianca(null,null,null,null,null,this.pessoa,new Contato(), new Creche(), null, null);
     let familia:Familia = new Familia(null, new Pessoa(null,null));
     this.criancaFamilia =new CriancaFamilia(null,crianca,familia,null,null);
@@ -182,6 +185,35 @@ exibirTelaPesquisa():void{
   listarCriancas():void{
     this.hiddenCadastro = true;
     this.hiddenPesquisa = false; 
+  }
+
+  atualizarStylesProgress():void{
+    let cssStyles = {};
+    let valorATual = 10;
+    let timer = setInterval(() => { 
+      valorATual = valorATual + 10;
+      switch(valorATual){
+        case 20: this.widthBarraProgresso      = {width:"20%"}
+                 this.widthBarraProgressoTexto = "20%" ;break;
+        case 30: this.widthBarraProgresso = {width:"30%"}
+                 this.widthBarraProgressoTexto = "30%" ;break;
+        case 40: this.widthBarraProgresso = {width:"40%"}
+                 this.widthBarraProgressoTexto = "40%" ;break;
+        case 50: this.widthBarraProgresso = {width:"50%"}
+                 this.widthBarraProgressoTexto = "50%" ;break;
+        case 60: this.widthBarraProgresso = {width:"60%"}
+                 this.widthBarraProgressoTexto = "60%" ;break;
+        case 70: this.widthBarraProgresso = {width:"70%"}
+                 this.widthBarraProgressoTexto = "70%" ;break;
+        case 80: this.widthBarraProgresso = {width:"80%"}
+                 this.widthBarraProgressoTexto = "80%" ;break;
+        case 90: this.widthBarraProgresso = {width:"90%"}
+                 this.widthBarraProgressoTexto = "90%" ;break;
+        case 100: this.widthBarraProgresso = {width:"100%"}
+                  this.widthBarraProgressoTexto = "100%" ;break;
+        default:clearInterval(timer);     
+      }
+    }, 80);       
   }
 
 }

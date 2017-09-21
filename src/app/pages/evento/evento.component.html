@@ -2,7 +2,15 @@
   <div class="bs-callout bs-callout-rosa title" style="margin-bottom: 5px">{{title}}</div>
 </div>
 
-
+<div *ngIf="usuarioLogado?.tipo == 'FAMILIAR'" class="progress">
+  <div class="progress-bar progress-bar-success progress-bar-striped" 
+       role="progressbar"
+       aria-valuemin="0" 
+       aria-valuemax="100" 
+       [ngStyle]="widthBarraProgresso">
+       {{widthBarraProgressoTexto}}
+  </div>
+</div>
 
 <div [hidden]="eventos === null || eventos === undefined || eventos?.length == 0" *ngIf="usuarioLogado?.tipo == 'FAMILIAR'"> 
 

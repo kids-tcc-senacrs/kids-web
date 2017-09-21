@@ -1,4 +1,5 @@
 .btn-menu{margin-bottom: 3px;display:-webkit-box;}
+.btn-menu-centralizar{text-align: -webkit-center;}
 
 .bs-callout-perfil:hover{border-left-color: #ce4844;color:#3CB371;background-color:#3CB371 !important;color: #FFF}
 .bs-callout-crianca:hover{border-left-color: #aa6708;color: #3CB371;background-color:#3CB371 !important;}

@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   private rendarizarMenu:boolean = false;
   private foto:string = null;
   private nome:string = null;
-  
+  private hiddenMenuCompleto:boolean = false;
+    
   constructor(protected loginService: LoginService, 
                protected router: Router,
                protected restUsuario:UtilHttpService) {
@@ -91,6 +92,14 @@ public exibirMenuFamiliares():boolean{
 
 public exibirMenuAvisos():boolean{
   return !(this.usuario === null || this.usuario === undefined || this.usuario.tipo == 'FAMILIAR');
+}
+
+private setShowMenu(){
+  if(this.hiddenMenuCompleto){
+    this.hiddenMenuCompleto = false;
+  }else{
+    this.hiddenMenuCompleto = true;
+  }
 }
 
  }

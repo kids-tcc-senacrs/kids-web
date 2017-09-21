@@ -54,6 +54,16 @@
         </div>  
   </div>
 
+  <div *ngIf="usuarioLogado?.tipo == 'CRECHE'" class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped" 
+         role="progressbar"
+         aria-valuemin="0" 
+         aria-valuemax="100" 
+         [ngStyle]="widthBarraProgresso">
+         {{widthBarraProgressoTexto}}
+    </div>
+</div>
+
   <div [hidden]="usuarioLogado?.tipo == 'FAMILIAR'">     
   <table class="table table-striped" style="margin-top: 5px">
     <tr class="kids-header-table"><th style="text-align:center !important;" [hidden]="avisos == null || avisos == undefined  || avisos?.length == 0">AVISOS</th></tr>

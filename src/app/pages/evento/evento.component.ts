@@ -28,6 +28,10 @@ export class EventoComponent implements OnInit {
   private evento:EventoDTO = new EventoDTO(null,null,'','',null,null);
   private status: string[] = ['Previsto','Cancelado', 'Realizado'];
   private crecheLogada:Creche;
+
+  private widthBarraProgresso:any = {width:"10%"};
+  private widthBarraProgressoTexto:string = "10%";
+  private timerBarraProgresso:any = null;
   
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -37,19 +41,27 @@ export class EventoComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.atualizarStylesProgress();
     this.clearMessages();
     this.usuarioService.get(this.loginService.getEmail()).subscribe( data => this.usuarioLogado =  data,error => this.catchError(this.messagesError = <any>error));
     let timer = setInterval(() => { 
       if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
         if(this.usuarioLogado.tipo === 'FAMILIAR'){
-          this.eventoService.get(this.usuarioLogado, true).subscribe( data => this.eventos =  data,error => this.catchError(this.messagesError = <any>error));         
+          this.eventoService.get(this.usuarioLogado, true).subscribe( data => this.setEventosEncontrados(data) ,error => this.catchError(this.messagesError = <any>error));         
         }else if(this.usuarioLogado.tipo === 'CRECHE'){
-          this.eventoService.getEventosByCreche(this.usuarioLogado).subscribe( data => this.eventos =  data,error => this.catchError(this.messagesError = <any>error));         
+          this.eventoService.getEventosByCreche(this.usuarioLogado).subscribe( data => this.setEventosEncontrados(data),error => this.catchError(this.messagesError = <any>error));         
           this.crecheService.get(this.usuarioLogado).subscribe( data => this.crecheLogada =  data,error => this.catchError(this.messagesError = <any>error));
         }
         clearInterval(timer);
       }
     }, 1000);    
+  }
+
+  private setEventosEncontrados(listEventos:EventoVO[]):void{
+    this.eventos = listEventos;
+    clearInterval(this.timerBarraProgresso);  
+    this.widthBarraProgresso = {width:"100%"};
+    this.widthBarraProgressoTexto = "100%";   
   }
 
   private catchError(r:Response):void{
@@ -172,5 +184,35 @@ setStatus(e:EventoVO, status:string){
     this.clearMessages();
     e.eventoStatus = status;
 }
+
+atualizarStylesProgress():void{
+  let cssStyles = {};
+  let valorATual = 10;
+  this.timerBarraProgresso = setInterval(() => { 
+    valorATual = valorATual + 10;
+    switch(valorATual){
+      case 20: this.widthBarraProgresso      = {width:"20%"}
+               this.widthBarraProgressoTexto = "20%" ;break;
+      case 30: this.widthBarraProgresso = {width:"30%"}
+               this.widthBarraProgressoTexto = "30%" ;break;
+      case 40: this.widthBarraProgresso = {width:"40%"}
+               this.widthBarraProgressoTexto = "40%" ;break;
+      case 50: this.widthBarraProgresso = {width:"50%"}
+               this.widthBarraProgressoTexto = "50%" ;break;
+      case 60: this.widthBarraProgresso = {width:"60%"}
+               this.widthBarraProgressoTexto = "60%" ;break;
+      case 70: this.widthBarraProgresso = {width:"70%"}
+               this.widthBarraProgressoTexto = "70%" ;break;
+      case 80: this.widthBarraProgresso = {width:"80%"}
+               this.widthBarraProgressoTexto = "80%" ;break;
+      case 90: this.widthBarraProgresso = {width:"90%"}
+               this.widthBarraProgressoTexto = "90%" ;break;
+      case 100: this.widthBarraProgresso = {width:"99%"}
+                this.widthBarraProgressoTexto = "99%" ;break;
+      default:clearInterval(this.timerBarraProgresso);     
+    }
+  }, 80);       
+}
+
 
 }

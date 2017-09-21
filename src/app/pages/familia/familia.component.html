@@ -110,6 +110,10 @@
       </div>    
 </div>        
 
+<div [hidden]="criancaFamiliaList?.length > 0" class="familiar-nao-associada col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p class="familiar-nao-associada-title">Não existem usuários associados!</p>
+</div>
+
 <div [hidden]="criancaFamiliaList === null || criancaFamiliaList === undefined || criancaFamiliaList.length == 0"> 
     <table class="table table-striped">
     <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>

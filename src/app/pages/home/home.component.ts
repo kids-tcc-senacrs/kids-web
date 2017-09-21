@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
   private usuario:Usuario = new Usuario(null,'','','',false, new Pessoa(null, '',new Endereco(null, '','','')));
   protected errorMessage: string = null;
   private rendarizarMenu:boolean = false;
+  private foto:string = null;
+  private nome:string = null;
   
   constructor(protected loginService: LoginService, 
                protected router: Router,
@@ -34,7 +36,10 @@ export class HomeComponent implements OnInit {
   }
 
   
-  ngOnInit() {}
+  ngOnInit() {
+    this.foto = this.loginService.getImageURL();
+    this.nome = this.loginService.getNome();
+  }
     
   private buscarUsuarioCadastrado(email:string):void{
    this.restUsuario.get(email).subscribe( data => this.redirectPage(data),error => this.redirectPageError(this.errorMessage = <any>error));

@@ -104,7 +104,7 @@
               -->
 
               <!--MATRICULA-->
-              <div class="form-group" [class.has-error]="!matricula.valid && matricula.touched" 
+              <div [hidden]="usuarioLogado?.tipo === 'FAMILIAR'" class="form-group" [class.has-error]="!matricula.valid && matricula.touched" 
                                       [class.has-success]="matricula.valid && matricula.touched"
                                       [class.has-feedback]="matricula.touched">
                   <label for="matricula" class="control-label">Matrícula*</label>

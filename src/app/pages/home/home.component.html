@@ -27,7 +27,7 @@
 					<i routerLink="perfil" class="fa fa-user" title="Perfil"></i>
 					Perfil
 				</a>    
-				<a routerLink="crianca" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
+				<a routerLink="crianca" *ngIf="usuario != null && usuario != undefined && usuario.ativo" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
 					<i routerLink="crianca" class="fa fa-child" title="Crianças"></i>
 					Crianças
 				</a>    
@@ -35,11 +35,11 @@
 					<i routerLink="familia" class="fa fa-users" title="Acesso de familiares"></i>
 					Familiares
 				</a>    
-				<a routerLink="diario" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
+				<a routerLink="diario" *ngIf="usuario != null && usuario != undefined && usuario.ativo" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
 					<i routerLink="diario" class="fa fa-book" title="Diário"></i>
 					Diário
 				</a>    
-				<a routerLink="evento" [hidden]="usuario === null || usuario === undefined" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
+				<a routerLink="evento" *ngIf="usuario != null && usuario != undefined && usuario.ativo" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
 					<i routerLink="evento" class="fa fa-flag" title="Eventos"></i>
 					Eventos
 				</a>    

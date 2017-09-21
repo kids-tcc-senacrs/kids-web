@@ -6,13 +6,14 @@
 
 <div [hidden]="eventos === null || eventos === undefined || eventos?.length == 0" *ngIf="usuarioLogado?.tipo == 'FAMILIAR'"> 
 
-  <!--erro-->
+  
 <div [hidden]="messagesError === null" class="alert alert-danger" role="alert">
     <ul *ngFor="let message of messagesError">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         {{message}}
     </ul>
 </div>
+
 
  <!-- MENSAGEM DE SUCESSO -->
 <div [hidden]="messageSuccess === null" class="alert alert-success" role="alert">
@@ -108,12 +109,14 @@
       {{messageSuccessUpdate}}
   </div>
 
+  <!--
   <div [hidden]="messagesError === null" class="alert alert-danger" role="alert">
       <ul *ngFor="let message of messagesError">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
           {{message}}
       </ul>
   </div>
+-->
 
 <div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
   <table class="table table-striped" style="margin-top: 5px">

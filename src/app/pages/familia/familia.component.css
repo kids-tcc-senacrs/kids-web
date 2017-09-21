@@ -1,3 +1,5 @@
+.table-line-text{text-transform: uppercase;}
+
 @media (max-width: 991px) {
     .btnAddSalvar{
           margin-top: 0px!important;                      

@@ -45,6 +45,10 @@
   </div>      
 </div>
 
+<div [hidden]="diariosVO?.length > 0" class="diario-nao-selecionado col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <p class="diario-nao-selecionado-title">Selecione algum diário</p>
+</div>
+
 <!--LISTA DE DIARIOS PARA O TIPO CRECHE-->
 <div [hidden]="diariosVO === null || diariosVO === undefined || diariosVO?.length == 0"> 
 

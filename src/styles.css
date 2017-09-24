@@ -8,6 +8,8 @@
 .title{text-transform: uppercase;font-weight: bold}
 .btn-customizado{padding-left: 0px!important;text-align: center!important;border-radius:0px!important}
 .kids-header-table{text-align:center !important;background-color: #828282!important;border: 1px solid #828282 !important;}
+.aviso-required{color:dimgrey;float: right;font-style: italic}
+.pnl-aviso-required{margin-top: 18px}
 
 .dados-nao-encontrados{
   border-width: 6px;
@@ -112,6 +114,13 @@
 }
 .bs-callout-laranja h4 {
   color: #FF4500;
+}
+
+.bs-callout-roxo {
+  border-left-color:#7D26CD;
+}
+.bs-callout-roxo h4 {
+  color: #7D26CD;
 }
 
 .bs-callout-original {

@@ -1,3 +1,4 @@
+import { ComunicacaoService } from './services-internos/comunicacao.service';
 import { AvisoService } from './services-internos/aviso.service';
 import { EventoService } from './services-internos/evento.service';
 import { DiarioService } from './services-internos/diario.service';
@@ -38,6 +39,7 @@ import { FamiliaComponent } from './pages/familia/familia.component';
 import { DiarioComponent } from './pages/diario/diario.component';
 import { EventoComponent } from './pages/evento/evento.component';
 import { AvisoComponent } from './pages/aviso/aviso.component';
+import { ComunicacaoComponent } from './pages/comunicacao/comunicacao.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
@@ -54,6 +56,7 @@ const routes: Routes = [
                   { path: 'diario',  component: DiarioComponent},   
                   { path: 'evento',  component: EventoComponent},   
                   { path: 'aviso',  component: AvisoComponent},   
+                  { path: 'comunicacao',  component: ComunicacaoComponent},   
                 ]
     },
     { path: '**',      component: PaginaNaoEncontradaComponent}
@@ -74,7 +77,7 @@ const routes: Routes = [
     BarraTituloComponent,
     CriancaComponent,
     FileDropDirective, 
-    FileSelectDirective, FamiliaComponent, DiarioComponent, EventoComponent, AvisoComponent
+    FileSelectDirective, FamiliaComponent, DiarioComponent, EventoComponent, AvisoComponent, ComunicacaoComponent
   ],
   imports: [
     CommonModule,
@@ -95,6 +98,7 @@ const routes: Routes = [
               DiarioService,
               EventoService,
               AvisoService,
+              ComunicacaoService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

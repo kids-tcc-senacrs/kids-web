@@ -47,6 +47,10 @@
 					<i routerLink="aviso" class="fa fa-bell" title="Avisos"></i>
 					Avisos
 				</a>    
+				<a routerLink="comunicacao" *ngIf="usuario != null && usuario != undefined && usuario.ativo" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
+					<i routerLink="comunicacao" class="fa fa-commenting" title="Contato"></i>
+					Contato
+				</a>    
 				<a class="w3-button w3-padding-large w3-hover-white w3-right bs-callout bs-callout-original bs-callout-sair col-xs-12 col-sm-12 col-md-12 col-lg-12" (click)="logout()" title="sair">
 					<i class="glyphicon glyphicon-log-out"></i>	 sair
 				</a>
@@ -56,7 +60,7 @@
 		<div class="w3-col col-xs-12 col-sm-7 col-md-8 col-lg-9">
 			<div class="w3-row">
 				<div class="w3-col m12">
-					<div class="w3-card-2 w3-round w3-white">
+					<div class="w3-card-2 w3-round w3-white servico-indisponivel">
 						<router-outlet></router-outlet>
 					</div>
 				</div>

@@ -29,6 +29,11 @@
     </div>
 </div>
 
+<div [hidden]="criancas?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p class="dados-nao-encontrados-title">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
+        Não há dados cadastrados no momento</p>
+</div>
 
   <div [hidden]="criancas === null || criancas === undefined || criancas?.length == 0"> 
     <table class="table table-striped">

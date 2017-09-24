@@ -64,6 +64,12 @@
     </div>
 </div>
 
+<div [hidden]="avisos?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p class="dados-nao-encontrados-title">
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
+    Não há dados cadastrados no momento</p>
+</div>
+
   <div [hidden]="usuarioLogado?.tipo == 'FAMILIAR'">     
   <table class="table table-striped" style="margin-top: 5px">
     <tr class="kids-header-table"><th style="text-align:center !important;" [hidden]="avisos == null || avisos == undefined  || avisos?.length == 0">AVISOS</th></tr>

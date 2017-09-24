@@ -2,140 +2,125 @@
   <div class="bs-callout bs-callout-rosa title" style="margin-bottom: 5px">{{title}}</div>
 </div>
 
-<div *ngIf="usuarioLogado?.tipo == 'FAMILIAR'" class="progress">
-  <div class="progress-bar progress-bar-success progress-bar-striped" 
-       role="progressbar"
-       aria-valuemin="0" 
-       aria-valuemax="100" 
-       [ngStyle]="widthBarraProgresso">
-       {{widthBarraProgressoTexto}}
-  </div>
-</div>
+<!-- CRECHE FORMULARIO DE CADASTRO DE EVENTOS-->
+<div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
+  <div class="w3-container w3-padding">
+      <div>
+        <br>
+        <form #f="ngForm">    
+          <!-- MENSAGENS DE ERRO -->
+          <div [hidden]="!f.valid || messagesError === null" class="alert alert-danger" role="alert">
+            <ul *ngFor="let message of messagesError">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                {{message}}
+            </ul>
+          </div>
 
-<div [hidden]="eventos === null || eventos === undefined || eventos?.length == 0" *ngIf="usuarioLogado?.tipo == 'FAMILIAR'"> 
+          <!-- MENSAGEM DE SUCESSO -->
+          <div [hidden]="!f.valid || messageSuccess === null" class="alert alert-success" role="alert">
+              <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+              {{messageSuccess}}
+          </div>
 
-  
-<div [hidden]="messagesError === null" class="alert alert-danger" role="alert">
-    <ul *ngFor="let message of messagesError">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        {{message}}
-    </ul>
-</div>
+          <!--NOME EVENTO-->
+          <div class="form-group">
+              <label for="nomeEvento" class="control-label">Nome*</label>
+              <input id="nomeEvento" name="nomeEvento" #nomeEvento="ngModel" aria-describedby="nomeEvento" [(ngModel)]="evento.eventoNome" maxlength="60" type="text" class="form-control" (focus)="clearMessages()">
+          </div>
 
+          <!--DATA REALIZACAO-->
+          <div class="form-group">
+            <label for="dtRealizacao" class="control-label">Data de Realização*</label>
+            <input id="dtRealizacao" name="dtRealizacao" #dtRealizacao="ngModel" aria-describedby="dtRealizacao" [(ngModel)]="evento.dtRealizacao" type="datetime-local" class="form-control" (focus)="clearMessages()">
+          </div>
 
- <!-- MENSAGEM DE SUCESSO -->
-<div [hidden]="messageSuccess === null" class="alert alert-success" role="alert">
-        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-        {{messageSuccess}}
-</div>
+          <!--DESCRICAO-->
+            <div class="form-group">
+              <label for="descricao" class="control-label">Descrição*</label>
+              <textarea id="descricao" class="form-control" rows="5" name="descricao" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="evento.descricao" maxlength="255" (focus)="clearMessages()"></textarea>
+            </div>
 
-    <table class="table table-striped">
-      <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
-      <tr *ngFor='let e of eventos'>
-        <td>
-          <span class="quebrar-texto"><span class="label-evento">Convidado:</span> {{e?.criancaNome}}</span><br> 
-          <span class="quebrar-texto"><span class="label-evento">O que é ?</span> {{e?.eventoNome}}</span><br> 
-          <span class="quebrar-texto"><span class="label-evento">Descrição:</span> {{e?.descricao}}</span><br> 
-          <span class="quebrar-texto"><span class="label-evento">Onde ?</span> {{e?.crecheNome}} - {{e?.crecheLogradouro}} {{e?.crecheLocalizacao}}</span><br> 
-          <span class="quebrar-texto"><span class="label-evento">Quando ?</span> {{e?.dtRealizacao | date: 'dd/MM/yyyy HH:mm'}}</span><br> 
-          <!--BOTAO REJEITAR-->
-          <button type="button" (click)="rejeitarPresenca(e)" class="btn btn-danger btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnEvetos">
-            <span class="fa fa-thumbs-o-down" aria-hidden="true"></span>
-            Rejeitar Presença 
+            <!--BOTAO SALVAR-->
+          <button [disabled]="!f.valid" type="button" (click)="salvarEvento()" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
+            <span class="fa fa-check" aria-hidden="true"></span>                
+              Salvar
           </button>
-          <!--BOTAO CONFIRMAR-->
-          <button type="button" (click)="confirmarPresenca(e)" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnConfirmar btnEvetos">
-            <span class="fa fa-thumbs-o-up" aria-hidden="true"></span>
-            Confirmar Presença
-          </button>
-        </td>
-      </tr>
-    </table>
+
+          <div class="pnl-aviso-required col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <span class="aviso-required">(*) preenchimento obrigatório</span>
+          </div>
+        </form>
+      </div>  
   </div>
+</div>
+
+<!-- MENSAGEM DE SUCESSO -->
+<div [hidden]="messageSuccessUpdate === null" class="alert alert-success" role="alert" *ngIf="usuarioLogado?.tipo == 'CRECHE'">
+    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+    {{messageSuccessUpdate}}
+</div>
+
+<!--BARRA DE PRGRESSO-->
+<div class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped" 
+        role="progressbar"
+        aria-valuemin="0" 
+        aria-valuemax="100" 
+        [ngStyle]="widthBarraProgresso">
+        {{widthBarraProgressoTexto}}
+    </div>
+</div>
+<!--MENSAGEM PADRAO DE QUE NAO TEM DADOS-->
+<div [hidden]="eventos?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p class="dados-nao-encontrados-title">
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
+    Não há dados cadastrados no momento</p>
+</div>
 
 
-
-
-
-
-
-
-
-  <div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
-    <div class="w3-container w3-padding">
-        <div>
-            <br>
-            <form #f="ngForm">    
-            <!-- MENSAGENS DE ERRO -->
-            <div [hidden]="!f.valid || messagesError === null" class="alert alert-danger" role="alert">
-                    <ul *ngFor="let message of messagesError">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        {{message}}
-                    </ul>
-                </div>
-
-                <!-- MENSAGEM DE SUCESSO -->
-                <div [hidden]="!f.valid || messageSuccess === null" class="alert alert-success" role="alert">
-                    <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-                    {{messageSuccess}}
-                </div>
-
-                <!--NOME EVENTO-->
-                <div class="form-group">
-                    <label for="nomeEvento" class="control-label">Nome*</label>
-                    <input id="nomeEvento" name="nomeEvento" #nomeEvento="ngModel" aria-describedby="nomeEvento" [(ngModel)]="evento.eventoNome" maxlength="60" type="text" class="form-control" (focus)="clearMessages()">
-                </div>
-
-                <!--DATA REALIZACAO-->
-                <div class="form-group">
-                  <label for="dtRealizacao" class="control-label">Data de Realização*</label>
-                  <input id="dtRealizacao" name="dtRealizacao" #dtRealizacao="ngModel" aria-describedby="dtRealizacao" [(ngModel)]="evento.dtRealizacao" type="datetime-local" class="form-control" (focus)="clearMessages()">
-                </div>
-
-              <!--DESCRICAO-->
-                <div class="form-group">
-                  <label for="descricao" class="control-label">Descrição*</label>
-                  <textarea id="descricao" class="form-control" rows="5" name="descricao" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="evento.descricao" maxlength="255" (focus)="clearMessages()"></textarea>
-                </div>
-
-                <!--BOTAO SALVAR-->
-              <button [disabled]="!f.valid" type="button" (click)="salvarEvento()" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
-                <span class="fa fa-check" aria-hidden="true"></span>                
-                  Salvar
-              </button>
-
-                <div class="pnl-aviso-required col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <span class="aviso-required">(*) preenchimento obrigatório</span>
-                </div>
-            </form>
-        </div>  
-  </div>
-
-  <!-- MENSAGEM DE SUCESSO -->
-  <div [hidden]="messageSuccessUpdate === null" class="alert alert-success" role="alert" *ngIf="usuarioLogado?.tipo == 'CRECHE'">
-      <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
-      {{messageSuccessUpdate}}
-  </div>
-
-  <!--
+<!-- FAMILIAR LISTA-->
+<div *ngIf="usuarioLogado?.tipo == 'FAMILIAR'" [hidden]="eventos === null || eventos === undefined || eventos?.length == 0"> 
   <div [hidden]="messagesError === null" class="alert alert-danger" role="alert">
       <ul *ngFor="let message of messagesError">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
           {{message}}
       </ul>
   </div>
--->
-
-<div *ngIf="usuarioLogado?.tipo == 'CRECHE'" class="progress">
-  <div class="progress-bar progress-bar-success progress-bar-striped" 
-       role="progressbar"
-       aria-valuemin="0" 
-       aria-valuemax="100" 
-       [ngStyle]="widthBarraProgresso">
-       {{widthBarraProgressoTexto}}
+  <!-- MENSAGEM DE SUCESSO -->
+  <div [hidden]="messageSuccess === null" class="alert alert-success" role="alert">
+        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+        {{messageSuccess}}
   </div>
+
+  <table class="table table-striped">
+    <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
+    <tr *ngFor='let e of eventos'>
+      <td>
+        <span class="quebrar-texto"><span class="label-evento">Convidado:</span> {{e?.criancaNome}}</span><br> 
+        <span class="quebrar-texto"><span class="label-evento">O que é ?</span> {{e?.eventoNome}}</span><br> 
+        <span class="quebrar-texto"><span class="label-evento">Descrição:</span> {{e?.descricao}}</span><br> 
+        <span class="quebrar-texto"><span class="label-evento">Onde ?</span> {{e?.crecheNome}} - {{e?.crecheLogradouro}} {{e?.crecheLocalizacao}}</span><br> 
+        <span class="quebrar-texto"><span class="label-evento">Quando ?</span> {{e?.dtRealizacao | date: 'dd/MM/yyyy HH:mm'}}</span><br> 
+        <!--BOTAO REJEITAR-->
+        <button type="button" (click)="rejeitarPresenca(e)" class="btn btn-danger btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnEvetos">
+          <span class="fa fa-thumbs-o-down" aria-hidden="true"></span>
+          Rejeitar Presença 
+        </button>
+        <!--BOTAO CONFIRMAR-->
+        <button type="button" (click)="confirmarPresenca(e)" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnConfirmar btnEvetos">
+          <span class="fa fa-thumbs-o-up" aria-hidden="true"></span>
+          Confirmar Presença
+        </button>
+      </td>
+    </tr>
+  </table>
 </div>
 
+
+
+
+
+<!-- CRECHE LISTA-->
 <div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
   <table class="table table-striped" style="margin-top: 5px">
     <tr class="kids-header-table"><th style="text-align:center !important;" [hidden]="eventos == null || eventos == undefined  || eventos?.length == 0">DETALHES</th></tr>

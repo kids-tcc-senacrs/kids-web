@@ -127,6 +127,7 @@ classesTableLine(sexo:string): any {
 }
 
 editar(c:Crianca):void{
+  this.clearMessages();
     this.criancaFamilia.crianca = c;
     this.familiaService.get(this.criancaFamilia.crianca).subscribe( data => this.criancaFamiliaList =  data,error => this.catchError(this.messagesError = <any>error));
     this.hiddenCadastro = false;

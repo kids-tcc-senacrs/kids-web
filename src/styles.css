@@ -9,6 +9,30 @@
 .btn-customizado{padding-left: 0px!important;text-align: center!important;border-radius:0px!important}
 .kids-header-table{text-align:center !important;background-color: #828282!important;border: 1px solid #828282 !important;}
 
+.dados-nao-encontrados{
+  border-width: 6px;
+  border-style: dashed;
+  border-color: #4d636f;
+  height: 50px;
+  margin-top: 15px;
+}
+.dados-nao-encontrados-title{
+  font-size: 16px;   
+  text-align: center;
+  margin-top: 10px;
+}
+
+/*até 448px*/
+@media (max-width: 448px) {
+  .dados-nao-encontrados{
+      border-width: 6px;
+      border-style: dashed;
+      border-color: #4d636f;
+      height: 80px!important;
+      margin-top: 15px;
+  }
+}
+
 .alerta-filtro-pesquisa{
   height: 40px;
   color: #000;

@@ -97,3 +97,6 @@
   color: #4d636f ;
 }
 
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color:#B5B5B5;
+}

@@ -43,7 +43,7 @@
 
                 <!--BOTAO SALVAR-->
               <button [disabled]="!f.valid" type="button" (click)="salvar()" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
-                <span class="fa fa-floppy-o" aria-hidden="true"></span>                
+                <span class="fa fa-check" aria-hidden="true"></span>                
                   Salvar
               </button>
 
@@ -68,7 +68,7 @@
   <table class="table table-striped" style="margin-top: 5px">
     <tr class="kids-header-table"><th style="text-align:center !important;" [hidden]="avisos == null || avisos == undefined  || avisos?.length == 0">AVISOS</th></tr>
     <tr *ngFor='let a of avisos; let i = index' class="row table-line-style">  
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 22px;">
           <span>{{a?.descricao}}</span><br>
           <button type="button" (click)="removerAviso(i, a)" class="btn btn-danger btn-customizado col-xs-12 col-sm-4 col-md-3 col-lg-3" style="margin-top: 1px;margin-bottom:8px">
             <i class="fa fa-trash-o" aria-hidden="true" style="margin-left: 10px;"></i>

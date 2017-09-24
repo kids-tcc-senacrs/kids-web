@@ -75,10 +75,11 @@ export class AvisoComponent implements OnInit {
   }
 
   salvar():void{
+    this.clearMessages();
     this.aviso.crecheId = this.crecheLogada.id;
     if(this.aviso.tipo == 'Informação'){
       this.aviso.tipo = 'INFORMACAO';
-    }else{
+    }else if(this.aviso.tipo == 'Cancelamento'){
       this.aviso.tipo = 'CANCELAMENTO';
     }
     this.avisoService.post(this.aviso).subscribe( data => this.extractData(data) ,error => this.catchError(this.messagesError = <any>error));         

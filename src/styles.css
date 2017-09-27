@@ -7,7 +7,7 @@
 .text-masculino{color: blue}
 .title{text-transform: uppercase;font-weight: bold}
 .btn-customizado{padding-left: 0px!important;text-align: center!important;border-radius:0px!important}
-.kids-header-table{text-align:center !important;background-color: #828282!important;border: 1px solid #828282 !important;}
+.kids-header-table{text-align:center !important;background-color: #828282!important;border: 1px solid #828282 !important;color: #fff}
 .aviso-required{color:dimgrey;float: right;font-style: italic}
 .pnl-aviso-required{margin-top: 18px}
 
@@ -131,5 +131,5 @@
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color:#B5B5B5;
+  background-color:#DDD;
 }

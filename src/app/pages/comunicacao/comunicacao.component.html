@@ -2,9 +2,10 @@
   <div class="bs-callout bs-callout-roxo title">{{title}}</div>
 </div>
 
-<!--FAMILIAR FORMULARIO-->
+<!-- CONTEUDO DE FAMILIAR -->
 <div *ngIf="usuarioLogado?.tipo == 'FAMILIAR'">     
-  <div class="w3-container w3-padding">
+  
+    <div class="w3-container w3-padding" [hidden]="hiddenEdicao">
       <div>
           <br>
           <form #f="ngForm">    
@@ -58,43 +59,69 @@
       </div>
     </div>
 
-<!--FAMILIAR CRECHE-->
-<div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
-</div>  
-
-<!--BARRA DE PROGRESSO-->
-<div class="progress">
+          
+    <!--BARRA DE PROGRESSO-->
+    <div class="progress" [hidden]="hiddenEdicao">
     <div class="progress-bar progress-bar-success progress-bar-striped" 
-          role="progressbar"
-          aria-valuemin="0" 
-          aria-valuemax="100" 
-          [ngStyle]="widthBarraProgresso">
-          {{widthBarraProgressoTexto}}
+            role="progressbar"
+            aria-valuemin="0" 
+            aria-valuemax="100" 
+            [ngStyle]="widthBarraProgresso">
+            {{widthBarraProgressoTexto}}
     </div>
-</div>
-<div [hidden]="comunicados?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <p class="dados-nao-encontrados-title">
-    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
-    Não há dados cadastrados no momento</p>
+    </div>
+    <div [hidden]="comunicados?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <p class="dados-nao-encontrados-title">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
+        Não há dados cadastrados no momento</p>
+    </div>
+
+    <!--LISTA COMUNICADOS PARA FAMILIARES-->
+    <div [hidden]="hiddenEdicao">     
+        <table class="table table-striped" style="margin-top: 5px">
+          <tr class="kids-header-table"><th style="text-align:center !important;" [hidden]="comunicados == null || comunicados == undefined  || comunicados?.length == 0">CONTATOS</th></tr>
+          <tr *ngFor='let c of comunicados; let i = index' class="row table-line-style">  
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 22px;margin-bottom: 22px;">
+                <span class="quebrar-texto"><span class="label-comunicado">Para:</span> {{c?.crecheNome}}</span><br> 
+                <span class="quebrar-texto"><span class="label-comunicado">O que:</span> {{c?.tipo}}</span><br> 
+                <span class="quebrar-texto"><span class="label-comunicado">Enviado em:</span> {{c?.dtEnvioFamiliar | date: 'dd/MM/yyyy HH:mm'}}</span><br> 
+                <span class="quebrar-texto"><span class="label-comunicado">Resposta em:</span> {{c?.dtRespostaCreche | date: 'dd/MM/yyyy HH:mm'}}</span><br> 
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <button type="button" (click)="visualizarContato(c)" class="btn btn-success btn-customizado col-xs-12 col-sm-12 col-md-2 col-lg-2" style="margin-bottom: 5px;float: right">
+                    <span class="fa fa-envelope-open-o" aria-hidden="true"></span>                
+                      Visualizar
+                  </button>
+              </div>           
+          </tr>
+        </table>
+      </div>
+      
+    <!--VISUALIZACAO DE COMUNICADOS PARA FAMILIARES-->
+    <div [hidden]="!clicouEmVisualizar" style="margin-top: 20px;">     
+      <div class="form-group">
+        <label for="descricaoF" class="control-label">Mensagem enviada:</label>
+        <textarea id="descricaoF" class="form-control" rows="5" name="descricaoF" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="comunicacao.descricaoFamiliar" disabled readonly></textarea>
+      </div>
+      <div class="form-group">
+        <label for="descricaoC" class="control-label">Resposta da creche:</label>
+        <textarea id="descricaoC" class="form-control" rows="5" name="descricaoC" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="comunicacao.descricaoCreche" disabled readonly></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom: 50px;">     
+        <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
+            <span class="fa fa-reply-all" aria-hidden="true"></span>
+            Voltar
+        </button>
+      </div>         
+    </div>         
 </div>
 
 
-<!--LISTA COMUNICADOS PARA FAMILIARES-->
-<div [hidden]="usuarioLogado?.tipo == 'CRECHE'">     
-  <table class="table table-striped" style="margin-top: 5px">
-    <tr class="kids-header-table"><th style="text-align:center !important;" [hidden]="comunicados == null || comunicados == undefined  || comunicados?.length == 0">CONTATOS</th></tr>
-    <tr *ngFor='let c of comunicados; let i = index' class="row table-line-style">  
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 22px;margin-bottom: 22px;">
-          <span class="quebrar-texto"><span class="label-comunicado">Para:</span> {{c?.crecheNome}}</span><br> 
-          <span class="quebrar-texto"><span class="label-comunicado">O que:</span> {{c?.tipo}}</span><br> 
-          <span class="quebrar-texto"><span class="label-comunicado">Quando:</span> {{c?.dtEnvioFamiliar | date: 'dd/MM/yyyy HH:mm'}}</span><br> 
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <button type="button" (click)="visualizarContato(c)" class="btn btn-success btn-customizado col-xs-12 col-sm-12 col-md-2 col-lg-2" style="margin-bottom: 5px;float: right">
-              <span class="fa fa-envelope-open-o" aria-hidden="true"></span>                
-                Visualizar
-            </button>
-        </div>           
-    </tr>
-  </table>
-</div>         
+<!-- CONTEUDO DE FAMILIAR -->
+<div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
+    <h1>conteudo da creche</h1>
+</div>
+
+
+
+

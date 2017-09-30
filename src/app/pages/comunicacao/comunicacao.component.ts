@@ -30,6 +30,9 @@ export class ComunicacaoComponent implements OnInit {
   private comunicados:ComunicacaoVO[] = [];
   private tipos: string[] = ['Elogio','Sugestão','Reclamação'];
   private crechesPorFamiliar: CrecheVO[] = [];
+  private hiddenEdicao:boolean = false;
+  private hiddenVisualizacao:boolean = true;
+  private clicouEmVisualizar:boolean = false;
 
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -138,7 +141,19 @@ export class ComunicacaoComponent implements OnInit {
   }
 
   visualizarContato(c:ComunicacaoVO):void{
-    alert('Em desenvolvimento!');
+    this.comunicacao = c;
+    this.hiddenEdicao = true;
+    this.hiddenVisualizacao = false;
+    this.clicouEmVisualizar = true;
+    console.log('this.hiddenEdicao: ' + this.hiddenEdicao);
+    console.log('this.hiddenVisualizacao: ' + this.hiddenVisualizacao);
   }
 
+  exibirTelaPesquisa():void{
+    this.hiddenEdicao = false;
+    this.hiddenVisualizacao = true;
+    this.clicouEmVisualizar = false;
+    this.comunicacao = new ComunicacaoDTO(null,null,null,null,null,null);
+    this.clearMessages();
+  }
 }

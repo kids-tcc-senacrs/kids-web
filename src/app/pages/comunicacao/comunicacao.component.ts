@@ -27,12 +27,15 @@ export class ComunicacaoComponent implements OnInit {
   private widthBarraProgressoTexto:string = "10%";
   private timerBarraProgresso:any = null;
   private comunicacao:ComunicacaoDTO = new ComunicacaoDTO(null,null,null,null,null,null);
+  private comunicacaoVO:ComunicacaoVO = new ComunicacaoVO(null,null,null,null,null,null,null,null,null,null,null);
   private comunicados:ComunicacaoVO[] = [];
   private tipos: string[] = ['Elogio','Sugestão','Reclamação'];
   private crechesPorFamiliar: CrecheVO[] = [];
   private hiddenEdicao:boolean = false;
   private hiddenVisualizacao:boolean = true;
+  private hiddenBtnEnviar:boolean = true;
   private clicouEmVisualizar:boolean = false;
+  private clicouEmEditar:boolean = false;
 
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -49,7 +52,7 @@ export class ComunicacaoComponent implements OnInit {
       if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
         if(this.usuarioLogado.tipo === 'CRECHE'){
           this.crecheService.get(this.usuarioLogado).subscribe( data => this.crecheLogada =  data,error => this.catchError(this.messagesError = <any>error));
-          //this.avisoService.get(this.usuarioLogado).subscribe( data => this.setAvisosEncontradas(data),error => this.catchError(this.messagesError = <any>error));         
+          this.comunicacaoService.get(this.usuarioLogado.id, false).subscribe( data => this.setComunicadosEncontrados(data),error => this.catchError(this.messagesError = <any>error));           
         }else if(this.usuarioLogado.tipo === 'FAMILIAR'){
           this.crecheService.getPorFamiliar(this.usuarioLogado).subscribe( data => this.crechesPorFamiliar =  data,error => this.catchError(this.messagesError = <any>error));
           this.comunicacaoService.get(this.usuarioLogado.id, true).subscribe( data => this.setComunicadosEncontrados(data),error => this.catchError(this.messagesError = <any>error));           
@@ -60,6 +63,7 @@ export class ComunicacaoComponent implements OnInit {
   }
 
   enviarComunicacaoFamiliar():void{
+    this.clearMessages();
     if('Reclamação' === this.comunicacao.tipo){
       this.comunicacao.tipo = 'RECLAMACAO';
     }else if('Elogio' === this.comunicacao.tipo){
@@ -70,9 +74,19 @@ export class ComunicacaoComponent implements OnInit {
     this.comunicacao.usuarioId = this.usuarioLogado.id;
     this.comunicacaoService.post(this.comunicacao).subscribe( data => this.extractData(data),error => this.catchError(this.messagesError = <any>error));
   }
+
+  enviarComunicacaoCreche():void{
+    this.clearMessages();
+    this.comunicacao.id = this.comunicacaoVO.comunicacaoId;
+    this.comunicacao.usuarioId = this.comunicacaoVO.usuarioId;
+    this.comunicacao.descricaoCreche = this.comunicacaoVO.descricaoCreche;
+    this.comunicacao.descricaoFamiliar = this.comunicacaoVO.descricaoFamiliar;
+    this.comunicacao.crecheId = this.crecheLogada.id;
+    this.comunicacao.tipo = this.comunicacaoVO.tipo;
+    this.comunicacaoService.put(this.comunicacao).subscribe( data => this.extractData(data),error => this.catchError(this.messagesError = <any>error));
+  }
   
   private extractData(res: Response) {
-    console.log('resposta do server: ' + res.status);
 	if(res.status == 200 || res.status == 201){
     this.comunicacao = new ComunicacaoDTO(null,null,null,null,null,null);
     this.clearMessages();
@@ -81,7 +95,7 @@ export class ComunicacaoComponent implements OnInit {
     let timer = setInterval(() => { 
       if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
         if(this.usuarioLogado.tipo === 'CRECHE'){
-          //this.avisoService.get(this.usuarioLogado).subscribe( data => this.avisos =  data,error => this.catchError(this.messagesError = <any>error));         
+          this.comunicacaoService.get(this.usuarioLogado.id, false).subscribe( data => this.setComunicadosEncontrados(data),error => this.catchError(this.messagesError = <any>error));           
         }else if(this.usuarioLogado.tipo === 'FAMILIAR'){
           this.comunicacaoService.get(this.usuarioLogado.id, true).subscribe( data => this.setComunicadosEncontrados(data),error => this.catchError(this.messagesError = <any>error));           
         }
@@ -141,19 +155,32 @@ export class ComunicacaoComponent implements OnInit {
   }
 
   visualizarContato(c:ComunicacaoVO):void{
-    this.comunicacao = c;
+    this.comunicacaoVO = c;
     this.hiddenEdicao = true;
     this.hiddenVisualizacao = false;
     this.clicouEmVisualizar = true;
-    console.log('this.hiddenEdicao: ' + this.hiddenEdicao);
-    console.log('this.hiddenVisualizacao: ' + this.hiddenVisualizacao);
+    this.clicouEmEditar = false;
+    this.hiddenBtnEnviar = true;
+    console.log('this.hiddenBtnEnviar: ' + this.hiddenBtnEnviar);
+  }
+
+  editarContato(c:ComunicacaoVO){
+    this.comunicacaoVO = c;
+    this.hiddenEdicao = true;
+    this.hiddenVisualizacao = true;
+    this.clicouEmVisualizar = false;
+    this.clicouEmEditar = true;
+    this.hiddenBtnEnviar = false;
   }
 
   exibirTelaPesquisa():void{
     this.hiddenEdicao = false;
     this.hiddenVisualizacao = true;
     this.clicouEmVisualizar = false;
+    this.clicouEmEditar = false;    
     this.comunicacao = new ComunicacaoDTO(null,null,null,null,null,null);
+    this.comunicacaoVO = new ComunicacaoVO(null,null,null,null,null,null,null,null,null,null,null);
     this.clearMessages();
-  }
+  }  
+
 }

@@ -10,7 +10,7 @@
           <br>
           <form #f="ngForm">    
           <!-- MENSAGENS DE ERRO -->
-          <div [hidden]="!f.valid || messagesError === null" class="alert alert-danger" role="alert">
+              <div [hidden]="!f.valid || messagesError === null" class="alert alert-danger" role="alert">
                   <ul *ngFor="let message of messagesError">
                       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                       {{message}}
@@ -101,11 +101,11 @@
     <div [hidden]="!clicouEmVisualizar" style="margin-top: 20px;">     
       <div class="form-group">
         <label for="descricaoF" class="control-label">Mensagem enviada:</label>
-        <textarea id="descricaoF" class="form-control" rows="5" name="descricaoF" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="comunicacao.descricaoFamiliar" disabled readonly></textarea>
+        <textarea id="descricaoF" class="form-control" rows="5" name="descricaoF" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="comunicacaoVO.descricaoFamiliar" disabled readonly></textarea>
       </div>
       <div class="form-group">
         <label for="descricaoC" class="control-label">Resposta da creche:</label>
-        <textarea id="descricaoC" class="form-control" rows="5" name="descricaoC" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="comunicacao.descricaoCreche" disabled readonly></textarea>
+        <textarea id="descricaoC" class="form-control" rows="5" name="descricaoC" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="comunicacaoVO.descricaoCreche" disabled readonly></textarea>
       </div>
       <div class="form-group" style="margin-bottom: 50px;">     
         <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
@@ -117,11 +117,98 @@
 </div>
 
 
-<!-- CONTEUDO DE FAMILIAR -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- CONTEUDO DE CRECHE -->
 <div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
-    <h1>conteudo da creche</h1>
+    <!--BARRA DE PROGRESSO-->
+    <div class="progress" [hidden]="hiddenEdicao" style="margin-top: 5px">
+        <div class="progress-bar progress-bar-success progress-bar-striped" 
+                role="progressbar"
+                aria-valuemin="0" 
+                aria-valuemax="100" 
+                [ngStyle]="widthBarraProgresso">
+                {{widthBarraProgressoTexto}}
+        </div>
+        </div>
+        <div [hidden]="comunicados?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p class="dados-nao-encontrados-title">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
+            Não há dados cadastrados no momento</p>
+        </div>
+        
+    <!--LISTA COMUNICADOS PARA CRECHE-->
+    <div [hidden]="hiddenEdicao">     
+        <table class="table table-striped" style="margin-top: 5px">
+            <tr class="kids-header-table"><th style="text-align:center !important;" [hidden]="comunicados == null || comunicados == undefined  || comunicados?.length == 0">CONTATOS</th></tr>
+            <tr *ngFor='let c of comunicados; let i = index' class="row table-line-style">  
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 22px;margin-bottom: 22px;">
+                <span class="quebrar-texto"><span class="label-comunicado">De:</span> {{c?.usuarioNome}}</span><br> 
+                <span class="quebrar-texto"><span class="label-comunicado">O que:</span> {{c?.tipo}}</span><br> 
+                <span class="quebrar-texto"><span class="label-comunicado">Recebemos em:</span> {{c?.dtEnvioFamiliar | date: 'dd/MM/yyyy HH:mm'}}</span><br> 
+                <span class="quebrar-texto"><span class="label-comunicado">Respondemos em:</span> {{c?.dtRespostaCreche | date: 'dd/MM/yyyy HH:mm'}}</span><br> 
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" [hidden]="c?.dtRespostaCreche === null">
+                    <button type="button" (click)="visualizarContato(c)" class="btn btn-primary btn-customizado col-xs-12 col-sm-12 col-md-2 col-lg-2" style="margin-bottom: 5px;float: right">
+                    <span class="fa fa-envelope-open-o" aria-hidden="true"></span>                
+                        Visualizar
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" [hidden]="c?.dtRespostaCreche !== null">
+                    <button type="button" (click)="editarContato(c)" class="btn btn-success btn-customizado col-xs-12 col-sm-12 col-md-2 col-lg-2" style="margin-bottom: 5px;float: right">
+                    <span class="fa fa-paper-plane" aria-hidden="true"></span>                
+                        Responder
+                    </button>
+                </div>                      
+            </tr>
+        </table>
+    </div>
+
+    <!--VISUALIZACAO DE COMUNICADOS PARA CRECHES-->
+    <div [hidden]="clicouEmVisualizar === false && clicouEmEditar === false" style="margin-top: 20px;">     
+        <form #f1="ngForm">    
+            <div [hidden]="!f1.valid || messagesError === null" class="alert alert-danger" role="alert">
+                <ul *ngFor="let message of messagesError">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    {{message}}
+                </ul>
+            </div>
+            <div [hidden]="!f1.valid || messageSuccess === null" class="alert alert-success" role="alert">
+                <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                {{messageSuccess}}
+            </div>
+    
+            <div class="form-group">
+                <label for="descricaoF" class="control-label">Mensagem Recebida:</label>
+                <textarea id="descricaoF" class="form-control" rows="5" name="descricaoF" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="comunicacaoVO.descricaoFamiliar" disabled readonly></textarea>
+            </div>
+            <div class="form-group">
+                <label for="descricaoC" class="control-label">Resposta enviada:</label>
+                <textarea id="descricaoC" class="form-control" rows="5" name="descricaoC" #descricao="ngModel" aria-describedby="descricao" [(ngModel)]="comunicacaoVO.descricaoCreche" [disabled]="clicouEmVisualizar" [readonly]="clicouEmVisualizar"></textarea>
+            </div>
+            <div class="form-group" style="margin-bottom: 50px;">     
+                <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
+                    <span class="fa fa-reply-all" aria-hidden="true"></span>
+                    Voltar
+                </button>
+            </div>         
+            <div class="form-group" style="margin-bottom: 80px;" [hidden]="clicouEmVisualizar">     
+                <button type="button" (click)="enviarComunicacaoCreche()" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3">
+                    <span class="fa fa-paper-plane" aria-hidden="true"></span>                
+                    Enviar
+                </button>
+            </div>         
+        </form>
+    </div>   
+
 </div>
-
-
-
-

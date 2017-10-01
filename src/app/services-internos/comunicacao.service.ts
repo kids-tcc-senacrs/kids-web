@@ -24,6 +24,15 @@ export class ComunicacaoService {
     return this.http.post(url, comunicacao, options).map(this.throwResponse).catch(this.handleError);
   }
 
+  public put(comunicacao:ComunicacaoDTO):Observable<Response>{
+    console.log('[KIDS] consumindo API de comunicacao PUT ...');	
+    let url = this.URL_DEFAULT 
+    let headers = new Headers({ 'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(url, comunicacao, options).map(this.throwResponse).catch(this.handleError);
+  }
+
+
   public get(usuarioId:number, familiar:boolean):Observable<ComunicacaoVO[]>{
     console.log('[KIDS] consumindo API de comunicacao GET ...');	
     let url = this.URL_DEFAULT + usuarioId + '/' + familiar;

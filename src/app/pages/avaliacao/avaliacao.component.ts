@@ -1,3 +1,4 @@
+import { AvaliacaoDTO } from './../../dto/avaliacao-dto';
 import { ApiRestGenericaService } from './../../services-internos/api-rest-generica.service';
 import { AvaliacaoVO } from './../../vo/avaliacao-vo';
 import { Endereco } from './../../model/endereco';
@@ -31,7 +32,12 @@ export class AvaliacaoComponent implements OnInit {
   private messageSuccess: string = null;
   private hiddenPesquisa:boolean = false;
   private hiddenAvaliacoes:boolean = true;
+  private hiddenCadastroNovo:boolean = true;
+  private hiddenButtonSalvar:boolean = true;
+  private hiddenButtonNovo:boolean = false;
   private msgListaAvaliacoes:string = 'Pesquisando avaliações ...';
+  private avaliacaoDTO:AvaliacaoDTO = new AvaliacaoDTO(null,null,null);
+  private API_AVALIACAO:string = 'avaliacao/';
 
   private filtro:string;
   private pessoa:Pessoa = new Pessoa(null, null, new Endereco());
@@ -66,13 +72,14 @@ export class AvaliacaoComponent implements OnInit {
 
   avaliacoes(c:Crianca):void{
     this.crianca = c;
-    this.apiGenerica.getById('avaliacao/', this.crianca.id).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
+    this.apiGenerica.getById(this.API_AVALIACAO, this.crianca.id).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
     this.exibirTelaAvaliacoes();
   }
 
   exibirTelaAvaliacoes():void{
     this.hiddenAvaliacoes = false;
     this.hiddenPesquisa = true;
+    this.hiddenButtonNovo = false;
   }
 
   private getdados(r:Response):void{
@@ -88,6 +95,12 @@ export class AvaliacaoComponent implements OnInit {
       clearInterval(this.timerBarraProgresso);  
       this.widthBarraProgresso = {width:"100%"};
       this.widthBarraProgressoTexto = "100%";   
+    }else if(r.status === 201){//Dados cadastrados com sucesso
+         this.apiGenerica.getById(this.API_AVALIACAO, this.crianca.id).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
+         this.messageSuccess = "Avaliação cadastrada com sucesso!";
+         this.hiddenCadastroNovo = true;
+         this.hiddenButtonNovo = false;  
+         this.hiddenButtonSalvar = true;
     }
   }
 
@@ -180,14 +193,29 @@ private clearMessages():void{
 }
 
 exibirTelaPesquisa():void{
+this.clearMessages(); 
 this.hiddenAvaliacoes = true;
+this.hiddenCadastroNovo = true;
 this.hiddenPesquisa = false;
+this.hiddenButtonSalvar = true;
 this.avaliacoesVO = null;
+this.avaliacaoDTO = new AvaliacaoDTO(null,null,null);
 }
 
 
 cadastrar():void{
+  this.avaliacaoDTO = new AvaliacaoDTO(null,null,null);
+  this.hiddenPesquisa = true;
+  this.hiddenAvaliacoes = false;
+  this.hiddenCadastroNovo = false;
+  this.hiddenButtonNovo = true;
+  this.hiddenButtonSalvar = false;
+}
 
+salvar():void{
+  this.avaliacaoDTO.crecheId = this.crecheLogada.id;
+  this.avaliacaoDTO.criancaId = this.crianca.id;
+  this.apiGenerica.save(this.API_AVALIACAO, this.avaliacaoDTO).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
 }
 
 }

@@ -17,7 +17,15 @@ export class ApiRestGenericaService {
       console.log('[KIDS] consumindo API ' +  api  +  ' GET ...');	
       let url = this.URL_DEFAULT + api + obj;
       return this.http.get(url).map(this.throwResponse).catch(this.handleError);
-    }  
+    }
+    
+    public save(api:string, obj:any):Observable<Response>{
+      console.log('[KIDS] consumindo API ' +  api  +  ' POST ...');		
+      let url = this.URL_DEFAULT + api; 
+      let headers = new Headers({ 'Content-Type': 'application/json'});
+      let options = new RequestOptions({ headers: headers });
+      return this.http.post(url, obj, options).map(this.throwResponse).catch(this.handleError);
+    }
 
     private throwResponse(res: Response){
       return res;

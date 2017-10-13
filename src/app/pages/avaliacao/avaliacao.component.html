@@ -1,4 +1,6 @@
-<!-- FILTRO DE CRIANCAS -->
+<!-- PERFIL CRECHE -->
+<div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
+
 <div [hidden]="hiddenPesquisa"><!--INICIIO DA DIV DE LISTAGEM DE CRIANÇAS-->
 
   <div class="bs-callout bs-callout-warning title">{{title}}</div>
@@ -21,7 +23,7 @@
        aria-valuemin="0" 
        aria-valuemax="100" 
        [ngStyle]="widthBarraProgresso">
-       {{widthBarraProgressoTexto}}
+       <i>carregou {{widthBarraProgressoTexto}}</i>
   </div>
 </div>
 <div [hidden]="criancas?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -66,22 +68,61 @@
     <div class="w3-container w3-padding">
         <div id="dadodDaCrianca">
           <div class="form-group">
-            <label for="nome" class="control-label">Nome</label>
-            <input id="nome" name="nome" #matricula="ngModel" aria-describedby="nome" [(ngModel)]="crianca.pessoa.nome" type="text" class="form-control" disabled readonly>
+            <label for="nome" class="control-label">Aluno(a)</label>
+            <input id="nome" name="nome" #matricula="ngModel" aria-describedby="nome" [(ngModel)]="crianca.pessoa.nome" type="text" class="form-control" style="text-transform: uppercase" disabled readonly>
           </div>
          </div>                
-         <div class="row">
-         <!--BOTAO VOLTAR-->
-         <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-4 col-lg-3">
-            <span class="fa fa-reply-all" aria-hidden="true"></span>
-            Voltar
-          </button>
-          <!--BOTAO NOVO-->
-          <button (click)="cadastrar()" type="button" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-4 col-lg-3 btnNovo">
-            <span class="fa fa-plus-circle" aria-hidden="true"></span>
-             Nova avaliação
-            </button>
-         </div> 
+
+         <!-- MENSAGENS DE ERRO -->
+         <div [hidden]="!f.valid || messagesError === null" class="alert alert-danger" role="alert">
+             <ul *ngFor="let message of messagesError">
+                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                 {{message}}
+             </ul>
+         </div>
+
+         <!-- MENSAGEM DE SUCESSO -->
+         <div [hidden]="!f.valid || messageSuccess === null" class="alert alert-success" role="alert">
+             <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+             {{messageSuccess}}
+         </div>
+
+         <div id="cadastroNovo" class="row" [hidden]="hiddenCadastroNovo">
+            <form #f="ngForm">          
+                    <!--Descricao-->
+                    <div class="form-group">
+                        <label for="descricao" class="control-label">Descrição*</label>
+                        <textarea id="descricao" class="form-control" maxlength="1000" rows="5" #descricao="ngModel" name="descricao" aria-describedby="descricao" [(ngModel)]="avaliacaoDTO.descricao" (focus)="clearMessages()"></textarea>  
+                    </div>
+            </form>        
+         </div>
+
+         <div class="row" [hidden]="hiddenButtonNovo">
+            <!--BOTAO VOLTAR-->
+            <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-4 col-lg-3">
+               <span class="fa fa-reply-all" aria-hidden="true"></span>
+               Voltar
+             </button>
+             <!--BOTAO NOVO-->
+             <button (click)="cadastrar()" type="button" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-4 col-lg-3 btnNovo">
+               <span class="fa fa-plus-circle" aria-hidden="true"></span>
+                Nova avaliação
+             </button>
+          </div> 
+          
+          <div class="row" [hidden]="hiddenButtonSalvar">
+              <!--BOTAO VOLTAR-->
+              <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                 <span class="fa fa-reply-all" aria-hidden="true"></span>
+                 Voltar
+               </button>
+               <!--BOTAO SALVAR-->
+               <button (click)="salvar()" type="button" class="btn btn-success btn-customizado col-xs-12 col-sm-5 col-md-4 col-lg-3 btnNovo">
+                  <span class="fa fa-check" aria-hidden="true"></span>
+                   Salvar
+                </button>
+          </div>
+
     </div>
 
         
@@ -92,7 +133,7 @@
          aria-valuemin="0" 
          aria-valuemax="100" 
          [ngStyle]="widthBarraProgresso">
-         {{widthBarraProgressoTexto}}
+         <i>carregou {{widthBarraProgressoTexto}}</i>
       </div>
     </div>
     <div [hidden]="avaliacoesVO?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -115,4 +156,6 @@
         </table>
       </div>                      
 </div>                      
+
+</div><!--FINAL DO PERFIL CRECHE-->                      
   

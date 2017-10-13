@@ -41,7 +41,9 @@ export class AvaliacaoComponent implements OnInit {
 
   private filtro:string;
   private pessoa:Pessoa = new Pessoa(null, null, new Endereco());
-  private crianca:Crianca = new Crianca(null,null,null,null,null,this.pessoa,new Contato(), new Creche(), null, null);
+  private pessoaCreche:Pessoa = new Pessoa(null, null, new Endereco());
+  private creche:Creche = new Creche(null,this.pessoaCreche);
+  private crianca:Crianca = new Crianca(null,null,null,null,null,this.pessoa,new Contato(), this.creche, null, null);
 
   private widthBarraProgresso:any = {width:"10%"};
   private widthBarraProgressoTexto:string = "10%";

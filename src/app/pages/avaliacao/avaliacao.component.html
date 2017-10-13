@@ -1,7 +1,7 @@
 <!-- PERFIL CRECHE -->
 <div *ngIf="usuarioLogado?.tipo == 'CRECHE'">     
 
-<div [hidden]="hiddenPesquisa"><!--INICIIO DA DIV DE LISTAGEM DE CRIANÇAS-->
+<div [hidden]="hiddenPesquisa"><!--INICIO DA DIV DE LISTAGEM DE CRIANÇAS-->
 
   <div class="bs-callout bs-callout-warning title">{{title}}</div>
   <div class="w3-container w3-padding">
@@ -159,3 +159,140 @@
 
 </div><!--FINAL DO PERFIL CRECHE-->                      
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- PERFIL FAMILIAR -->
+<div *ngIf="usuarioLogado?.tipo == 'FAMILIAR'">     
+    
+    <div [hidden]="hiddenPesquisa"><!--INICIO DA DIV DE LISTAGEM DE CRIANÇAS-->
+    
+      <div class="bs-callout bs-callout-warning title">{{title}}</div>
+      <div class="w3-container w3-padding">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <label>Filtro de pesquisa: </label>
+            </div>
+            <div id="filtroPesquisa" class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <input type="text" class="form-control" [(ngModel)]="filtro" maxlength="60">
+            </div>        
+        </div>
+      <hr>
+    </div>
+    
+    <!-- BARRA DE PROGRESSO -->
+    <div class="progress">
+      <div class="progress-bar progress-bar-success progress-bar-striped" 
+           role="progressbar"
+           aria-valuemin="0" 
+           aria-valuemax="100" 
+           [ngStyle]="widthBarraProgresso">
+           <i>carregou {{widthBarraProgressoTexto}}</i>
+      </div>
+    </div>
+    <div [hidden]="criancas?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <p class="dados-nao-encontrados-title">
+          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
+          Não há dados cadastrados no momento</p>
+    </div>
+    
+    
+    <!-- Lista de crianças-->
+    <div [hidden]="criancas === null || criancas === undefined || criancas?.length == 0"> 
+      <table class="table table-striped">
+        <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
+        <tr *ngFor='let c of listar()'>
+          <td>
+            <span>
+              <strong>
+                <span [ngClass]="classesTableLine(c.sexo)" title="Editar">{{c.pessoa.nome}}</span>
+              </strong>
+            </span><br>
+            <span class="quebrar-texto">Creche: {{c?.creche?.pessoa?.nome}}</span><br> 
+            <span class="quebrar-texto">Responsável: {{c?.contato?.responsavel}}</span><br> 
+            <span class="quebrar-texto">Fone: {{c?.contato?.fonePrincipal}}</span><br>
+            <button type="button" (click)="avaliacoes(c)" class="btn btn-primary btn-customizado col-xs-12 col-sm-4 col-md-3 col-lg-3" style="margin-top: 1px;margin-bottom:8px">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                 avaliações
+             </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    </div><!--FINAL DA DIV DE LISTAGEM DE CRIANÇAS-->
+    
+    
+    
+    
+    <!--AVALIACOES-->
+    <div [hidden]="hiddenAvaliacoes">
+        <div class="bs-callout bs-callout-warning title">
+          {{title}}
+        </div>  
+        <div class="w3-container w3-padding">
+            <div id="dadodDaCrianca">
+              <div class="form-group">
+                  <label for="creche" class="control-label">Creche</label>
+                  <input id="creche" name="creche" #creche="ngModel" aria-describedby="creche" [(ngModel)]="crianca.creche.pessoa.nome" type="text" class="form-control" style="text-transform: uppercase" disabled readonly>
+              </div>
+              <div class="form-group">
+                <label for="nome" class="control-label">Aluno(a)</label>
+                <input id="nome" name="nome" #nome="ngModel" aria-describedby="nome" [(ngModel)]="crianca.pessoa.nome" type="text" class="form-control" style="text-transform: uppercase" disabled readonly>
+              </div>
+            </div>                
+    
+             <div class="row">
+                <!--BOTAO VOLTAR-->
+                <button type="button" (click)="exibirTelaPesquisa()" class="btn btn-warning btn-customizado col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                   <span class="fa fa-reply-all" aria-hidden="true"></span>
+                   Voltar
+                 </button>
+              </div>    
+        </div>
+    
+            
+        <!-- BARRA DE PROGRESSO -->
+        <div class="progress">
+          <div class="progress-bar progress-bar-success progress-bar-striped" 
+             role="progressbar"
+             aria-valuemin="0" 
+             aria-valuemax="100" 
+             [ngStyle]="widthBarraProgresso">
+             <i>carregou {{widthBarraProgressoTexto}}</i>
+          </div>
+        </div>
+        <div [hidden]="avaliacoesVO?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p class="dados-nao-encontrados-title">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
+            {{msgListaAvaliacoes}}</p>
+        </div>
+        <!-- avaliacoes do aluno selecionado -->
+        <div [hidden]="avaliacoesVO === null || avaliacoesVO === undefined || avaliacoesVO?.length == 0"> 
+            <table class="table table-striped">
+              <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
+              <tr *ngFor='let a of avaliacoesVO'>
+                <td>
+                  <div class="form-group">
+                      <label for="descricaoC" class="control-label">Avaliação realizada em: {{a.dtAvaliacao | date: 'dd/MM/yyyy'}}</label>
+                      <textarea id="descricaoC" class="form-control" rows="5" name="descricaoC" aria-describedby="descricao" [(ngModel)]="a.descricao" (focus)="clearMessages()"  disabled readonly></textarea>  
+                  </div>
+                </td>                                        
+              </tr>
+            </table>
+          </div>                      
+    </div>                      
+    
+    </div><!--FINAL DO PERFIL FAMILIAR-->                      
+      

@@ -1,0 +1,11 @@
+@media (max-width: 767px) {
+    .btnNovo{
+        margin-top: 3px
+    }
+}
+
+@media (min-width: 768px) {
+    .btnNovo{
+        margin-left: 5px
+    }
+}

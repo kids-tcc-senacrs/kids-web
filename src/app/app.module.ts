@@ -1,3 +1,4 @@
+import { ApiRestGenericaService } from './services-internos/api-rest-generica.service';
 import { ComunicacaoService } from './services-internos/comunicacao.service';
 import { AvisoService } from './services-internos/aviso.service';
 import { EventoService } from './services-internos/evento.service';
@@ -40,6 +41,7 @@ import { DiarioComponent } from './pages/diario/diario.component';
 import { EventoComponent } from './pages/evento/evento.component';
 import { AvisoComponent } from './pages/aviso/aviso.component';
 import { ComunicacaoComponent } from './pages/comunicacao/comunicacao.component';
+import { AvaliacaoComponent } from './pages/avaliacao/avaliacao.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
@@ -57,6 +59,7 @@ const routes: Routes = [
                   { path: 'evento',  component: EventoComponent},   
                   { path: 'aviso',  component: AvisoComponent},   
                   { path: 'comunicacao',  component: ComunicacaoComponent},   
+                  { path: 'avaliacao',  component: AvaliacaoComponent},   
                 ]
     },
     { path: '**',      component: PaginaNaoEncontradaComponent}
@@ -76,8 +79,9 @@ const routes: Routes = [
     ServicoIndisponivelComponent,
     BarraTituloComponent,
     CriancaComponent,
+    AvaliacaoComponent,
     FileDropDirective, 
-    FileSelectDirective, FamiliaComponent, DiarioComponent, EventoComponent, AvisoComponent, ComunicacaoComponent
+    FileSelectDirective, FamiliaComponent, DiarioComponent, EventoComponent, AvisoComponent, ComunicacaoComponent, AvaliacaoComponent
   ],
   imports: [
     CommonModule,
@@ -99,6 +103,7 @@ const routes: Routes = [
               EventoService,
               AvisoService,
               ComunicacaoService,
+              ApiRestGenericaService,
               {provide: APP_BASE_HREF, useValue: '/kids'}],
   bootstrap: [AppComponent]
 })

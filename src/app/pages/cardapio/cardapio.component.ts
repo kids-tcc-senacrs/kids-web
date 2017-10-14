@@ -179,7 +179,7 @@ private getResponseDelete(r:Response):void{
     this.alimentosVO = null;
     this.msgLIstaCardapios = "";
     this.messageSuccess = "Cardápio removido com sucesso!";
-    this.apiGenerica.getById(this.API_CARDAPIO, this.cardapioDTO.crecheId).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
+    //this.apiGenerica.getById(this.API_CARDAPIO, this.cardapioDTO.crecheId).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
     clearInterval(this.timerBarraProgresso);  
     this.widthBarraProgresso = {width:"100%"};
     this.widthBarraProgressoTexto = "100%";   

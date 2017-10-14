@@ -153,6 +153,18 @@
 <div *ngIf="usuarioLogado?.tipo == 'CRECHE'">         
     <div class="bs-callout bs-callout-danger title">{{title}}</div>
 
+    <div [hidden]="hiddenPesquisa">
+
+    <div class="w3-container w3-padding">  
+      
+    <div class="row">
+        <button (click)="cadastrar()" type="button" class="btn btn-primary btn-customizado col-xs-12 col-sm-5 col-md-4 col-lg-3 btnNovo">
+            <span class="fa fa-plus-circle" aria-hidden="true"></span>
+            Novo cardápio
+        </button>
+    </div>
+      
+
      <!-- MENSAGENS DE ERRO -->
      <div [hidden]="messagesError === null" class="alert alert-danger" role="alert" style="margin-top: 10px;">
         <ul *ngFor="let message of messagesError">
@@ -166,25 +178,26 @@
         <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
         {{messageSuccess}}
     </div>
-      
-      <!-- BARRA DE PROGRESSO -->
-    <div class="progress">
-        <div class="progress-bar progress-bar-success progress-bar-striped" 
-             role="progressbar"
-             aria-valuemin="0" 
-             aria-valuemax="100" 
-             [ngStyle]="widthBarraProgresso">
-             <i>carregou {{widthBarraProgressoTexto}}</i>
-        </div>
-      </div>
-      <!--
-      <div [hidden]="cardapiosVO?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <p class="dados-nao-encontrados-title">
-            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
-          {{msgLIstaCardapios}}</p>
-      </div>
-    -->   
-      
+    
+    
+    <!-- BARRA DE PROGRESSO -->
+    <div class="row progress" style="margin-top: 10px">
+      <div class="progress-bar progress-bar-success progress-bar-striped" 
+      role="progressbar"
+      aria-valuemin="0" 
+      aria-valuemax="100" 
+      [ngStyle]="widthBarraProgresso">
+      <i>carregou {{widthBarraProgressoTexto}}</i>
+    </div>
+  </div>
+  <div [hidden]="cardapiosVO?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p class="dados-nao-encontrados-title">
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
+      {{msgListaCardapiosCreche}}</p>
+    </div>
+    
+  </div>
+    
       <!-- Lista de cardapios da creche selecionado pelo familiar-->
       <div [hidden]="cardapiosVO === null || cardapiosVO === undefined || cardapiosVO?.length == 0"> 
         <table class="table table-striped">
@@ -200,4 +213,72 @@
           </tr>
         </table>
       </div>
+
+    </div>
+
+
+    <div [hidden]="hiddenCadastroNovo" class="row">
+        <div class="w3-container w3-padding">             
+          
+          <form #f="ngForm">    
+            <div class="form-group">          
+              <label for="dtCardapio" class="control-label">Data do Cardápio*</label>
+              <input [readonly]="alimentosDTO !== null && alimentosDTO !== undefined && alimentosDTO?.length > 0" [disabled]="alimentosDTO !== null && alimentosDTO !== undefined && alimentosDTO?.length > 0" id="dtCardapio" name="dtCardapio" #dtCardapio="ngModel" aria-describedby="dtCardapio" [(ngModel)]="cardapioDTO.dtCardapio" useValueAsDate type="date" class="form-control" required>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <label for="descricaoAlimento">Alimento*</label>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-5"> 
+                  <input id="descricaoAlimento" name="descricaoAlimento" #descricaoAlimento="ngModel" (focus)="clearMessages();" [(ngModel)]="alimentoDTO.nome" maxlength="50" type="text" class="form-control" required>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 btn-adicionar"> 
+                    <button [disabled]="!f.valid" type="button" (click)="adicionarAlimento()" class="btn btn-success btn-customizado" title="Adicionar" style="margin-top: 5px">
+                        <span class="fa fa-plus-square" aria-hidden="true" style="margin-left: 10px;"></span>
+                        Adicionar
+                      </button>
+                </div> 
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 btn-adicionar" style="float:right"> 
+                    <button [disabled]="alimentosDTO === null || alimentosDTO === undefined || alimentosDTO?.length == 0" type="button" (click)="salvar()" class="btn btn-success btn-customizado" title="Adicionar" style="margin-top: 5px;float:right">
+                        <span class="fa fa-check" aria-hidden="true" style="margin-left: 10px;"></span>
+                        Salvar
+                      </button>
+                </div>
+            </div>
+            <div class="pnl-aviso-required col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <span class="aviso-required">(*) preenchimento obrigatório</span>
+            </div>
+          </form>
+
+          <!-- MENSAGENS DE ERRO -->
+     <div [hidden]="messagesError === null" class="alert alert-danger" role="alert" style="margin-top: 10px;">
+        <ul *ngFor="let message of messagesError">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            {{message}}
+        </ul>
+    </div>
+
+    <!-- MENSAGEM DE SUCESSO -->
+    <div [hidden]="messageSuccess === null" class="alert alert-success" role="alert" style="margin-top: 10px;">
+        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+        {{messageSuccess}}
+    </div>
+            
+        <div [hidden]="alimentosDTO === null || alimentosDTO === undefined || alimentosDTO?.length == 0"> 
+            <table class="table table-striped">
+              <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
+              <tr *ngFor='let a of alimentosDTO; let i = index'>
+                <td>                  
+                   <h5 style="text-align:left !important;text-transform: uppercase">{{a.nome}}</h5>
+                   <button type="button" (click)="removerAlimento(i, a)" class="btn btn-danger btn-customizado col-xs-12 col-sm-1 col-md-1 col-lg-1" style="margin-top: 1px;margin-bottom:8px;float:right !important;" title="excluir">
+                      <i class="fa fa-trash-o" aria-hidden="true" style="margin-left: 10px;"></i>
+                   </button>
+                </td>                 
+              </tr>
+            </table>
+        </div>
+
+    </div>
+  </div> 
+
 </div>

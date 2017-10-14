@@ -4,3 +4,9 @@
         text-align:center !important;
         color: red !important;        
     }
+
+    @media (max-width: 991px) {
+        .btn-adicionar{
+            margin-top: 3%;
+        }        
+    }

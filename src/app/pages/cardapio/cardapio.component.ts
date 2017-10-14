@@ -1,3 +1,4 @@
+import { AlimentoDTO } from './../../dto/alimento-dto';
 import { AlimentoVO } from './../../vo/alimento-vo';
 import { CardapioVO } from './../../vo/cardapio-vo';
 import { Response } from '@angular/http';
@@ -27,17 +28,21 @@ export class CardapioComponent implements OnInit {
   private errorMessage: string = null;
   private messageSuccess: string = null;
   private hiddenPesquisa:boolean = false;
+  private hiddenCadastroNovo:boolean = true;
   private hiddenVisualizaAlimentos:boolean = true;
   private msgListaAvaliacoes:string = 'Pesquisando cardápios ...';
   private API_CARDAPIO:string = 'cardapio/';
   private API_ALIMENTO:string = 'alimento/';
   private cardapiosVO:CardapioVO[] = [];
   private alimentosVO:AlimentoVO[] = [];
+  private alimentosDTO:AlimentoDTO[] = [];
   private alimentoVO:AlimentoVO = new AlimentoVO(null,null);
   private cardapioDTO:CardapioDTO = new CardapioDTO(null,null,null);
   private cardapioVO:CardapioVO = new CardapioVO(null,null,null,null);
+  private alimentoDTO:AlimentoDTO = new AlimentoDTO(null);
   private crechesPorFamiliar: CrecheVO[] = [];
   private msgLIstaCardapios:string = 'Realize um pesquisa!';
+  private msgListaCardapiosCreche:string = 'Buscando cardápios...';
   
 
   private widthBarraProgresso:any = {width:"10%"};
@@ -125,6 +130,7 @@ public alimentos(c:CardapioVO){
 }
 
 public remover(c:CardapioVO, index:number){
+  this.clearMessages();
   for (var i = 0; i < this.cardapiosVO.length; i++) {
     if(i === index) {
       this.cardapiosVO.splice(index, 1);
@@ -132,6 +138,16 @@ public remover(c:CardapioVO, index:number){
   }
   this.apiGenerica.delete(this.API_CARDAPIO, c.cardapioId).subscribe( data => this.getResponseDelete(data) ,error => this.catchError(this.messagesError = <any>error));
 }
+
+removerAlimento(index:number, a:AlimentoDTO):void{
+  this.clearMessages();
+  for (var i = 0; i < this.alimentosDTO.length; i++) {
+    if(i === index) {
+      this.alimentosDTO.splice(index, 1);
+    }
+  }
+}
+
 
 public pesquisarCardapios():void{
   this.clearMessages();
@@ -188,7 +204,10 @@ private getdados(r:Response):void{
    this.messagesError = r.json().messages;
  }else if(r.status === 204){//Não existem dados
    this.cardapiosVO = null;
-   this.msgLIstaCardapios = "Não existem cardáios cadastrados";
+   this.msgListaCardapiosCreche = "Não existem cardápios para os últimos 7 dias";
+   clearInterval(this.timerBarraProgresso);  
+   this.widthBarraProgresso = {width:"100%"};
+   this.widthBarraProgressoTexto = "100%";   
  }else if(r.status === 200){//Dados encontrados
    this.cardapiosVO = r.json();
    this.msgListaAvaliacoes = "";
@@ -199,6 +218,46 @@ private getdados(r:Response):void{
   this.apiGenerica.getById(this.API_CARDAPIO, this.cardapioDTO.crecheId).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
       this.messageSuccess = "Cardápio cadastrado com sucesso!";
  }
+}
+
+private getResponseFromSave(r:Response):void{
+  if(r.status === 400 || r.status === 409){//Erro de validação
+    this.messagesError = r.json().messages;
+  }else if(r.status === 201){//Dados cadastrados com sucesso
+   this.apiGenerica.getById(this.API_CARDAPIO, this.cardapioDTO.crecheId).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
+   this.messageSuccess = "Cardápio cadastrado com sucesso!";
+   this.hiddenCadastroNovo = true;
+   this.hiddenPesquisa = false;
+  }
+ }
+
+
+public cadastrar():void{
+  this.hiddenPesquisa = true;
+  this.hiddenCadastroNovo = false;
+}
+
+public exibirTelaLIstaDeCardapios():void{
+
+}
+
+public salvar():void{
+     this.cardapioDTO.crecheId = this.crecheLogada.id;
+     this.cardapioDTO.alimentos = this.alimentosDTO;
+     this.apiGenerica.save(this.API_CARDAPIO, this.cardapioDTO).subscribe( data => this.getResponseFromSave(data) ,error => this.catchError(this.messagesError = <any>error));
+}
+
+public adicionarAlimento():void{
+  this.clearMessages();
+  if(this.alimentoDTO.nome === null || this.alimentoDTO.nome.trim().length === 0){
+    this.messagesError =  ['Preencha os campos obrigatórios'!];
+  }else{
+    if(this.alimentosDTO === null || this.alimentosDTO === undefined){
+      this.alimentosDTO = [];
+    }
+    this.alimentosDTO.push(this.alimentoDTO);
+    this.alimentoDTO = new AlimentoDTO(null);
+  }
 }
 
 }

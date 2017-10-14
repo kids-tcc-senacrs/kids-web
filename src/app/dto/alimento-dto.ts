@@ -1,6 +1,6 @@
 export class AlimentoDTO {
 
-   constructor(public nome?: number        
+   constructor(public nome?: string        
  ){}
 
 }

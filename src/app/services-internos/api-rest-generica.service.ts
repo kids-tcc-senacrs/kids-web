@@ -13,9 +13,9 @@ export class ApiRestGenericaService {
   
     constructor(private http:Http) {}
 
-    public getById(api:string, obj:number):Observable<Response>{
+    public getById(api:string, id:number):Observable<Response>{
       console.log('[KIDS] consumindo API ' +  api  +  ' GET ...');	
-      let url = this.URL_DEFAULT + api + obj;
+      let url = this.URL_DEFAULT + api + id;
       return this.http.get(url).map(this.throwResponse).catch(this.handleError);
     }
     
@@ -25,6 +25,14 @@ export class ApiRestGenericaService {
       let headers = new Headers({ 'Content-Type': 'application/json'});
       let options = new RequestOptions({ headers: headers });
       return this.http.post(url, obj, options).map(this.throwResponse).catch(this.handleError);
+    }
+
+    public delete(api:string, id:number):Observable<Response>{
+      console.log('[KIDS] consumindo API' + api + ' DELETE ...');	
+      let url = this.URL_DEFAULT + api + id; 
+      let headers = new Headers({ 'Content-Type': 'application/json'});
+      let options = new RequestOptions({ headers: headers });
+      return this.http.delete(url, options).map(this.throwResponse).catch(this.handleError);
     }
 
     private throwResponse(res: Response){

@@ -151,6 +151,53 @@
 
 <!-- PERFIL CRECHE -->
 <div *ngIf="usuarioLogado?.tipo == 'CRECHE'">         
-      <div class="bs-callout bs-callout-danger title">{{title}}</div>
-      <h5>EM DESENVOLVIMENTO</h5>
+    <div class="bs-callout bs-callout-danger title">{{title}}</div>
+
+     <!-- MENSAGENS DE ERRO -->
+     <div [hidden]="messagesError === null" class="alert alert-danger" role="alert" style="margin-top: 10px;">
+        <ul *ngFor="let message of messagesError">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            {{message}}
+        </ul>
+    </div>
+
+    <!-- MENSAGEM DE SUCESSO -->
+    <div [hidden]="messageSuccess === null" class="alert alert-success" role="alert" style="margin-top: 10px;">
+        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+        {{messageSuccess}}
+    </div>
+      
+      <!-- BARRA DE PROGRESSO -->
+    <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped" 
+             role="progressbar"
+             aria-valuemin="0" 
+             aria-valuemax="100" 
+             [ngStyle]="widthBarraProgresso">
+             <i>carregou {{widthBarraProgressoTexto}}</i>
+        </div>
+      </div>
+      <!--
+      <div [hidden]="cardapiosVO?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <p class="dados-nao-encontrados-title">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>    
+          {{msgLIstaCardapios}}</p>
+      </div>
+    -->   
+      
+      <!-- Lista de cardapios da creche selecionado pelo familiar-->
+      <div [hidden]="cardapiosVO === null || cardapiosVO === undefined || cardapiosVO?.length == 0"> 
+        <table class="table table-striped">
+          <tr class="kids-header-table"><th style="text-align:center !important;">DETALHES</th></tr>
+          <tr *ngFor='let c of cardapiosVO; let i = index'>
+            <td>
+              <span class="quebrar-texto">Data: {{c.dtCardapio | date: 'dd/MM/yyyy'}} - {{c?.diaSemana}}</span><br>
+              <button type="button" (click)="remover(c, i)" class="btn btn-danger btn-customizado col-xs-12 col-sm-4 col-md-3 col-lg-3" style="margin-top: 1px;margin-bottom:8px;float:right">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                   Remover
+               </button>
+            </td>
+          </tr>
+        </table>
+      </div>
 </div>

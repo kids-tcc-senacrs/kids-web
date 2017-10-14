@@ -59,8 +59,7 @@ ngOnInit() {
   let timer = setInterval(() => { 
     if(this.usuarioLogado !== null && this.usuarioLogado !== undefined){
       if(this.usuarioLogado.tipo === 'CRECHE'){
-        this.crecheService.get(this.usuarioLogado).subscribe( data => this.crecheLogada =  data,error => this.catchError(this.messagesError = <any>error));
-        //buscar os cardapios da creche
+        this.crecheService.get(this.usuarioLogado).subscribe( data => this.setCrecheLogada(data),error => this.catchError(this.messagesError = <any>error));
       }else if(this.usuarioLogado.tipo === 'FAMILIAR'){
         this.crecheService.getPorFamiliar(this.usuarioLogado).subscribe( data => this.crechesPorFamiliar =  data,error => this.catchError(this.messagesError = <any>error));
         clearInterval(this.timerBarraProgresso);  
@@ -70,6 +69,11 @@ ngOnInit() {
       clearInterval(timer);
     }
   }, 1000);    
+}
+
+setCrecheLogada(creche:Creche){
+   this.crecheLogada = creche;
+   this.apiGenerica.getById(this.API_CARDAPIO, this.crecheLogada.id).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
 }
 
 private clearMessages():void{
@@ -120,6 +124,15 @@ public alimentos(c:CardapioVO){
     this.apiGenerica.getById(this.API_ALIMENTO, c.cardapioId).subscribe( data => this.getdadosAlimentos(data) ,error => this.catchError(this.messagesError = <any>error));
 }
 
+public remover(c:CardapioVO, index:number){
+  for (var i = 0; i < this.cardapiosVO.length; i++) {
+    if(i === index) {
+      this.cardapiosVO.splice(index, 1);
+    }
+  }
+  this.apiGenerica.delete(this.API_CARDAPIO, c.cardapioId).subscribe( data => this.getResponseDelete(data) ,error => this.catchError(this.messagesError = <any>error));
+}
+
 public pesquisarCardapios():void{
   this.clearMessages();
   if(this.cardapioDTO.crecheId === null){
@@ -128,6 +141,19 @@ public pesquisarCardapios():void{
     this.apiGenerica.getById(this.API_CARDAPIO, this.cardapioDTO.crecheId).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
   }
 }
+
+private getResponseDelete(r:Response):void{
+  if(r.status === 400 || r.status === 409){//Erro de validação
+    this.messagesError = r.json().messages;
+  }else if(r.status === 200){//Dados encontrados
+    this.alimentosVO = null;
+    this.msgLIstaCardapios = "";
+    this.messageSuccess = "Cardápio removido com sucesso!";
+    clearInterval(this.timerBarraProgresso);  
+    this.widthBarraProgresso = {width:"100%"};
+    this.widthBarraProgressoTexto = "100%";   
+  }
+ }
 
 private getdadosAlimentos(r:Response):void{
   this.hiddenPesquisa = true;

@@ -29,17 +29,23 @@ export class CardapioComponent implements OnInit {
   private messageSuccess: string = null;
   private hiddenPesquisa:boolean = false;
   private hiddenCadastroNovo:boolean = true;
+  private hiddenCadastroVisualiza:boolean = true;
   private hiddenVisualizaAlimentos:boolean = true;
   private msgListaAvaliacoes:string = 'Pesquisando cardápios ...';
   private API_CARDAPIO:string = 'cardapio/';
   private API_ALIMENTO:string = 'alimento/';
+  
   private cardapiosVO:CardapioVO[] = [];
   private alimentosVO:AlimentoVO[] = [];
+  
   private alimentosDTO:AlimentoDTO[] = [];
+  
   private alimentoVO:AlimentoVO = new AlimentoVO(null,null);
-  private cardapioDTO:CardapioDTO = new CardapioDTO(null,null,null);
   private cardapioVO:CardapioVO = new CardapioVO(null,null,null,null);
+  
+  private cardapioDTO:CardapioDTO = new CardapioDTO(null,null,null);
   private alimentoDTO:AlimentoDTO = new AlimentoDTO(null);
+
   private crechesPorFamiliar: CrecheVO[] = [];
   private msgLIstaCardapios:string = 'Realize um pesquisa!';
   private msgListaCardapiosCreche:string = 'Buscando cardápios...';
@@ -139,6 +145,14 @@ public remover(c:CardapioVO, index:number){
   this.apiGenerica.delete(this.API_CARDAPIO, c.cardapioId).subscribe( data => this.getResponseDelete(data) ,error => this.catchError(this.messagesError = <any>error));
 }
 
+visualizarCardapio(c:CardapioVO):void{
+   this.cardapioVO = c;
+   this.alimentos(c);
+   this.hiddenPesquisa = true;
+   this.hiddenCadastroNovo = true;
+   this.hiddenCadastroVisualiza = false;
+}
+
 removerAlimento(index:number, a:AlimentoDTO):void{
   this.clearMessages();
   for (var i = 0; i < this.alimentosDTO.length; i++) {
@@ -165,6 +179,7 @@ private getResponseDelete(r:Response):void{
     this.alimentosVO = null;
     this.msgLIstaCardapios = "";
     this.messageSuccess = "Cardápio removido com sucesso!";
+    this.apiGenerica.getById(this.API_CARDAPIO, this.cardapioDTO.crecheId).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
     clearInterval(this.timerBarraProgresso);  
     this.widthBarraProgresso = {width:"100%"};
     this.widthBarraProgressoTexto = "100%";   
@@ -194,6 +209,8 @@ private getdadosAlimentos(r:Response):void{
  voltarListaDecardapios():void{
   this.hiddenPesquisa = false;
   this.hiddenVisualizaAlimentos = true;
+  this.hiddenCadastroVisualiza = true;
+  this.hiddenCadastroNovo = true;
   this.alimentosVO = null;
   this.alimentoVO = null;
  }
@@ -233,8 +250,13 @@ private getResponseFromSave(r:Response):void{
 
 
 public cadastrar():void{
+  this.clearMessages();
   this.hiddenPesquisa = true;
+  this.hiddenCadastroVisualiza = true;
   this.hiddenCadastroNovo = false;
+  this.cardapioDTO = new CardapioDTO(null,null,null);
+  this.alimentoDTO = new AlimentoDTO(null);
+  this.alimentosDTO = [];
 }
 
 public exibirTelaLIstaDeCardapios():void{

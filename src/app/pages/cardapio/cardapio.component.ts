@@ -1,3 +1,4 @@
+import { AlimentoVO } from './../../vo/alimento-vo';
 import { CardapioVO } from './../../vo/cardapio-vo';
 import { Response } from '@angular/http';
 import { CrecheVO } from './../../vo/creche-vo';
@@ -26,10 +27,15 @@ export class CardapioComponent implements OnInit {
   private errorMessage: string = null;
   private messageSuccess: string = null;
   private hiddenPesquisa:boolean = false;
+  private hiddenVisualizaAlimentos:boolean = true;
   private msgListaAvaliacoes:string = 'Pesquisando cardápios ...';
   private API_CARDAPIO:string = 'cardapio/';
+  private API_ALIMENTO:string = 'alimento/';
   private cardapiosVO:CardapioVO[] = [];
+  private alimentosVO:AlimentoVO[] = [];
+  private alimentoVO:AlimentoVO = new AlimentoVO(null,null);
   private cardapioDTO:CardapioDTO = new CardapioDTO(null,null,null);
+  private cardapioVO:CardapioVO = new CardapioVO(null,null,null,null);
   private crechesPorFamiliar: CrecheVO[] = [];
   private msgLIstaCardapios:string = 'Realize um pesquisa!';
   
@@ -110,7 +116,8 @@ private catchError(r:Response):void{
 }
 
 public alimentos(c:CardapioVO){
-  
+    this.cardapioVO = c;
+    this.apiGenerica.getById(this.API_ALIMENTO, c.cardapioId).subscribe( data => this.getdadosAlimentos(data) ,error => this.catchError(this.messagesError = <any>error));
 }
 
 public pesquisarCardapios():void{
@@ -122,8 +129,35 @@ public pesquisarCardapios():void{
   }
 }
 
+private getdadosAlimentos(r:Response):void{
+  this.hiddenPesquisa = true;
+  this.hiddenVisualizaAlimentos = false;
+  if(r.status === 400 || r.status === 409){//Erro de validação
+    this.messagesError = r.json().messages;
+  }else if(r.status === 204){//Não existem dados
+    this.alimentosVO = null;
+    this.msgLIstaCardapios = "Não existem cardáios cadastrados";
+  }else if(r.status === 200){//Dados encontrados
+    this.alimentosVO = r.json();
+    this.msgLIstaCardapios = "";
+    clearInterval(this.timerBarraProgresso);  
+    this.widthBarraProgresso = {width:"100%"};
+    this.widthBarraProgressoTexto = "100%";   
+  }else if(r.status === 201){//Dados cadastrados com sucesso
+   this.apiGenerica.getById(this.API_CARDAPIO, this.cardapioDTO.crecheId).subscribe( data => this.getdados(data) ,error => this.catchError(this.messagesError = <any>error));
+       this.messageSuccess = "Cardápio cadastrado com sucesso!";
+  }
+ }
+
+ voltarListaDecardapios():void{
+  this.hiddenPesquisa = false;
+  this.hiddenVisualizaAlimentos = true;
+  this.alimentosVO = null;
+  this.alimentoVO = null;
+ }
+
+
 private getdados(r:Response):void{
-  console.log('http status: ' + r.status);      
  if(r.status === 400 || r.status === 409){//Erro de validação
    this.messagesError = r.json().messages;
  }else if(r.status === 204){//Não existem dados

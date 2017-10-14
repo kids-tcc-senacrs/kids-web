@@ -67,7 +67,7 @@
             aria-valuemin="0" 
             aria-valuemax="100" 
             [ngStyle]="widthBarraProgresso">
-            {{widthBarraProgressoTexto}}
+            <i>carregou {{widthBarraProgressoTexto}}</i>
     </div>
     </div>
     <div [hidden]="comunicados?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -138,7 +138,7 @@
                 aria-valuemin="0" 
                 aria-valuemax="100" 
                 [ngStyle]="widthBarraProgresso">
-                {{widthBarraProgressoTexto}}
+                <i>carregou {{widthBarraProgressoTexto}} </i>
         </div>
         </div>
         <div [hidden]="comunicados?.length > 0" class="dados-nao-encontrados col-xs-12 col-sm-12 col-md-12 col-lg-12">

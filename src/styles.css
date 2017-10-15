@@ -12,6 +12,8 @@
 .pnl-aviso-required{margin-top: 18px}
 textarea {resize: none;}
 
+.aviso-informacao{color:dimgrey;font-style: italic}
+
 .dados-nao-encontrados{
   border-width: 6px;
   border-style: dashed;

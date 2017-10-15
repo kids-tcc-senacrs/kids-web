@@ -48,7 +48,7 @@ export class CardapioComponent implements OnInit {
 
   private crechesPorFamiliar: CrecheVO[] = [];
   private msgLIstaCardapios:string = 'Realize um pesquisa!';
-  private msgListaCardapiosCreche:string = 'Buscando cardápios...';
+  private msgListaCardapiosCreche:string = 'Não existem cardápios para os últimos 7 dias';
   
 
   private widthBarraProgresso:any = {width:"10%"};

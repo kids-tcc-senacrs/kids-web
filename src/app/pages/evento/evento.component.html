@@ -102,7 +102,7 @@
         <span class="quebrar-texto"><span class="label-evento">Onde ?</span> {{e?.crecheNome}} - {{e?.crecheLogradouro}} {{e?.crecheLocalizacao}}</span><br> 
         <span class="quebrar-texto"><span class="label-evento">Quando ?</span> {{e?.dtRealizacao | date: 'dd/MM/yyyy HH:mm'}}</span><br> 
         <!--BOTAO REJEITAR-->
-        <button type="button" (click)="rejeitarPresenca(e)" class="btn btn-danger btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnEvetos">
+        <button type="button" (click)="rejeitarPresenca(e)" class="btn btn-danger btn-customizado col-xs-12 col-sm-5 col-md-3 col-lg-3 btnEvetos btn-rejeitar">
           <span class="fa fa-thumbs-o-down" aria-hidden="true"></span>
           Rejeitar Presença 
         </button>

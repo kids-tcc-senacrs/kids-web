@@ -26,3 +26,10 @@
             float: right;
         }
 }
+
+/*A PARTIR DE */
+@media (min-width: 991px) {        
+    .btn-rejeitar{
+        margin-left: 3px;
+    }
+}

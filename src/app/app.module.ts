@@ -43,6 +43,7 @@ import { AvisoComponent } from './pages/aviso/aviso.component';
 import { ComunicacaoComponent } from './pages/comunicacao/comunicacao.component';
 import { AvaliacaoComponent } from './pages/avaliacao/avaliacao.component';
 import { CardapioComponent } from './pages/cardapio/cardapio.component';
+import { GaleriaComponent } from './pages/galeria/galeria.component';
 
 const routes: Routes = [
     { path: '',       redirectTo: 'login',pathMatch: 'full'},
@@ -62,6 +63,7 @@ const routes: Routes = [
                   { path: 'comunicacao',  component: ComunicacaoComponent},   
                   { path: 'avaliacao',  component: AvaliacaoComponent},
                   { path: 'cardapio',  component: CardapioComponent},      
+                  { path: 'galeria',  component: GaleriaComponent},
                 ]
     },
     { path: '**',      component: PaginaNaoEncontradaComponent}
@@ -83,8 +85,9 @@ const routes: Routes = [
     CriancaComponent,
     CardapioComponent,
     AvaliacaoComponent,
+    GaleriaComponent,
     FileDropDirective, 
-    FileSelectDirective, FamiliaComponent, DiarioComponent, EventoComponent, AvisoComponent, ComunicacaoComponent, AvaliacaoComponent, CardapioComponent
+    FileSelectDirective, FamiliaComponent, DiarioComponent, EventoComponent, AvisoComponent, ComunicacaoComponent, AvaliacaoComponent, CardapioComponent, GaleriaComponent
   ],
   imports: [
     CommonModule,

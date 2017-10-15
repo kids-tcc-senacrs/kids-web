@@ -1,0 +1,38 @@
+<!-- PERFIL CRECHE -->
+<div *ngIf="usuarioLogado?.tipo == 'CRECHE'">         
+  <div class="bs-callout bs-callout-verde title">{{title}}</div>
+  <div [hidden]="hiddenPesquisa">
+      <div class="w3-container w3-padding">  
+        <form #f="ngForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="descricao" class="control-label">Descrição*</label>
+            <input class="form-control" type="text" id="descricao" name="descricao" [(ngModel)]="galeria.descricao" maxlength="60" required/>
+            <input class="form-control btn btn-success" type="file" id="selectFile" name="selectFile" style="margin-top: 5px" required/>
+            <input [disabled]="!f.valid" type="button"  class="btn btn-primary" (click)="uploadImage()" value="Upload" style="margin-top: 5px">
+            <div id="spinner" class="spinner">
+              <img src="../../../assets/spinner1.gif" style="height: 30px;margin-top:5px">
+            </div>
+          </div>
+        <hr style="background-color:red"/>
+        
+        <!--
+        <button (click)="refreshList()" class="btn btn-danger">Refresh</button> 
+        -->
+
+        <img src="../../../assets/images/refresh.png" (click)="refreshList()" width="30" height="30">
+          <table class="table">
+            <thead>
+              <th>File Name</th>
+              <th>icon</th>
+            </thead>
+          <tbody>
+            <tr *ngFor="let item of tableData">
+              <td><a href="{{item.fullPath}}">{{item.fileName}}</a></td>
+              <td><img src="../../../assets/images/{{item.icon}}.png" width="50" height="50"></td>
+            </tr>
+          </tbody>
+          </table>
+        </form> 
+      </div>  
+  </div>  
+</div> 

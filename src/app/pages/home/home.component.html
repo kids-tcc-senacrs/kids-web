@@ -58,7 +58,13 @@
 				<a routerLink="cardapio" *ngIf="usuario != null && usuario != undefined && usuario.ativo" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
 					<i routerLink="cardapio" class="fa fa-cutlery" title="Cardápio"></i>
 					Cardápio
-				</a>    
+				</a>
+				<!--
+				<a routerLink="galeria" *ngIf="usuario != null && usuario != undefined && usuario.ativo" class="w3-button w3-padding-large w3-hover-white bs-callout bs-callout-original bs-callout-diario col-xs-12 col-sm-12 col-md-12 col-lg-12 btn-menu">
+					<i routerLink="galeria" class="fa fa-camera" title="Galeria de Fotos"></i>
+					Galeria de Fotos
+				</a>
+				-->        
 				<a class="w3-button w3-padding-large w3-hover-white w3-right bs-callout bs-callout-original bs-callout-sair col-xs-12 col-sm-12 col-md-12 col-lg-12" (click)="logout()" title="sair">
 					<i class="glyphicon glyphicon-log-out"></i>	 sair
 				</a>

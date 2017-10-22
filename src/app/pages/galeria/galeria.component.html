@@ -3,36 +3,47 @@
   <div class="bs-callout bs-callout-verde title">{{title}}</div>
   <div [hidden]="hiddenPesquisa">
       <div class="w3-container w3-padding">  
-        <form #f="ngForm" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="descricao" class="control-label">Descrição*</label>
-            <input class="form-control" type="text" id="descricao" name="descricao" [(ngModel)]="galeria.descricao" maxlength="60" required/>
-            <input class="form-control btn btn-success" type="file" id="selectFile" name="selectFile" style="margin-top: 5px" required/>
-            <input [disabled]="!f.valid" type="button"  class="btn btn-primary" (click)="uploadImage()" value="Upload" style="margin-top: 5px">
-            <div id="spinner" class="spinner">
+          <form #f="ngForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="descricao" class="control-label">Descrição*</label>
+              <input class="form-control" type="text" id="descricao" name="descricao" [(ngModel)]="galeria.descricao" maxlength="60" required/>
+              <label for="arquivo" class="control-label">Arquivo (jpeg,jpg ou png)*</label>
+              <input class="form-control btn btn-success" type="file" id="selectFile" name="selectFile" style="margin-top: 5px" required/>
+              <input [disabled]="!f.valid" type="button"  class="btn btn-primary" (click)="uploadImage()" value="Upload" style="margin-top: 5px">
+            </div>
+          </form> 
+          
+          <div id="spinner" class="spinner">
               <img src="../../../assets/spinner1.gif" style="height: 30px;margin-top:5px">
+          </div>
+                    
+          <hr style="background-color:red"/>
+          
+          <!-- BARRA DE PROGRESSO -->
+          <div class="row progress" style="margin-top: 10px">
+              <div class="progress-bar progress-bar-success progress-bar-striped" 
+              role="progressbar"
+              aria-valuemin="0" 
+              aria-valuemax="100" 
+              [ngStyle]="widthBarraProgresso">
+              <i>carregou {{widthBarraProgressoTexto}}</i>
             </div>
           </div>
-        <hr style="background-color:red"/>
-        
-        <!--
-        <button (click)="refreshList()" class="btn btn-danger">Refresh</button> 
-        -->
 
-        <img src="../../../assets/images/refresh.png" (click)="refreshList()" width="30" height="30">
-          <table class="table">
-            <thead>
-              <th>File Name</th>
-              <th>icon</th>
-            </thead>
-          <tbody>
-            <tr *ngFor="let item of tableData">
-              <td><a href="{{item.fullPath}}">{{item.fileName}}</a></td>
-              <td><img src="../../../assets/images/{{item.icon}}.png" width="50" height="50"></td>
-            </tr>
-          </tbody>
-          </table>
-        </form> 
+          <div [hidden]="galerias === null || galerias === undefined || galerias?.length == 0"> 
+            <table class="table table-striped">
+                <tr class="kids-header-table">
+                  <th style="text-align:center !important;">DETALHES</th>
+                </tr>
+                  <tr *ngFor='let g of galerias' class="kids-border-image" style="text-align:-webkit-center !important;">
+                    <img src="data:image/png;base64,{{g.imagem}}" class="img-responsive" style="max-width: 650px;max-height: 450px;"/>
+                    <div class="row">
+                      <h4>{{g.descricao}}</h4>
+                      <i style="text-align: left">postado em: {{g.dtPost | date: 'dd/MM/yyyy HH:mm'}}</i>
+                    </div>
+                  </tr> 
+              </table>
+            </div>
       </div>  
   </div>  
 </div> 

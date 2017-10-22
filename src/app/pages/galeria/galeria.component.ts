@@ -31,7 +31,7 @@ export class GaleriaComponent implements OnInit {
 
   private API_GALERIA:string = 'galeria/';
   public imgUploaded: string;
-  public tableData: any;
+  private galerias:GaleriaVO[] = [];
   
   constructor(private usuarioService:UtilHttpService, 
               private loginService: LoginService, 
@@ -50,9 +50,10 @@ export class GaleriaComponent implements OnInit {
 
     console.log('3º CRIA UM OBJETO DO TIPO FormData();');
     let formData = new FormData();
-    let file = files[0];    
-
-    let nomeImagem = this.crecheLogada.id + 'param___creche_id' + this.galeria.descricao;
+    let file = files[0];  
+    
+    let nomeImagem = this.crecheLogada.id + 'param___descricao' + this.galeria.descricao + 'param_tipo' + file.type;
+    
     formData.append('file', file, nomeImagem);//file = DEVE SER EXATAMENTE O MESMO NOME DO PARAMETRO DA API(JAVA/REST)
 
     console.log('4º CONSUMIR API DE GALERIA DE FOTOS');
@@ -66,15 +67,21 @@ export class GaleriaComponent implements OnInit {
     this.galeria = new GaleriaVO(null);
     this.refreshList();
   }
+
+  private getGalerias(r: Response): void {
+    if(r.status === 200){
+      this.galerias = r.json();
+      console.log(this.galerias[0].imagem);
+    }
+    clearInterval(this.timerBarraProgresso);  
+    this.widthBarraProgresso = {width:"100%"};
+    this.widthBarraProgressoTexto = "100%";   
+  }
   
   private refreshList(): void {
-    //this.fileUploader.getFilesList().subscribe(res=> this.displayTableData(res));
+    this.apiGenerica.getById(this.API_GALERIA, this.crecheLogada.id).subscribe(res=> this.getGalerias(res));
   }
   
-  private displayTableData(data: any): void {
-  this.tableData = data.json();
-  }
-
   ngOnInit() {
     this.atualizarStylesProgress();
     this.clearMessages();
@@ -97,6 +104,7 @@ export class GaleriaComponent implements OnInit {
 
   setCrecheLogada(creche:Creche){
     this.crecheLogada = creche;
+    this.refreshList();
    }
 
 

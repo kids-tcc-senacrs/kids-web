@@ -57,12 +57,11 @@ export class GaleriaComponent implements OnInit {
     formData.append('file', file, nomeImagem);//file = DEVE SER EXATAMENTE O MESMO NOME DO PARAMETRO DA API(JAVA/REST)
 
     console.log('4º CONSUMIR API DE GALERIA DE FOTOS');
-    this.apiGenerica.upload(this.API_GALERIA, formData).subscribe(res=> this.dataLoaded(res));
+    this.apiGenerica.upload(this.API_GALERIA, formData).subscribe(res=> this.dataLoaded(res),error => this.catchError(this.messagesError = <any>error));
   }
 
   private dataLoaded(data: any): void {
     console.log('5º UPLOAD REALIZADO COM SUCESSO');
-    this.elem.nativeElement.querySelector('#spinner').style.visibility='hidden';
     this.imgUploaded = data._body;
     this.galeria = new GaleriaVO(null);
     this.refreshList();
@@ -76,6 +75,7 @@ export class GaleriaComponent implements OnInit {
     clearInterval(this.timerBarraProgresso);  
     this.widthBarraProgresso = {width:"100%"};
     this.widthBarraProgressoTexto = "100%";   
+    this.elem.nativeElement.querySelector('#spinner').style.visibility='hidden';
   }
   
   private refreshList(): void {
@@ -145,7 +145,7 @@ export class GaleriaComponent implements OnInit {
   private catchError(r:Response):void{
     if(r.status === 400 || r.status === 409){
       this.messagesError = r.json().messages;
-      console.log('ERRO:' + this.messagesError);
+      this.elem.nativeElement.querySelector('#spinner').style.visibility='hidden';
     }else{
       this.router.navigate(['/home/servico-indisponivel']);
     }

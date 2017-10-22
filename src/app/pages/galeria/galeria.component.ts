@@ -79,7 +79,7 @@ export class GaleriaComponent implements OnInit {
   }
   
   private refreshList(): void {
-    this.apiGenerica.getById(this.API_GALERIA, this.crecheLogada.id).subscribe(res=> this.getGalerias(res));
+    this.apiGenerica.getById(this.API_GALERIA, this.usuarioLogado.id).subscribe(res=> this.getGalerias(res));
   }
   
   ngOnInit() {
@@ -91,10 +91,7 @@ export class GaleriaComponent implements OnInit {
         if(this.usuarioLogado.tipo === 'CRECHE'){
            this.crecheService.get(this.usuarioLogado).subscribe( data => this.setCrecheLogada(data),error => this.catchError(this.messagesError = <any>error));
         }else if(this.usuarioLogado.tipo === 'FAMILIAR'){
-          //this.crecheService.getPorFamiliar(this.usuarioLogado).subscribe( data => this.crechesPorFamiliar =  data,error => this.catchError(this.messagesError = <any>error));
-          clearInterval(this.timerBarraProgresso);  
-          this.widthBarraProgresso = {width:"100%"};
-          this.widthBarraProgressoTexto = "100%";   
+          this.refreshList();
         }
         clearInterval(timer);
       }

@@ -10,3 +10,26 @@ h1{
 .kids-border-image{text-align:center !important;border: 1px solid #828282 !important;color: #000}
 
 .aviso-informacao{color:dimgrey;font-style: italic}
+
+/*A PARTIR DE */
+@media (min-width: 1px) {        
+    .tamanho-imagem{
+        max-width: 305px;
+        max-height: 225px;
+    }
+}
+
+/*A PARTIR DE */
+@media (min-width: 690px) {        
+    .tamanho-imagem{
+        max-width: 390px;
+        max-height: 290px;
+    }
+}
+
+/*A PARTIR DE */
+@media (min-width: 1005px) {        
+    .tamanho-imagem{
+        max-width:650px;max-height:450px;
+    }
+}

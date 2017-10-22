@@ -48,7 +48,7 @@
                   <th style="text-align:center !important;">DETALHES</th>
                 </tr>
                   <tr *ngFor='let g of galerias' class="kids-border-image img-responsive" style="text-align:-webkit-center !important;">
-                    <img src="data:image/jpg;base64,{{g.imagem}}" class="img-responsive" style="max-width:650px;max-height:450px;"/>
+                    <img src="data:image/jpg;base64,{{g.imagem}}" class="img-responsive tamanho-imagem" />
                     <h4 style="color: blue;">{{g.descricao}}</h4>
                     <i style="text-align: left">postado em: {{g.dtPost | date: 'dd/MM/yyyy HH:mm'}}</i>
                   </tr> 
@@ -109,7 +109,7 @@
                     <th style="text-align:center !important;">DETALHES</th>
                   </tr>
                     <tr *ngFor='let g of galerias' class="kids-border-image img-responsive" style="text-align:-webkit-center !important;">
-                      <img src="data:image/jpg;base64,{{g.imagem}}" class="img-responsive" style="max-width:650px;max-height:450px;"/>
+                      <img src="data:image/jpg;base64,{{g.imagem}}" class="img-responsive tamanho-imagem" />
                       <h4 style="text-transform: uppercase">{{g.nomeCreche}}</h4>
                       <h4 style="color: blue;">{{g.descricao}}</h4>
                       <i style="text-align: left">postado em: {{g.dtPost | date: 'dd/MM/yyyy HH:mm'}}</i>

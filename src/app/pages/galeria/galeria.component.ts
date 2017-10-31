@@ -147,5 +147,13 @@ export class GaleriaComponent implements OnInit {
       this.router.navigate(['/home/servico-indisponivel']);
     }
   }
-  
+ 
+  removerFoto(index:number, galeria:GaleriaVO):void{
+    for (var i = 0; i < this.galerias.length; i++) {
+      if(i === index) {
+        this.galerias.splice(index, 1);
+      }
+    }
+  }
+
 }
